@@ -916,6 +916,9 @@ window.SubscriptionsSmartQuery = (function () {
 
   const isDraftSlot = (item) => item && item._isDraftSlot;
 
+  const hasRealCandidates = (items) =>
+    (Array.isArray(items) ? items : []).some((item) => item && !isDraftSlot(item));
+
   const ensureDraftSlot = (items, kind) => {
     const list = Array.isArray(items) ? items : [];
     const next = list.filter((item) => item && !isDraftSlot(item));
@@ -1217,16 +1220,17 @@ window.SubscriptionsSmartQuery = (function () {
       incomingMap.set(key, item);
     });
 
-    const selectedFromExisting = [];
+    const keptExisting = [];
     const seen = new Set();
 
     existing.forEach((item) => {
       const key = normalizeKey(item, keyField);
-      if (!key || seen.has(key) || !item || !item._selected) return;
+      if (!key || seen.has(key) || !item || isDraftSlot(item)) return;
       const incomingItem = incomingMap.get(key);
-      selectedFromExisting.push({
-        ...(incomingItem || item),
-        _selected: true,
+      keptExisting.push({
+        ...item,
+        ...(incomingItem || {}),
+        _selected: item._selected !== false,
       });
       seen.add(key);
     });
@@ -1240,7 +1244,7 @@ window.SubscriptionsSmartQuery = (function () {
       return true;
     });
 
-    return selectedFromExisting.concat(nextIncoming);
+    return keptExisting.concat(nextIncoming);
   };
 
   const toProfileSelectableCandidates = (profile) => {
@@ -1722,13 +1726,20 @@ window.SubscriptionsSmartQuery = (function () {
       const candidates = await requestCandidatesByDesc(finalTag, finalDesc);
       const isFirstRound = !(Array.isArray(modalState.requestHistory) && modalState.requestHistory.length);
       const nextCandidates = parseCandidatesForState(candidates, false);
-      const nextKeywords = isFirstRound
-        ? nextCandidates.keywords
-        : mergeCandidatesForNextRound(modalState.keywords, nextCandidates.keywords, 'keyword');
-      const nextIntentQueries = isFirstRound
-        ? nextCandidates.intent_queries
-        : mergeCandidatesForNextRound(modalState.intent_queries, nextCandidates.intent_queries, 'query');
-    const suggestedTag = normalizeText(candidates.tag);
+      const shouldMergeKeywords = !isFirstRound || hasRealCandidates(modalState.keywords);
+      const shouldMergeIntentQueries =
+        !isFirstRound || hasRealCandidates(modalState.intent_queries);
+      const nextKeywords = shouldMergeKeywords
+        ? mergeCandidatesForNextRound(modalState.keywords, nextCandidates.keywords, 'keyword')
+        : nextCandidates.keywords;
+      const nextIntentQueries = shouldMergeIntentQueries
+        ? mergeCandidatesForNextRound(
+            modalState.intent_queries,
+            nextCandidates.intent_queries,
+            'query',
+          )
+        : nextCandidates.intent_queries;
+      const suggestedTag = normalizeText(candidates.tag);
       const suggestedDesc = normalizeText(candidates.description);
       const safeSuggestedTag = sanitizeAutoTag(suggestedTag);
       if (!tag && safeSuggestedTag) {
