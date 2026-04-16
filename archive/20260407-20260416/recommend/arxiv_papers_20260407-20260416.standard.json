@@ -1,0 +1,681 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-16T03:34:12.390959+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 27,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.08546v1",
+      "source": "arxiv",
+      "title": "When Numbers Speak: Aligning Textual Numerals and Visual Instances in Text-to-Video Diffusion Models",
+      "abstract": "Text-to-video diffusion models have enabled open-ended video synthesis, but often struggle with generating the correct number of objects specified in a prompt. We introduce NUMINA , a training-free identify-then-guide framework for improved numerical alignment. NUMINA identifies prompt-layout inconsistencies by selecting discriminative self- and cross-attention heads to derive a countable latent layout. It then refines this layout conservatively and modulates cross-attention to guide regeneration. On the introduced CountBench, NUMINA improves counting accuracy by up to 7.4% on Wan2.1-1.3B, and by 4.9% and 5.5% on 5B and 14B models, respectively. Furthermore, CLIP alignment is improved while maintaining temporal consistency. These results demonstrate that structural guidance complements seed search and prompt enhancement, offering a practical path toward count-accurate text-to-video diffusion. The code is available at https://github.com/H-EmbodVis/NUMINA.",
+      "authors": [
+        "Zhengyang Sun",
+        "Yu Chen",
+        "Xin Zhou",
+        "Xiaofan Li",
+        "Xiwu Chen",
+        "Dingkang Liang",
+        "Xiang Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T17:59:57+00:00",
+      "link": "https://arxiv.org/pdf/2604.08546v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "training-free framework for controllable video synthesis through attention modulation",
+      "llm_evidence_cn": "通过注意力调制的免训练可控视频合成框架",
+      "llm_evidence": "通过注意力调制的免训练可控视频合成框架",
+      "canonical_evidence": "通过注意力调制的免训练可控视频合成框架",
+      "llm_tldr_en": "NUMINA is a training-free framework that improves numerical alignment in text-to-video diffusion models.",
+      "llm_tldr_cn": "NUMINA是一个免训练框架，通过注意力引导提高视频生成中的数量对齐准确性。",
+      "llm_tldr": "NUMINA是一个免训练框架，通过注意力引导提高视频生成中的数量对齐准确性。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.07348v1",
+      "source": "arxiv",
+      "title": "MoRight: Motion Control Done Right",
+      "abstract": "Generating motion-controlled videos--where user-specified actions drive physically plausible scene dynamics under freely chosen viewpoints--demands two capabilities: (1) disentangled motion control, allowing users to separately control the object motion and adjust camera viewpoint; and (2) motion causality, ensuring that user-driven actions trigger coherent reactions from other objects rather than merely displacing pixels. Existing methods fall short on both fronts: they entangle camera and object motion into a single tracking signal and treat motion as kinematic displacement without modeling causal relationships between object motion. We introduce MoRight, a unified framework that addresses both limitations through disentangled motion modeling. Object motion is specified in a canonical static-view and transferred to an arbitrary target camera viewpoint via temporal cross-view attention, enabling disentangled camera and object control. We further decompose motion into active (user-driven) and passive (consequence) components, training the model to learn motion causality from data. At inference, users can either supply active motion and MoRight predicts consequences (forward reasoning), or specify desired passive outcomes and MoRight recovers plausible driving actions (inverse reasoning), all while freely adjusting the camera viewpoint. Experiments on three benchmarks demonstrate state-of-the-art performance in generation quality, motion controllability, and interaction awareness.",
+      "authors": [
+        "Shaowei Liu",
+        "Xuanchi Ren",
+        "Tianchang Shen",
+        "Huan Ling",
+        "Saurabh Gupta",
+        "Shenlong Wang",
+        "Sanja Fidler",
+        "Jun Gao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.GR",
+        "cs.LG",
+        "cs.RO"
+      ],
+      "published": "2026-04-08T17:59:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.07348v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Disentangled motion control for physically plausible video generation",
+      "llm_evidence_cn": "物理上合理的视频生成的解耦运动控制",
+      "llm_evidence": "物理上合理的视频生成的解耦运动控制",
+      "canonical_evidence": "物理上合理的视频生成的解耦运动控制",
+      "llm_tldr_en": "MoRight enables disentangled control of object motion and camera viewpoint for causal video dynamics.",
+      "llm_tldr_cn": "MoRight实现了物体运动与相机视角的解耦控制，确保视频动力学的因果连贯性。",
+      "llm_tldr": "MoRight实现了物体运动与相机视角的解耦控制，确保视频动力学的因果连贯性。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.10030v1",
+      "source": "arxiv",
+      "title": "Prompt Relay: Inference-Time Temporal Control for Multi-Event Video Generation",
+      "abstract": "Video diffusion models have achieved remarkable progress in generating high-quality videos. However, these models struggle to represent the temporal succession of multiple events in real-world videos and lack explicit mechanisms to control when semantic concepts appear, how long they persist, and the order in which multiple events occur. Such control is especially important for movie-grade video synthesis, where coherent storytelling depends on precise timing, duration, and transitions between events. When using a single paragraph-style prompt to describe a sequence of complex events, models often exhibit semantic entanglement, where concepts intended for different moments in the video bleed into one another, resulting in poor text-video alignment. To address these limitations, we propose Prompt Relay, an inference-time, plug-and-play method to enable fine-grained temporal control in multi-event video generation, requiring no architectural modifications and no additional computational overhead. Prompt Relay introduces a penalty into the cross-attention mechanism, so that each temporal segment attends only to its assigned prompt, allowing the model to represent one semantic concept at a time and thereby improving temporal prompt alignment, reducing semantic interference, and enhancing visual quality.",
+      "authors": [
+        "Gordon Chen",
+        "Ziqi Huang",
+        "Ziwei Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-11T04:59:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.10030v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "inference-time temporal control for video generation",
+      "llm_evidence_cn": "视频生成的推理阶段时间控制",
+      "llm_evidence": "视频生成的推理阶段时间控制",
+      "canonical_evidence": "视频生成的推理阶段时间控制",
+      "llm_tldr_en": "Prompt Relay provides training-free temporal control over multiple events in video diffusion models.",
+      "llm_tldr_cn": "Prompt Relay为视频扩散模型中的多事件提供了免训练的时间控制机制。",
+      "llm_tldr": "Prompt Relay为视频扩散模型中的多事件提供了免训练的时间控制机制。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.12219v1",
+      "source": "arxiv",
+      "title": "Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation",
+      "abstract": "Video Diffusion Transformers have revolutionized high-fidelity video generation but suffer from the massive computational burden of self-attention. While sparse attention provides a promising acceleration solution, existing methods frequently provoke severe visual flickering caused by static sparsity patterns and deterministic block routing. To resolve these limitations, we propose Precision-Allocated Sparse Attention (PASA), a training-free framework designed for highly efficient and temporally smooth video generation. First, we implement a curvature-aware dynamic budgeting mechanism. By profiling the generation trajectory acceleration across timesteps, we elastically allocate the exact-computation budget to secure high-precision processing strictly during critical semantic transitions. Second, we replace global homogenizing estimations with hardware-aligned grouped approximations, successfully capturing fine-grained local variations while maintaining peak compute throughput. Finally, we incorporate a stochastic selection bias into the attention routing mechanism. This probabilistic approach softens rigid selection boundaries and eliminates selection oscillation, effectively eradicating the localized computational starvation that drives temporal flickering. Extensive evaluations on leading video diffusion models demonstrate that PASA achieves substantial inference acceleration while consistently producing remarkably fluid and structurally stable video sequences.",
+      "authors": [
+        "Wentai Zhang",
+        "Ronghui Xi",
+        "Shiyao Peng",
+        "Jiayu Huang",
+        "Haoran Luo",
+        "Zichen Tang",
+        "Haihong E"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-14T02:51:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.12219v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Training-free sparse attention framework for smooth video generation",
+      "llm_evidence_cn": "用于平滑视频生成的免训练稀疏注意力框架",
+      "llm_evidence": "用于平滑视频生成的免训练稀疏注意力框架",
+      "canonical_evidence": "用于平滑视频生成的免训练稀疏注意力框架",
+      "llm_tldr_en": "PASA is a training-free framework that ensures temporal smoothness and efficiency in video diffusion transformers.",
+      "llm_tldr_cn": "PASA 是一个免训练框架，旨在提高视频扩散 Transformer 的效率和时间平滑性。",
+      "llm_tldr": "PASA 是一个免训练框架，旨在提高视频扩散 Transformer 的效率和时间平滑性。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.07966v1",
+      "source": "arxiv",
+      "title": "Lighting-grounded Video Generation with Renderer-based Agent Reasoning",
+      "abstract": "Diffusion models have achieved remarkable progress in video generation, but their controllability remains a major limitation. Key scene factors such as layout, lighting, and camera trajectory are often entangled or only weakly modeled, restricting their applicability in domains like filmmaking and virtual production where explicit scene control is essential. We present LiVER, a diffusion-based framework for scene-controllable video generation. To achieve this, we introduce a novel framework that conditions video synthesis on explicit 3D scene properties, supported by a new large-scale dataset with dense annotations of object layout, lighting, and camera parameters. Our method disentangles these properties by rendering control signals from a unified 3D representation. We propose a lightweight conditioning module and a progressive training strategy to integrate these signals into a foundational video diffusion model, ensuring stable convergence and high fidelity. Our framework enables a wide range of applications, including image-to-video and video-to-video synthesis where the underlying 3D scene is fully editable. To further enhance usability, we develop a scene agent that automatically translates high-level user instructions into the required 3D control signals. Experiments show that LiVER achieves state-of-the-art photorealism and temporal consistency while enabling precise, disentangled control over scene factors, setting a new standard for controllable video generation.",
+      "authors": [
+        "Ziqi Cai",
+        "Taoyu Yang",
+        "Zheng Chang",
+        "Si Li",
+        "Han Jiang",
+        "Shuchen Weng",
+        "Boxin Shi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T08:29:29+00:00",
+      "link": "https://arxiv.org/pdf/2604.07966v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Controllable video generation conditioned on explicit 3D scene properties",
+      "llm_evidence_cn": "基于显式3D场景属性的可控视频生成",
+      "llm_evidence": "基于显式3D场景属性的可控视频生成",
+      "canonical_evidence": "基于显式3D场景属性的可控视频生成",
+      "llm_tldr_en": "LiVER conditions video synthesis on layout, lighting, and camera parameters for explicit scene control.",
+      "llm_tldr_cn": "LiVER通过布局、光照和相机参数调节视频合成，实现显式的场景控制。",
+      "llm_tldr": "LiVER通过布局、光照和相机参数调节视频合成，实现显式的场景控制。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.05489v1",
+      "source": "arxiv",
+      "title": "SCMAPR: Self-Correcting Multi-Agent Prompt Refinement for Complex-Scenario Text-to-Video Generation",
+      "abstract": "Text-to-Video (T2V) generation has benefited from recent advances in diffusion models, yet current systems still struggle under complex scenarios, which are generally exacerbated by the ambiguity and underspecification of text prompts. In this work, we formulate complex-scenario prompt refinement as a stage-wise multi-agent refinement process and propose SCMAPR, i.e., a scenario-aware and Self-Correcting Multi-Agent Prompt Refinement framework for T2V prompting. SCMAPR coordinates specialized agents to (i) route each prompt to a taxonomy-grounded scenario for strategy selection, (ii) synthesize scenario-aware rewriting policies and perform policy-conditioned refinement, and (iii) conduct structured semantic verification that triggers conditional revision when violations are detected. To clarify what constitutes complex scenarios in T2V prompting, provide representative examples, and enable rigorous evaluation under such challenging conditions, we further introduce {T2V-Complexity}, which is a complex-scenario T2V benchmark consisting exclusively of complex-scenario prompts. Extensive experiments on 3 existing benchmarks and our T2V-Complexity benchmark demonstrate that SCMAPR consistently improves text-video alignment and overall generation quality under complex scenarios, achieving up to 2.67\\% and 3.28 gains in average score on VBench and EvalCrafter, and up to 0.028 improvement on T2V-CompBench over 3 State-Of-The-Art baselines.",
+      "authors": [
+        "Chengyi Yang",
+        "Pengzhen Li",
+        "Jiayin Qi",
+        "Aimin Zhou",
+        "Ji Wu",
+        "Ji Liu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-04-07T06:33:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.05489v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable text-to-video generation via multi-agent prompt refinement",
+      "llm_evidence_cn": "通过多智能体提示词优化实现可控文本到视频生成",
+      "llm_evidence": "通过多智能体提示词优化实现可控文本到视频生成",
+      "canonical_evidence": "通过多智能体提示词优化实现可控文本到视频生成",
+      "llm_tldr_en": "Introduces SCMAPR, a multi-agent framework to refine prompts for complex-scenario text-to-video generation.",
+      "llm_tldr_cn": "引入SCMAPR，一个通过多智能体协作优化复杂场景视频生成提示词的框架。",
+      "llm_tldr": "引入SCMAPR，一个通过多智能体协作优化复杂场景视频生成提示词的框架。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.05650v2",
+      "source": "arxiv",
+      "title": "See the Forest for the Trees: Loosely Speculative Decoding via Visual-Semantic Guidance for Efficient Inference of Video LLMs",
+      "abstract": "Video Large Language Models (Video-LLMs) excel in video understanding but suffer from high inference latency during autoregressive generation. Speculative Decoding (SD) mitigates this by applying a draft-and-verify paradigm, yet existing methods are constrained by rigid exact-match rules, severely limiting the acceleration potential. To bridge this gap, we propose LVSpec, the first training-free loosely SD framework tailored for Video-LLMs. Grounded in the insight that generation is governed by sparse visual-relevant anchors (mandating strictness) amidst abundant visual-irrelevant fillers (permitting loose verification), LVSpec employs a lightweight visual-relevant token identification scheme to accurately pinpoint the former. To further maximize acceptance, we augment this with a position-shift tolerant mechanism that effectively salvages positionally mismatched but semantically equivalent tokens. Experiments demonstrate that LVSpec achieves high fidelity and speed: it preserves >99.8 of target performance while accelerating Qwen2.5-VL-32B by 2.70x and LLaVA-OneVision-72B by 2.94x. Notably, it boosts the mean accepted length and speedup ratio by 136% and 35% compared to SOTA training-free SD methods for Video-LLMs.",
+      "authors": [
+        "Yicheng Ji",
+        "Jun Zhang",
+        "Jinpeng Chen",
+        "Cong Wang",
+        "Lidan Shou",
+        "Gang Chen",
+        "Huan Li"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-04-07T09:54:33+00:00",
+      "link": "https://arxiv.org/pdf/2604.05650v2",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Training-free speculative decoding framework for efficient video LLM inference",
+      "llm_evidence_cn": "用于高效视频大模型推理的免训练投机解码框架",
+      "llm_evidence": "用于高效视频大模型推理的免训练投机解码框架",
+      "canonical_evidence": "用于高效视频大模型推理的免训练投机解码框架",
+      "llm_tldr_en": "LVSpec is a training-free framework that accelerates Video-LLM inference using visual-semantic guidance.",
+      "llm_tldr_cn": "LVSpec 是一个免训练框架，通过视觉语义引导加速视频大语言模型的推理。",
+      "llm_tldr": "LVSpec 是一个免训练框架，通过视觉语义引导加速视频大语言模型的推理。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.05489v2",
+      "source": "arxiv",
+      "title": "SCMAPR: Self-Correcting Multi-Agent Prompt Refinement for Complex-Scenario Text-to-Video Generation",
+      "abstract": "Text-to-Video (T2V) generation has benefited from recent advances in diffusion models, yet current systems still struggle under complex scenarios, which are generally exacerbated by the ambiguity and underspecification of text prompts. In this work, we formulate complex-scenario prompt refinement as a stage-wise multi-agent refinement process and propose SCMAPR, i.e., a scenario-aware and Self-Correcting Multi-Agent Prompt Refinement framework for T2V prompting. SCMAPR coordinates specialized agents to (i) route each prompt to a taxonomy-grounded scenario for strategy selection, (ii) synthesize scenario-aware rewriting policies and perform policy-conditioned refinement, and (iii) conduct structured semantic verification that triggers conditional revision when violations are detected. To clarify what constitutes complex scenarios in T2V prompting, provide representative examples, and enable rigorous evaluation under such challenging conditions, we further introduce {T2V-Complexity}, which is a complex-scenario T2V benchmark consisting exclusively of complex-scenario prompts. Extensive experiments on 3 existing benchmarks and our T2V-Complexity benchmark demonstrate that SCMAPR consistently improves text-video alignment and overall generation quality under complex scenarios, achieving up to 2.67\\% and 3.28 gains in average score on VBench and EvalCrafter, and up to 0.028 improvement on T2V-CompBench over 3 State-Of-The-Art baselines.",
+      "authors": [
+        "Chengyi Yang",
+        "Pengzhen Li",
+        "Jiayin Qi",
+        "Aimin Zhou",
+        "Ji Wu",
+        "Ji Liu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-04-07T06:33:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.05489v2",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable video generation via multi-agent prompt refinement",
+      "llm_evidence_cn": "通过多智能体提示词优化实现可控视频生成",
+      "llm_evidence": "通过多智能体提示词优化实现可控视频生成",
+      "canonical_evidence": "通过多智能体提示词优化实现可控视频生成",
+      "llm_tldr_en": "SCMAPR uses a multi-agent framework to refine prompts for complex-scenario text-to-video generation.",
+      "llm_tldr_cn": "SCMAPR通过多智能体协作优化提示词，提升复杂场景下的文本到视频生成质量。",
+      "llm_tldr": "SCMAPR通过多智能体协作优化提示词，提升复杂场景下的文本到视频生成质量。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.05961v1",
+      "source": "arxiv",
+      "title": "HumANDiff: Articulated Noise Diffusion for Motion-Consistent Human Video Generation",
+      "abstract": "Despite tremendous recent progress in human video generation, generative video diffusion models still struggle to capture the dynamics and physics of human motions faithfully. In this paper, we propose a new framework for human video generation, HumANDiff, which enhances the human motion control with three key designs: 1) Articulated motion-consistent noise sampling that correlates the spatiotemporal distribution of latent noise and replaces the unstructured random Gaussian noise with 3D articulated noise sampled on the dense surface manifold of a statistical human body template. It inherits body topology priors for spatially and temporally consistent noise sampling. 2) Joint appearance-motion learning that enhances the standard training objective of video diffusion models by jointly predicting pixel appearances and corresponding physical motions from the articulated noises. It enables high-fidelity human video synthesis, e.g., capturing motion-dependent clothing wrinkles. 3) Geometric motion consistency learning that enforces physical motion consistency across frames via a novel geometric motion consistency loss defined in the articulated noise space. HumANDiff enables scalable controllable human video generation by fine-tuning video diffusion models with articulated noise sampling. Consequently, our method is agnostic to diffusion model design, and requires no modifications to the model architecture. During inference, HumANDiff enables image-to-video generation within a single framework, achieving intrinsic motion control without requiring additional motion modules. Extensive experiments demonstrate that our method achieves state-of-the-art performance in rendering motion-consistent, high-fidelity humans with diverse clothing styles. Project page: https://taohuumd.github.io/projects/HumANDiff/",
+      "authors": [
+        "Tao Hu",
+        "Varun Jampani"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T14:55:10+00:00",
+      "link": "https://arxiv.org/pdf/2604.05961v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "controllable human video generation with articulated noise",
+      "llm_evidence_cn": "利用关节噪声进行可控人体视频生成",
+      "llm_evidence": "利用关节噪声进行可控人体视频生成",
+      "canonical_evidence": "利用关节噪声进行可控人体视频生成",
+      "llm_tldr_en": "HumANDiff improves human motion control in video generation using articulated noise diffusion and topology priors.",
+      "llm_tldr_cn": "HumANDiff通过关节噪声扩散和拓扑先验提升了视频生成中的人体动作控制。",
+      "llm_tldr": "HumANDiff通过关节噪声扩散和拓扑先验提升了视频生成中的人体动作控制。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.05489v3",
+      "source": "arxiv",
+      "title": "SCMAPR: Self-Correcting Multi-Agent Prompt Refinement for Complex-Scenario Text-to-Video Generation",
+      "abstract": "Text-to-Video (T2V) generation has benefited from recent advances in diffusion models, yet current systems still struggle under complex scenarios, which are generally exacerbated by the ambiguity and underspecification of text prompts. In this work, we formulate complex-scenario prompt refinement as a stage-wise multi-agent refinement process and propose SCMAPR, i.e., a scenario-aware and Self-Correcting Multi-Agent Prompt Refinement framework for T2V prompting. SCMAPR coordinates specialized agents to (i) route each prompt to a taxonomy-grounded scenario for strategy selection, (ii) synthesize scenario-aware rewriting policies and perform policy-conditioned refinement, and (iii) conduct structured semantic verification that triggers conditional revision when violations are detected. To clarify what constitutes complex scenarios in T2V prompting, provide representative examples, and enable rigorous evaluation under such challenging conditions, we further introduce T2V-Complexity, which is a complex-scenario T2V benchmark consisting exclusively of complex-scenario prompts. Extensive experiments on 3 existing benchmarks and our T2V-Complexity benchmark demonstrate that SCMAPR consistently improves text-video alignment and overall generation quality under complex scenarios, achieving up to 2.67% and 3.28 gains in average score on VBench and EvalCrafter, and up to 0.028 improvement on T2V-CompBench over 3 State-Of-The-Art baselines. Code is available at https://github.com/HiThink-Research/SCMAPR.",
+      "authors": [
+        "Chengyi Yang",
+        "Pengzhen Li",
+        "Jiayin Qi",
+        "Aimin Zhou",
+        "Ji Wu",
+        "Ji Liu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-04-07T06:33:01+00:00",
+      "link": "https://arxiv.org/pdf/2604.05489v3",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Controllable text-to-video generation via multi-agent prompt refinement",
+      "llm_evidence_cn": "通过多智能体提示词优化实现可控文生视频",
+      "llm_evidence": "通过多智能体提示词优化实现可控文生视频",
+      "canonical_evidence": "通过多智能体提示词优化实现可控文生视频",
+      "llm_tldr_en": "Uses a multi-agent framework to refine prompts for complex-scenario text-to-video generation.",
+      "llm_tldr_cn": "采用多智能体框架优化提示词，以应对复杂场景下的文生视频挑战。",
+      "llm_tldr": "采用多智能体框架优化提示词，以应对复杂场景下的文生视频挑战。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.06939v1",
+      "source": "arxiv",
+      "title": "Grounded Forcing: Bridging Time-Independent Semantics and Proximal Dynamics in Autoregressive Video Synthesis",
+      "abstract": "Autoregressive video synthesis offers a promising pathway for infinite-horizon generation but is fundamentally hindered by three intertwined challenges: semantic forgetting from context limitations, visual drift due to positional extrapolation, and controllability loss during interactive instruction switching. Current methods often tackle these issues in isolation, limiting long-term coherence. We introduce Grounded Forcing, a novel framework that bridges time-independent semantics and proximal dynamics through three interlocking mechanisms. First, to address semantic forgetting, we propose a Dual Memory KV Cache that decouples local temporal dynamics from global semantic anchors, ensuring long-term semantic coherence and identity stability. Second, to suppress visual drift, we design Dual-Reference RoPE Injection, which confines positional embeddings within the training manifold while rendering global semantics time-invariant. Third, to resolve controllability issues, we develop Asymmetric Proximity Recache, which facilitates smooth semantic inheritance during prompt transitions via proximity-weighted cache updates. These components operate synergistically to tether the generative process to stable semantic cores while accommodating flexible local dynamics. Extensive experiments demonstrate that Grounded Forcing significantly enhances long-range consistency and visual stability, establishing a robust foundation for interactive long-form video synthesis.",
+      "authors": [
+        "Jintao Chen",
+        "Chengyu Bai",
+        "Junjun hu",
+        "Xinda Xue",
+        "Mu Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T11:03:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.06939v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Addresses controllability loss and semantic coherence in autoregressive video synthesis",
+      "llm_evidence_cn": "解决自回归视频生成中的可控性损失和语义一致性问题",
+      "llm_evidence": "解决自回归视频生成中的可控性损失和语义一致性问题",
+      "canonical_evidence": "解决自回归视频生成中的可控性损失和语义一致性问题",
+      "llm_tldr_en": "Introduces Grounded Forcing to improve semantic coherence and controllability in long-term video synthesis.",
+      "llm_tldr_cn": "引入 Grounded Forcing 框架，提升长期视频合成中的语义一致性和可控性。",
+      "llm_tldr": "引入 Grounded Forcing 框架，提升长期视频合成中的语义一致性和可控性。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06010v1",
+      "source": "arxiv",
+      "title": "OmniCamera: A Unified Framework for Multi-task Video Generation with Arbitrary Camera Control",
+      "abstract": "Video fundamentally intertwines two crucial axes: the dynamic content of a scene and the camera motion through which it is observed. However, existing generation models often entangle these factors, limiting independent control. In this work, we introduce OmniCamera, a unified framework designed to explicitly disentangle and command these two dimensions. This compositional approach enables flexible video generation by allowing arbitrary pairings of camera and content conditions, unlocking unprecedented creative control. To overcome the fundamental challenges of modality conflict and data scarcity inherent in such a system, we present two key innovations. First, we construct OmniCAM, a novel hybrid dataset combining curated real-world videos with synthetic data that provides diverse paired examples for robust multi-task learning. Second, we propose a Dual-level Curriculum Co-Training strategy that mitigates modality interference and synergistically learns from diverse data sources. This strategy operates on two levels: first, it progressively introduces control modalities by difficulties (condition-level), and second, trains for precise control on synthetic data before adapting to real data for photorealism (data-level). As a result, OmniCamera achieves state-of-the-art performance, enabling flexible control for complex camera movements while maintaining superior visual quality.",
+      "authors": [
+        "Yukun Wang",
+        "Ruihuang Li",
+        "Jiale Tao",
+        "Shiyuan Yang",
+        "Liyi Chen",
+        "Zhantao Yang",
+        "Handz",
+        "Yulan Guo",
+        "Shuai Shao",
+        "Qinglin Lu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-07T16:06:02+00:00",
+      "link": "https://arxiv.org/pdf/2604.06010v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Controllable video generation framework with explicit camera and content disentanglement",
+      "llm_evidence_cn": "具有显式相机和内容解耦的可控视频生成框架",
+      "llm_evidence": "具有显式相机和内容解耦的可控视频生成框架",
+      "canonical_evidence": "具有显式相机和内容解耦的可控视频生成框架",
+      "llm_tldr_en": "OmniCamera enables independent control over camera motion and scene content for flexible video generation.",
+      "llm_tldr_cn": "OmniCamera 通过解耦相机运动和场景内容，实现了对视频生成的灵活控制。",
+      "llm_tldr": "OmniCamera 通过解耦相机运动和场景内容，实现了对视频生成的灵活控制。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.06939v2",
+      "source": "arxiv",
+      "title": "Grounded Forcing: Bridging Time-Independent Semantics and Proximal Dynamics in Autoregressive Video Synthesis",
+      "abstract": "Autoregressive video synthesis offers a promising pathway for infinite-horizon generation but is fundamentally hindered by three intertwined challenges: semantic forgetting from context limitations, visual drift due to positional extrapolation, and controllability loss during interactive instruction switching. Current methods often tackle these issues in isolation, limiting long-term coherence. We introduce Grounded Forcing, a novel framework that bridges time-independent semantics and proximal dynamics through three interlocking mechanisms. First, to address semantic forgetting, we propose a Dual Memory KV Cache that decouples local temporal dynamics from global semantic anchors, ensuring long-term semantic coherence and identity stability. Second, to suppress visual drift, we design Dual-Reference RoPE Injection, which confines positional embeddings within the training manifold while rendering global semantics time-invariant. Third, to resolve controllability issues, we develop Asymmetric Proximity Recache, which facilitates smooth semantic inheritance during prompt transitions via proximity-weighted cache updates. These components operate synergistically to tether the generative process to stable semantic cores while accommodating flexible local dynamics. Extensive experiments demonstrate that Grounded Forcing significantly enhances long-range consistency and visual stability, establishing a robust foundation for interactive long-form video synthesis.",
+      "authors": [
+        "Jintao Chen",
+        "Chengyu Bai",
+        "Junjun Hu",
+        "Xinda Xue",
+        "Mu Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T11:03:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.06939v2",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Controllability in autoregressive video synthesis through semantic anchors",
+      "llm_evidence_cn": "通过语义锚点实现自回归视频合成的可控性",
+      "llm_evidence": "通过语义锚点实现自回归视频合成的可控性",
+      "canonical_evidence": "通过语义锚点实现自回归视频合成的可控性",
+      "llm_tldr_en": "Introduces Grounded Forcing to bridge semantics and dynamics for long-term coherent video synthesis.",
+      "llm_tldr_cn": "引入Grounded Forcing框架，连接语义与动力学以实现长期连贯的视频合成。",
+      "llm_tldr": "引入Grounded Forcing框架，连接语义与动力学以实现长期连贯的视频合成。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.06655v1",
+      "source": "arxiv",
+      "title": "Controllable Generative Video Compression",
+      "abstract": "Perceptual video compression adopts generative video modeling to improve perceptual realism but frequently sacrifices signal fidelity, diverging from the goal of video compression to faithfully reproduce visual signal. To alleviate the dilemma between perception and fidelity, in this paper we propose Controllable Generative Video Compression (CGVC) paradigm to faithfully generate details guided by multiple visual conditions. Under the paradigm, representative keyframes of the scene are coded and used to provide structural priors for non-keyframe generation. Dense per-frame control prior is additionally coded to better preserve finer structure and semantics of each non-keyframe. Guided by these priors, non-keyframes are reconstructed by controllable video generation model with temporal and content consistency. Furthermore, to accurately recover color information of the video, we develop a color-distance-guided keyframe selection algorithm to adaptively choose keyframes. Experimental results show CGVC outperforms previous perceptual video compression method in terms of both signal fidelity and perceptual quality.",
+      "authors": [
+        "Ding Ding",
+        "Daowen Li",
+        "Ying Chen",
+        "Yixin Gao",
+        "Ruixiao Dong",
+        "Kai Li",
+        "Li Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T04:11:27+00:00",
+      "link": "https://arxiv.org/pdf/2604.06655v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable video generation model guided by multiple visual conditions",
+      "llm_evidence_cn": "受多种视觉条件引导的可控视频生成模型",
+      "llm_evidence": "受多种视觉条件引导的可控视频生成模型",
+      "canonical_evidence": "受多种视觉条件引导的可控视频生成模型",
+      "llm_tldr_en": "Proposes a controllable generative video compression paradigm using structural priors for video generation.",
+      "llm_tldr_cn": "提出一种可控生成式视频压缩范式，利用结构先验引导视频生成。",
+      "llm_tldr": "提出一种可控生成式视频压缩范式，利用结构先验引导视频生成。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.07209v1",
+      "source": "arxiv",
+      "title": "INSPATIO-WORLD: A Real-Time 4D World Simulator via Spatiotemporal Autoregressive Modeling",
+      "abstract": "Building world models with spatial consistency and real-time interactivity remains a fundamental challenge in computer vision. Current video generation paradigms often struggle with a lack of spatial persistence and insufficient visual realism, making it difficult to support seamless navigation in complex environments. To address these challenges, we propose INSPATIO-WORLD, a novel real-time framework capable of recovering and generating high-fidelity, dynamic interactive scenes from a single reference video. At the core of our approach is a Spatiotemporal Autoregressive (STAR) architecture, which enables consistent and controllable scene evolution through two tightly coupled components: Implicit Spatiotemporal Cache aggregates reference and historical observations into a latent world representation, ensuring global consistency during long-horizon navigation; Explicit Spatial Constraint Module enforces geometric structure and translates user interactions into precise and physically plausible camera trajectories. Furthermore, we introduce Joint Distribution Matching Distillation (JDMD). By using real-world data distributions as a regularizing guide, JDMD effectively overcomes the fidelity degradation typically caused by over-reliance on synthetic data. Extensive experiments demonstrate that INSPATIO-WORLD significantly outperforms existing state-of-the-art (SOTA) models in spatial consistency and interaction precision, ranking first among real-time interactive methods on the WorldScore-Dynamic benchmark, and establishing a practical pipeline for navigating 4D environments reconstructed from monocular videos.",
+      "authors": [
+        "InSpatio Team",
+        "Donghui Shen",
+        "Guofeng Zhang",
+        "Haomin Liu",
+        "Haoyu Ji",
+        "Hujun Bao",
+        "Hongjia Zhai",
+        "Jialin Liu",
+        "Jing Guo",
+        "Nan Wang",
+        "Siji Pan",
+        "Weihong Pan",
+        "Weijian Xie",
+        "Xianbin Liu",
+        "Xiaojun Xiang",
+        "Xiaoyu Zhang",
+        "Xinyu Chen",
+        "Yifu Wang",
+        "Yipeng Chen",
+        "Zhenzhou Fan",
+        "Zhewen Le",
+        "Zhichao Ye",
+        "Ziqiang Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-08T15:31:22+00:00",
+      "link": "https://arxiv.org/pdf/2604.07209v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "controllable scene evolution and video generation in a 4D world simulator",
+      "llm_evidence_cn": "4D世界模拟器中的可控场景演变与视频生成",
+      "llm_evidence": "4D世界模拟器中的可控场景演变与视频生成",
+      "canonical_evidence": "4D世界模拟器中的可控场景演变与视频生成",
+      "llm_tldr_en": "Presents INSPATIO-WORLD for real-time, controllable 4D scene generation from a single reference video.",
+      "llm_tldr_cn": "提出INSPATIO-WORLD，实现基于单参考视频的实时、可控4D场景生成。",
+      "llm_tldr": "提出INSPATIO-WORLD，实现基于单参考视频的实时、可控4D场景生成。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.08048v1",
+      "source": "arxiv",
+      "title": "Guiding a Diffusion Model by Swapping Its Tokens",
+      "abstract": "Classifier-Free Guidance (CFG) is a widely used inference-time technique to boost the image quality of diffusion models. Yet, its reliance on text conditions prevents its use in unconditional generation. We propose a simple method to enable CFG-like guidance for both conditional and unconditional generation. The key idea is to generate a perturbed prediction via simple token swap operations, and use the direction between it and the clean prediction to steer sampling towards higher-fidelity distributions. In practice, we swap pairs of most semantically dissimilar token latents in either spatial or channel dimensions. Unlike existing methods that apply perturbation in a global or less constrained manner, our approach selectively exchanges and recomposes token latents, allowing finer control over perturbation and its influence on generated samples. Experiments on MS-COCO 2014, MS-COCO 2017, and ImageNet datasets demonstrate that the proposed Self-Swap Guidance (SSG), when applied to popular diffusion models, outperforms previous condition-free methods in image fidelity and prompt alignment under different set-ups. Its fine-grained perturbation granularity also improves robustness, reducing side-effects across a wider range of perturbation strengths. Overall, SSG extends CFG to a broader scope of applications including both conditional and unconditional generation, and can be readily inserted into any diffusion model as a plug-in to gain immediate improvements.",
+      "authors": [
+        "Weijia Zhang",
+        "Yuehao Liu",
+        "Shanyan Guan",
+        "Wu Ran",
+        "Yanhao Ge",
+        "Wei Li",
+        "Chao Ma"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-09T09:54:49+00:00",
+      "link": "https://arxiv.org/pdf/2604.08048v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "inference-time technique for diffusion guidance without retraining",
+      "llm_evidence_cn": "无需重新训练的扩散引导推理技术",
+      "llm_evidence": "无需重新训练的扩散引导推理技术",
+      "canonical_evidence": "无需重新训练的扩散引导推理技术",
+      "llm_tldr_en": "A training-free token swapping method enables CFG-like guidance for both conditional and unconditional generation.",
+      "llm_tldr_cn": "一种免训练的令牌交换方法为条件和无条件生成提供了类似CFG的引导。",
+      "llm_tldr": "一种免训练的令牌交换方法为条件和无条件生成提供了类似CFG的引导。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
