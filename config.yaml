@@ -25,3 +25,65 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: CV VG CS
+      description: 计算机视觉、可控视频生成、免训练、透明通道
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: controllable video generation
+          keyword_cn: 可控视频生成
+          query: c
+        - keyword: transparent video
+          keyword_cn: 透明视频
+          query: t
+        - keyword: diffusion models
+          keyword_cn: 扩散模型
+          query: d
+        - keyword: video generation
+          keyword_cn: 视频生成
+          query: v
+        - keyword: computer vision
+          keyword_cn: 计算机视觉
+          query: c
+        - keyword: training-free
+          keyword_cn: 免训练
+          query: t
+      intent_queries:
+        - query: video generation with transparent alpha channel support
+          query_cn: 支持透明通道的视频生成技术
+          enabled: true
+          source: manual
+          note: ''
+        - query: computer vision research on transparent video generation
+          query_cn: 关于透明视频生成的计算机视觉研究
+          enabled: true
+          source: manual
+          note: ''
+        - query: video generation with transparent background and alpha channel
+          query_cn: 带有透明背景和透明通道的视频生成
+          enabled: true
+          source: manual
+          note: ''
+        - query: training free controllable video generation methods
+          query_cn: 免训练的可控视频生成方法
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-04-16T03:29:22.940Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
