@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-001.webp",
+      "caption": "Fig. 3: Dynamic Evolution of the Background Soft Mask (M̂bg) during Latent Denoising. The mask is computed dynamically at each step by aggregating crossattention over background tokens (Tbg).",
+      "page": 6,
+      "index": 1,
+      "width": 712,
+      "height": 299
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-002.webp",
+      "caption": "Table 1: Global mean metrics comparison across methods. Bold values indicate the best performance within each group, and underlined values denote the second best.",
+      "page": 11,
+      "index": 2,
+      "width": 712,
+      "height": 381
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-003.webp",
+      "caption": "Fig. 1: Seed sensitivity of Stable Diffusion XL [38] and FLUX [25]. With the same prompt, different random seeds produce distinct layouts and semantics. Each row shows four results from different seeds for one model.",
+      "page": 2,
+      "index": 3,
+      "width": 694,
+      "height": 287
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-004.webp",
+      "caption": "Fig. 7: CLIP-I score as a function of the number of paths K.",
+      "page": 29,
+      "index": 4,
+      "width": 492,
+      "height": 289
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-005.webp",
+      "caption": "Table 3: Quantitative ablation of core components on SDXL and FLUX backbones.",
+      "page": 28,
+      "index": 5,
+      "width": 462,
+      "height": 379
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-006.webp",
+      "caption": "Fig. 6: Qualitative ablation of the Dynamic Pruning signals on SDXL (left block) and FLUX (right block). For each prompt, we show the full model (Ours), the variant without CLIP-based scoring (w/o clipScore, i.e., wclip=0), and the variant without Tail Entropy (w/o Entropy, i.e., wtail=0). Removing the CLIP term often preserves coarse layout but fails to satisfy fine-grained textual details (e.g., missing secondary objects or incorrect background attributes), while removing the entropy term leads to visually noisy or structurally inconsistent regions due to unstable attention patterns. When both signals are used jointly, the selected trajectories exhibit sharper foregrounds and more faithful, textaligned backgrounds.",
+      "page": 28,
+      "index": 6,
+      "width": 706,
+      "height": 357
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-007.webp",
+      "caption": "Table 2: User study results across all methods. Each participant compared pairs of generated images under three criteria: full description, background description, and main object description. Reported values denote win rates per method. Note that PixArt-alpha and SCG adopt a DiT architecture; and playgroundv2.5 follows the SDXL architecture but is trained from scratch. Bold values indicate the best performance within each group, and underlined values denote the second best.",
+      "page": 13,
+      "index": 7,
+      "width": 473,
+      "height": 412
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-008.webp",
+      "caption": "Fig. 4: Qualitative comparison across diffusion backbones. Methods are grouped by backbone type, highlighted with colored blocks: green for SD2.1-based models, blue for SDXL/DiT-based models, and gray for FLUX-based models. Each row depicts images generated from the same prompt and random seed.",
+      "page": 8,
+      "index": 8,
+      "width": 720,
+      "height": 600
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-009.webp",
+      "caption": "Fig. 5: Ablation study on key components. We validate the necessity of the DSG framework on both SDXL [38] and FLUX [25] architectures. (A) w/o Projection: Removing BG Projection causes the model to ignore background keywords (Pbg). (B) w/o DSG Gating: Omitting the DSG soft mask (i.e., using M̂bg ≡ 1) forces a global correction, leading to catastrophic blurring and structural ruin, especially in FLUX [25]. Spatial gating is mandatory for safe latent modification. (C) w/o Dynamic Pruning: Disabling Online Pruning allows paths with high Attention Entropy to proceed, frequently resulting in Concept Collapse and poor semantic focus.",
+      "page": 9,
+      "index": 9,
+      "width": 714,
+      "height": 288
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09850v1/fig-010.webp",
+      "caption": "Fig. 2: Overview of the proposed framework. We expect a long text prompt as input. The Decomposer Agent parses it into structured components including background and object sentences (Pbg,Pobj) and their corresponding entity sets (Nbg,Nobj). These sets are processed by the Tokenizer and embedded for diffusion conditioning Dθ. During denoising, the Dynamic Spatial Guidance (DSG) Gating module derives a time-varying background soft mask M̂bg from cross-attention statistics over background tokens, as illustrated in the lower panel. This mask guides the Background Projection (BG) step [Eq. (5)], which softly anchors early latent states zt toward a reference background latent zbgt , ensuring global consistency without retraining. Multiple stochastic trajectories are explored in parallel, and the Dynamic Pruning module periodically evaluates each path using attention-tail entropy and CLIP alignment scores to discard incoherent candidates. The bottom subfigure details the computation flow of DSG Gating, including attention aggregation, token grouping, and spatial upsampling for mask fusion. a main object sentence Pobj, (iii) an entity set Nobj for main object control, and (iv) an entity set Nbg for background elements. Candidate decompositions are validated by a scoring function that enforces verbatim presence of all extracted nouns within the composition. This dual-stage composition–decomposition cycle provides the semantic priors (Nobj,Nbg) required to ground our Cross-Attention masks for downstream control.",
+      "page": 5,
+      "index": 10,
+      "width": 712,
+      "height": 410
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.09227v1/fig-001.webp",
+      "caption": "Table 2. Quantitative comparison on FLUX.1-dev and SD3.5-L. Using the FLUX.1-dev and Stable Diffusion 3.5-Large (SD3.5-L) models with NFE = 30, we generate HR (1024 × 1024) reference images. We compare three variants: (i) reduced-NFE generation, (ii) LR (512× 512) generation with the same NFE, and (iii) a naı̈ve baseline applying nearest downsampling at timestep tD . Each method is evaluated for computational efficiency, image quality, and consistency with the reference. Numbers in parentheses denote the NFE used; if omitted, NFE = 30 is applied as in the reference. We denote the best performance in bold and second-best performance with underline.",
+      "page": 6,
+      "index": 1,
+      "width": 1026,
+      "height": 398
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09227v1/fig-002.webp",
+      "caption": "Figure 1. Motivation of Preview Generation. Most users of generative AI usually produce diverse candidate images through repeated trials from multiple seeds (or prompts) to obtain a desired result. Our goal is to accelerate this workflow by generating low-resolution images that share the same content as their high-resolution counterparts but can be produced much faster in a training-free manner.",
+      "page": 2,
+      "index": 2,
+      "width": 1034,
+      "height": 520
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09227v1/fig-003.webp",
+      "caption": "Figure 4. Qualitative comparison of our proposed method. While other simple alternatives often result in changes to composition, object size, or even color tone, our proposed approach synthesizes low-resolution images faster while preserving the composition and color fidelity of the original image. The prompts used for image generation are provided in the supplementary materials.",
+      "page": 7,
+      "index": 3,
+      "width": 1034,
+      "height": 722
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09227v1/fig-004.webp",
+      "caption": "Figure 5. Generalization of commutator-zero guidance. We show that commutator-zero guidance can be expanded to other operations. For warping, a large kernel (128× 128) with correlation correction produces distortion, while our method effectively handles artifacts. For translation, naı̈ve cause noticeable difference and unintended objects, whereas ours preserves image content.",
+      "page": 7,
+      "index": 4,
+      "width": 491,
+      "height": 312
+    },
+    {
+      "url": "assets/figures/arxiv/2604.09227v1/fig-005.webp",
+      "caption": "Figure 3. Overall framework. (Left, Top) Overview of our proposed framework. Sampling is first performed in the high-resolution (HR) space up to timestep tD , after which downsampling is applied using the selected downsample matrix from (Right, Top). To maintain alignment with HR sampling, commutator-zero guidance is applied as shown in (Right, Bottom). Finally, as illustrated in (Left, Bottom), our method produces a low-resolution image with lower DreamSim score, which indicates better LR-HR consistency.",
+      "page": 4,
+      "index": 5,
+      "width": 1034,
+      "height": 477
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-001.webp",
+      "caption": "Table 7. System Prompt for VLM Evaluation.",
+      "page": 15,
+      "index": 1,
+      "width": 1010,
+      "height": 1311
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-002.webp",
+      "caption": "Figure 10. Additional qualitative result (Part 2).21",
+      "page": 21,
+      "index": 2,
+      "width": 1036,
+      "height": 1361
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-003.webp",
+      "caption": "Figure 1. Illustration of four of ImVideoEdit’s basic editing task. Zoom in for best viewing.",
+      "page": 2,
+      "index": 3,
+      "width": 1036,
+      "height": 537
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-004.webp",
+      "caption": "Table 1. Quantitative Results of VLM across all subtasks. The best are highlighted in bold.",
+      "page": 7,
+      "index": 4,
+      "width": 1026,
+      "height": 256
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-005.webp",
+      "caption": "Table 2. Quantitative Results on VBench. The best are highlighted in bold.",
+      "page": 7,
+      "index": 5,
+      "width": 1026,
+      "height": 274
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-006.webp",
+      "caption": "Figure 7. visualizations of datasets (Part 1).",
+      "page": 18,
+      "index": 6,
+      "width": 1036,
+      "height": 1073
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-007.webp",
+      "caption": "Figure 5. Qualitative Results of ImVideoEdit and baselines.",
+      "page": 8,
+      "index": 7,
+      "width": 1036,
+      "height": 436
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-008.webp",
+      "caption": "Table 3. Quantitative Results of VLM. Metrics: IA (Instruction Adherence), TC (Temporal Consistency), VF (Visual Fidelity) and AA (Artifact Absence).",
+      "page": 8,
+      "index": 8,
+      "width": 568,
+      "height": 346
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-009.webp",
+      "caption": "Figure 2. Overview of ImVideoEdit. Left: The overall pipeline processes latents from single image through a frozen 3D DiT, featuring a Predict-Update module parallel to each attention block. Right: Detailed design of the Predict & Update Module. The frozen 3D selfattention safeguards spatiotemporal priors, while the parallel 2D branch extracts spatial features from the reference latent. The Predict Module generates a coarse alignment (Hpred) via a Zero-Linear layer. The spatial difference (Hres) is then processed by the Update Module and a Text Gate, which implicitly modulates the editing intensity to yield Hdiff . The final output (Hupdate) achieves precise text-driven spatial reconstruction. During training stage, the numbers of frame F maintains 1.",
+      "page": 4,
+      "index": 9,
+      "width": 1024,
+      "height": 358
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-010.webp",
+      "caption": "Figure 3. Overview of the dataset construction pipeline.",
+      "page": 4,
+      "index": 10,
+      "width": 446,
+      "height": 425
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-011.webp",
+      "caption": "Figure 8. visualizations of datasets (Part 2).",
+      "page": 19,
+      "index": 11,
+      "width": 1036,
+      "height": 1073
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-012.webp",
+      "caption": "Table 9. Fine-grained VLM evaluation results for the remaining five task categories and the overall average. IA, TC, VF, and AA denote Instruction Adherence, Temporal Consistency, Visual Fidelity, and Artifact Absence, respectively.",
+      "page": 17,
+      "index": 12,
+      "width": 1022,
+      "height": 1247
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-013.webp",
+      "caption": "Figure 9. Additional qualitative result (Part 1).20",
+      "page": 20,
+      "index": 13,
+      "width": 1036,
+      "height": 1361
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-014.webp",
+      "caption": "Figure 4. Dataset statistics.",
+      "page": 5,
+      "index": 14,
+      "width": 373,
+      "height": 608
+    },
+    {
+      "url": "assets/figures/arxiv/2604.07958v1/fig-015.webp",
+      "caption": "Table 8. Fine-grained VLM evaluation results for the first five task categories. IA, TC, VF, and AA denote Instruction Adherence, Temporal Consistency, Visual Fidelity, and Artifact Absence, respectively.",
+      "page": 16,
+      "index": 15,
+      "width": 1022,
+      "height": 1154
+    }
+  ]
+}
