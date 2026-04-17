@@ -1,0 +1,86 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-001.webp",
+      "caption": "Figure 5. Qualitative Analysis. We show the results of generating different content–style combinations using various LoRA combination methods on SDXL v1.0 and FLUX 1. Our FREE-Switch method demonstrates the most consistent and stable performance.",
+      "page": 6,
+      "index": 1,
+      "width": 1013,
+      "height": 985
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-002.webp",
+      "caption": "Figure 2. Different LoRA combinations require different hyper-parameter selections. (a) and (b) show two sets of LoRA combinations, where a LoRA combination method that works well for one set may not necessarily be suitable for the other.",
+      "page": 2,
+      "index": 2,
+      "width": 1014,
+      "height": 418
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-003.webp",
+      "caption": "Figure 6. (a) Ablation study on the components of FREE-Switch, showing their impact on content and style preservation. (b) Ablation study on the proposed frequency-domain importance-based dynamic LoRA Switch, highlighting its role in adaptive LoRA selection.",
+      "page": 7,
+      "index": 3,
+      "width": 1024,
+      "height": 535
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-004.webp",
+      "caption": "Figure 12. Failure case analysis using SDXL v1.0.",
+      "page": 14,
+      "index": 4,
+      "width": 494,
+      "height": 500
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-005.webp",
+      "caption": "Figure 3. The framework diagram of FREE-Switch. The Dynamic LoRA Switch module dynamically switches LoRA during the denoising process by analyzing the timestep. The Generation Alignment module automatically expands the prompt to ensure that the outputs remain as aligned as possible during LoRA switching, thereby reducing detail loss.",
+      "page": 3,
+      "index": 5,
+      "width": 1029,
+      "height": 233
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-006.webp",
+      "caption": "Figure 11. The Pipeline of Generation Alignment.",
+      "page": 13,
+      "index": 6,
+      "width": 487,
+      "height": 445
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-007.webp",
+      "caption": "Figure 8. Effect of the Output Alignment Method. Incorporating output alignment optimization allows the model to better interpret the original requirements during LoRA switching, resulting in higher-quality images that more accurately reflect user intent.",
+      "page": 8,
+      "index": 7,
+      "width": 1036,
+      "height": 216
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-008.webp",
+      "caption": "Figure 9. Analysis of Model Merging Methods for This Task. Model merging tends to accumulate errors throughout the diffusion process, leading to degraded generation quality and loss of fine details. Therefore, we adopt the LoRA Switch strategy instead.",
+      "page": 8,
+      "index": 8,
+      "width": 1036,
+      "height": 224
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-009.webp",
+      "caption": "Figure 10. Parameter value distribution of LoRAs trained on different sources based on FLUX.",
+      "page": 8,
+      "index": 9,
+      "width": 495,
+      "height": 271
+    },
+    {
+      "url": "assets/figures/arxiv/2604.10023v1/fig-010.webp",
+      "caption": "Figure 4. For content and style generation, we examine how the frequency-domain variation rate across denoising steps affects the final output. As shown in (a) and (b), removing the fastest-varying steps of frequency domain as calculated in Eq. 1 causes a more significant degradation, indicating that rapidly changing steps are essential for maintaining generation fidelity.",
+      "page": 4,
+      "index": 10,
+      "width": 1023,
+      "height": 346
+    }
+  ]
+}
