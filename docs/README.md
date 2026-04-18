@@ -6,73 +6,67 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-17
-- 运行时间：2026-04-17 19:47:38 UTC
+- 最新运行日期：2026-04-18
+- 运行时间：2026-04-18 19:49:17 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：15
+- 精读区：4
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选 17 篇前沿论文，深度聚焦视频生成的平滑度优化与精准语义对齐。
-重点关注通过稀疏注意力机制实现流畅视频生成，以及解决文生视频中数量对齐与多视角物体插入的难题。
-建议优先研读高分论文《Ride the Wave》，掌握提升长视频生成质量的高效计算方案。
-- 详情：[/202604/17/README](/202604/17/README)
+今日聚焦视频生成的物理一致性与相机轨迹控制，深度解析了 Tora3 与 CT-1 等 15 篇前沿成果。
+重点突破了轨迹引导下的音视频同步生成及空间推理能力，实现了更具物理真实感且相机可控的动态视觉效果。
+建议关注如何利用相机参数与物理约束提升视频生成的操控精度，并探索从噪声数据中还原高质量图像的新路径。
+- 详情：[/202604/18/README](/202604/18/README)
 
 ### 精读区论文标签
-1. [Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation](/202604/17/2604.12219v1-ride-the-wave-precision-allocated-sparse-attention-for-smooth-video-generation)  
-   标签：评分：9.0/10、query:cv-vg-cs
+1. [Tora3: Trajectory-Guided Audio-Video Generation with Physical Coherence](/202604/18/2604.09057v1-tora3-trajectory-guided-audio-video-generation-with-physical-coherence)  
+   标签：评分：8.0/10、query:cv-vg-cs
+   evidence：轨迹引导的可控视频生成
+2. [CT-1: Vision-Language-Camera Models Transfer Spatial Reasoning Knowledge to Camera-Controllable Video Generation](/202604/18/2604.09201v1-ct-1-vision-language-camera-models-transfer-spatial-reasoning-knowledge-to-camera-controllable-video-generation)  
+   标签：评分：8.0/10、query:cv-vg-cs
+   evidence：具有空间推理能力的相机可控视频生成
+3. [Training-Free Object-Background Compositional T2I via Dynamic Spatial Guidance and Multi-Path Pruning](/202604/18/2604.09850v1-training-free-object-background-compositional-t2i-via-dynamic-spatial-guidance-and-multi-path-pruning)  
+   标签：评分：8.0/10、query:cv-vg-cs
+   evidence：用于前景-背景交互的免训练框架
+4. [Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation](/202604/18/2604.12219v1-ride-the-wave-precision-allocated-sparse-attention-for-smooth-video-generation)  
+   标签：评分：8.0/10、query:cv-vg-cs
    evidence：用于平滑视频生成的免训练框架
-2. [When Numbers Speak: Aligning Textual Numerals and Visual Instances in Text-to-Video Diffusion Models](/202604/17/2604.08546v1-when-numbers-speak-aligning-textual-numerals-and-visual-instances-in-text-to-video-diffusion-models)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：用于可控视频合成的免训练识别引导框架
-3. [Tora3: Trajectory-Guided Audio-Video Generation with Physical Coherence](/202604/17/2604.09057v2-tora3-trajectory-guided-audio-video-generation-with-physical-coherence)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：具有物理连贯性的轨迹引导可控视频生成
-4. [Rays as Pixels: Learning A Joint Distribution of Videos and Camera Trajectories](/202604/17/2604.09429v1-rays-as-pixels-learning-a-joint-distribution-of-videos-and-camera-trajectories)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：用于视频和相机轨迹联合生成的视频扩散模型
-5. [Prompt Relay: Inference-Time Temporal Control for Multi-Event Video Generation](/202604/17/2604.10030v1-prompt-relay-inference-time-temporal-control-for-multi-event-video-generation)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：用于可控视频生成的推理阶段时序控制
-6. [MAST: Mask-Guided Attention Mass Allocation for Training-Free Multi-Style Transfer](/202604/17/2604.12281v1-mast-mask-guided-attention-mass-allocation-for-training-free-multi-style-transfer)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：显式控制多风格迁移的免训练框架
 
 ### 速读区论文标签
-1. [Controllable Video Object Insertion via Multiview Priors](/202604/17/2604.14556v1-controllable-video-object-insertion-via-multiview-priors)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：具有遮挡处理功能的可控视频对象插入
-2. [ImVideoEdit: Image-learning Video Editing via 2D Spatial Difference Attention Blocks](/202604/17/2604.07958v1-imvideoedit-image-learning-video-editing-via-2d-spatial-difference-attention-blocks)  
+1. [Tora3: Trajectory-Guided Audio-Video Generation with Physical Coherence](/202604/18/2604.09057v2-tora3-trajectory-guided-audio-video-generation-with-physical-coherence)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：完全从图像对中学习视频编辑能力的有效框架
-3. [Lighting-grounded Video Generation with Renderer-based Agent Reasoning](/202604/17/2604.07966v1-lighting-grounded-video-generation-with-renderer-based-agent-reasoning)  
+   evidence：轨迹引导的可控视频生成
+2. [Rays as Pixels: Learning A Joint Distribution of Videos and Camera Trajectories](/202604/18/2604.09429v1-rays-as-pixels-learning-a-joint-distribution-of-videos-and-camera-trajectories)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：基于显式3D场景属性的可控视频生成
-4. [Guiding a Diffusion Model by Swapping Its Tokens](/202604/17/2604.08048v1-guiding-a-diffusion-model-by-swapping-its-tokens)  
+   evidence：用于视频和相机轨迹联合生成的视频扩散模型
+3. [SCoRe: Clean Image Generation from Diffusion Models Trained on Noisy Images](/202604/18/2604.09436v1-score-clean-image-generation-from-diffusion-models-trained-on-noisy-images)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：无需重新训练的推理阶段引导技术
-5. [Tora3: Trajectory-Guided Audio-Video Generation with Physical Coherence](/202604/17/2604.09057v1-tora3-trajectory-guided-audio-video-generation-with-physical-coherence)  
+   evidence：免训练的生成时频谱再生方法
+4. [Prompt Relay: Inference-Time Temporal Control for Multi-Event Video Generation](/202604/18/2604.10030v1-prompt-relay-inference-time-temporal-control-for-multi-event-video-generation)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：使用物体轨迹作为运动先验的轨迹引导音视频生成框架
-6. [CT-1: Vision-Language-Camera Models Transfer Spatial Reasoning Knowledge to Camera-Controllable Video Generation](/202604/17/2604.09201v1-ct-1-vision-language-camera-models-transfer-spatial-reasoning-knowledge-to-camera-controllable-video-generation)  
+   evidence：视频生成的推理阶段时间控制
+5. [EditCrafter: Tuning-free High-Resolution Image Editing via Pretrained Diffusion Model](/202604/18/2604.10268v1-editcrafter-tuning-free-high-resolution-image-editing-via-pretrained-diffusion-model)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：专注于使用专门的相机轨迹估计模型进行可控视频生成。
-7. [Training-Free Object-Background Compositional T2I via Dynamic Spatial Guidance and Multi-Path Pruning](/202604/17/2604.09850v1-training-free-object-background-compositional-t2i-via-dynamic-spatial-guidance-and-multi-path-pruning)  
+   evidence：通过扩散模型进行免微调的高分辨率图像编辑
+6. [Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning](/202604/18/2604.10383v1-agentic-video-generation-from-text-to-executable-event-graphs-via-tool-constrained-llm-planning)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：用于前景-背景交互和构图控制的免训练框架
-8. [FREE-Switch: Frequency-based Dynamic LoRA Switch for Style Transfer](/202604/17/2604.10023v1-free-switch-frequency-based-dynamic-lora-switch-for-style-transfer)  
-   标签：评分：7.0/10、query:cv-vg-cs
-   evidence：使用LoRA适配器进行定制生成的免训练融合策略
-9. [ViVa: A Video-Generative Value Model for Robot Reinforcement Learning](/202604/17/2604.08168v1-viva-a-video-generative-value-model-for-robot-reinforcement-learning)  
+   evidence：通过结构化事件图和3D引擎实现的可控视频生成
+7. [SHIFT: Steering Hidden Intermediates in Flow Transformers](/202604/18/2604.09213v1-shift-steering-hidden-intermediates-in-flow-transformers)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：将预训练视频生成器重新用于时间动力学和价值估计
-10. [Novel View Synthesis as Video Completion](/202604/17/2604.08500v1-novel-view-synthesis-as-video-completion)  
+   evidence：推理阶段的控制与概念操作
+8. [VAG: Dual-Stream Video-Action Generation for Embodied Data Synthesis](/202604/18/2604.09330v1-vag-dual-stream-video-action-generation-for-embodied-data-synthesis)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：利用视频扩散模型进行新视角合成
-11. [RewardFlow: Generate Images by Optimizing What You Reward](/202604/17/2604.08536v1-rewardflow-generate-images-by-optimizing-what-you-reward)  
+   evidence：用于具身数据的双流视频动作生成
+9. [ReplicateAnyScene: Zero-Shot Video-to-3D Composition via Textual-Visual-Spatial Alignment](/202604/18/2604.10789v1-replicateanyscene-zero-shot-video-to-3d-composition-via-textual-visual-spatial-alignment)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：在推理阶段引导预训练扩散模型的免反演框架
+   evidence：零样本视频到3D合成以及视频中的对象分割
+10. [CDPR: Cross-modal Diffusion with Polarization for Reliable Monocular Depth Estimation](/202604/18/2604.11097v1-cdpr-cross-modal-diffusion-with-polarization-for-reliable-monocular-depth-estimation)  
+   标签：评分：6.0/10、query:cv-vg-cs
+   evidence：关于透明度处理的计算机视觉研究
+11. [AIM: Intent-Aware Unified world action Modeling with Spatial Value Maps](/202604/18/2604.11135v1-aim-intent-aware-unified-world-action-modeling-with-spatial-value-maps)  
+   标签：评分：6.0/10、query:cv-vg-cs
+   evidence：带有空间价值图的统一世界动作建模
 
 
 <div class="dpr-home-promo-card">
