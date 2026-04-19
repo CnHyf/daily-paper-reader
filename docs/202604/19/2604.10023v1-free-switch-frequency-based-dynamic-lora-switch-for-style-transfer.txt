@@ -1,0 +1,764 @@
+Title: FREE-Switch: Frequency-based Dynamic LoRA Switch for Style Transfer
+
+URL Source: https://arxiv.org/pdf/2604.10023v1
+
+Published Time: Tue, 14 Apr 2026 00:26:22 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# FREE-Switch: Frequency-based Dynamic LoRA Switch for Style Transfer 
+
+## Shenghe Zheng, Minyu Zhang, Tianhao Liu, Hongzhi Wang Harbin Institute of Technology 
+
+shenghez.zheng@gmail.com , wangzh@hit.edu.cn A photo of a fluffy eric cat with long fur, tufted ears in watercolor painting with vibrant color palette, soft gradients, smooth textures, bright mood style (in the style of TOK).    
+
+> Woman with long hair, smiling expression, in an Anime, Illustration, Soft, Digital, Clean, Retro, Line-Art, Vibrant, Aesthetic style (sftsrv style).
+> Armored wukong with ornate armor, spiked pauldrons, stern expression, with vibrant color palette, crisp outlines, bright lighting, whimsical mood, anime style.
+> MNALSA woman with long hair, neutral expression, with bold outlines, flat color blocks, retro palette, in the style of TOK a tarot style.
+> Content
+> Style
+> Result Content
+> Content Content
+> Style
+> Style Style
+> Result
+> Result Result
+
+Adapter Combination 
+
+A
+
+B
+
+A
+
+B
+
+> Optimizer
+
+A
+
+B
+
+> Content
+> Style
+> Combination
+
+Heavy cost 
+
+A
+
+B
+
+A
+
+B
+
+> Fixed Combination
+
+A
+
+B
+
+> Content
+> Style
+> Combination
+
+Low quality 
+
+A
+
+B
+
+A
+
+B
+
+> Style
+> Content
+> Frequency
+> Analysis
+> Dynamic
+> Combination
+
+A
+
+B
+
+> Combination
+
+Training-based 
+
+Training-Free 
+
+Ours 
+
+Efficient 
+
+Effective 
+
+Figure 1. The left side showcases the generative performance of our proposed FREE-Switch method when using FLUX.1 [18] as the base model. The right side compares our approach with both training-based and training-free methods. By dynamically combining adapters based on their frequency analysis, our method achieves superior results without requiring any additional training. 
+
+## Abstract 
+
+With the growing availability of open-sourced adapters trained on the same diffusion backbone for diverse scenes and objects, combining these pretrained weights enables low-cost customized generation. However, most existing model merging methods are designed for classification or text generation, and when applied to image generation, they suffer from content drift due to error accumulation across multiple diffusion steps. For image-oriented meth-ods, training-based approaches are computationally expen-sive and unsuitable for edge deployment, while training-free ones use uniform fusion strategies that ignore inter-adapter differences, leading to detail degradation. We find that since different adapters are specialized for generating different types of content, the contribution of each diffusion step carries different significance for each adapter. Accord-ingly, we propose a frequency-domain importance–driven dynamic LoRA switch method. Furthermore, we observe that maintaining semantic consistency across adapters ef-fectively mitigates detail loss; thus, we design an automatic Generation Alignment mechanism to align generation in-tents at the semantic level. Experiments demonstrate that our FREE-Switch ( Fre quency-based Efficient and Dynamic LoRA Switch) framework efficiently combines adapters for different objects and styles, substantially reducing the train-ing cost of high-quality customized generation. 
+
+## 1. Introduction 
+
+With the rapid development and widespread adoption of pre-trained diffusion models [12, 18, 20, 21, 23, 29, 42], the open-source community has seen the emergence of numer-ous adapters tailored to different scenes and objects [9, 13,                                    
+
+> arXiv:2604.10023v1 [cs.CV] 11 Apr 2026 Content
+> Style
+> Timestep
+> Use Content LoRA in Early Steps, Style LoRA in Latter steps.
+> 1/3 2/3
+> Use Style LoRA in Early Steps, Content LoRA in Latter steps.
+> 1/3 2/3
+> Lose Content Good Quality
+> Lose Content Lose Content
+> Content
+> Style
+> Timestep
+> Use Content LoRA in Early Steps, Style LoRA in Latter steps.
+> 1/3 2/3
+> Use Style LoRA in Early Steps, Content LoRA in Latter steps.
+> 1/3 2/3
+> Good Quality
+> Good Quality
+> Lose Style
+> Lose Content
+> (a) (b)
+
+Figure 2. Different LoRA combinations require different hyper-parameter selections. (a) and (b) show two sets of LoRA combinations, where a LoRA combination method that works well for one set may not necessarily be suitable for the other. 
+
+24, 26, 28, 36]. These adapters open up new possibilities for customizable generation. By combining these adapters at zero cost, highly customized outputs can be generated, significantly reducing the need for retraining and greatly fa-cilitating deployment for edge users [19, 25, 35, 43, 44]. For this task, current zero-cost approaches can be cate-gorized into Model Merging [14, 25, 34] and Model Switch-ing [8, 19, 43]. Merging refers to deploying a single model after integration, while Switching alternates between dif-ferent models during the denoising process. Existing re-search on model merging primarily focuses on classifica-tion and text generation tasks [14, 40]. However, in multi-step image generation, errors tend to accumulate and am-plify in the final output, leading to noticeable content drift or artifacts that degrade image quality. Meanwhile, meth-ods specifically designed for image generation, either merg-ing or switching, often require substantial computational resources [26], making them impractical for edge deploy-ment. However, training-free methods often simplify the process through unified combination strategies and shared hyperparameters [19], yet they overlook the inherent differ-ences among adapters, causing detail loss and reducing the precision of the generated results as shown in Fig. 2. To address the challenges of efficiently combining mul-tiple adapters for diffusion-based generation, we introduce FREE-Switch, a Frequency-based Efficient and Dynamic Adapter Switch framework. Although these adapters are trained on the same diffusion backbone, we observe that the functional importance of each diffusion step varies across adapters, depending on the target object. This variation suggests that a fixed combination strategy is insufficient, as it fails to account for the dynamic contribution of each adapter throughout the generation process. In light of this observation, we propose a dynamic switch strategy guided by frequency-domain importance, which adaptively adjusts the contribution of each adapter at every diffusion step. This mechanism allows precise control over how different adapters influence the final output, thereby preventing detail degradation and improving image fidelity. Moreover, we find that maintaining semantic consistency across adapters during switching is crucial for preserving fine-grained de-tails. To achieve this, we design an automatic Generation Alignment mechanism that leverages a Vision-Language Model (VLM) [3, 5] to refine and enrich the target descrip-tion, ensuring semantic alignment between adapters. To-gether, these components form the FREE-Switch, an effi-cient solution that enables adaptive, high-quality, and low-cost customized generation across diverse diffusion models. Through extensive experimentation, we have validated that our FREE-Switch can efficiently combine adapters suited to different objects and styles across various base models, significantly reducing the cost of customized gen-eration while ensuring high-quality output on edge devices. The main contributions of this paper are as follows: 
+
+• We discover that the importance of each generation step varies for different adapters, leading to the design of a dynamic adapter-switching method based on frequency-domain importance in adapter combination. 
+
+• We find that minimizing semantic shifts during adapter switching reduces detail degradation in fused outputs. Ac-cordingly, we propose a VLM-based automatic prompt re-finement method to enhance consistency across adapters. 
+
+• Through extensive experimentation, we demonstrate that our FREE-Switch framework can efficiently combine adapters suited to different objects and styles across various base diffusion models in training-free scenarios. A   
+
+> B
+> A
+> B
+> Content LoRA
+> Style LoRA
+> Frequency Domain Importance of Each
+> Step for Content Generation.
+> Frequency Domain Importance of Each
+> Step for Style Generation.
+> Timestep t
+
+Scale t x Freq t
+
+Scale t x Freq t
+
+Dynamic LoRA Switch    
+
+> A
+> B
+> Compare
+> Selected LoRA
+> at Timestep t Base Model
+
+Generation Alignment  
+
+> Referenced Content Referenced Style
+> Extended Prompt
+
+Figure 3. The framework diagram of FREE-Switch. The Dynamic LoRA Switch module dynamically switches LoRA during the denoising process by analyzing the timestep. The Generation Alignment module automatically expands the prompt to ensure that the outputs remain as aligned as possible during LoRA switching, thereby reducing detail loss. 
+
+## 2. Related Work 
+
+Diffusion Models for Customization Tasks. In the diffu-sion generation process, customization refers to generating content that meets detailed user requirements. Techniques such as Textual Inversion [1, 30, 39], DreamBooth [24], and Custom Diffusion [17] enable models to capture target con-cepts using only a limited number of images, but they still require some training, which imposes computational de-mands on end users. Additionally, there are methods that do not require training at inference time [2, 4, 27, 31–33], yet they often rely on pre-trained modules and may per-form suboptimally on specialized tasks. With the increasing availability of open-sourced adapter weights, research on efficiently combining these adapters to generate customized content has begun to attract growing attention. 
+
+Model Combination for General Tasks. Model combi-nation methods include Model Ensemble [10, 15], Model Merging [14, 38], and Model Switch [8, 16]. Model En-semble requires multiple inferences and intermediate fea-ture storage, incurring high cost. Model Merging com-bines existing models trained on different tasks into a single model capable of handling multiple tasks. However, for im-age generation tasks, the advantage of Model Merging is diminished due to the limited number of models for fusion, and the accumulated errors at each denoising step can neg-atively impact the quality of the generated results. In con-trast, Model Switch preserves the optimization direction at each step, making it more suitable for image generation. 
+
+Model Combination for Image Generation. Prior work on LoRA composition falls into training-based and training-free categories. Training-based methods [6, 9, 11, 26], such as ZipLoRA [26] and B-LoRA [9], learn fusion strate-gies via gradient-based hyperparameter optimization but in-cur significant computational cost. Training-free methods [19, 35, 43, 44], including LoRA Composition [43], CM-LoRA [44] and K-LoRA [19], fix the LoRA fusion pro-cess to reduce cost, but overlook that different adapters may require distinct parameters or timing, often resulting in suboptimal control and style decay. In contrast, our pro-posed FREE-Switch efficiently retrieves the characteristics of each adapter from its output features and dynamically builds a composition strategy for every input sample. 
+
+## 3. Preliminaries 
+
+Assume that fθ denotes the mapping function of a diffu-sion model equipped with a LoRA parameterized by θ. The denoising operation at the t-th step can be expressed as 
+
+fθ (ht−1) → ht, where ht−1 represents the output of the 
+
+(t − 1) -th denoising step. Suppose the LoRAs to be fused correspond to the content and style generation, denoted as 
+
+θc and θs, respectively. The objective of this work is to de-termine θt in fθt (ht−1) for each denoising step t.
+
+## 4. Methodology 
+
+In this section, we primarily introduce our proposed FREE-Switch framework as shown in Fig. 3. The key advantage of this method lies in its efficient, training-free combination of the generated content from different LoRAs. The frame-work consists of two main components. In Sec. 4.1, we present the frequency-domain-based LoRA-Switch method and discuss its necessity. In Sec. 4.2, we introduce the use of Generation Alignment to make the generated content from different LoRAs as similar as possible, thereby reducing the loss of details during combination. Finally, in Sec. 4.3, we provide a detailed pseudocode analysis. 
+
+4.1. Frequency-Based Dynamic LoRA-Switch 
+
+Motivation. We motivate the need for a dynamic LoRA Switch and justify it from a frequency-domain perspec-tive. Prior work [7, 12] has shown that different steps in diffusion-based image generation emphasize different infor-mation. Early steps generate more low-frequency content, while later steps focus on high-frequency details. There-fore, using different LoRAs at different steps offers the po-tential to fuse multiple LoRAs effectively, as various con-tent and style elements demand different frequency char-Content                    
+
+> Style
+> 6/10 7/10
+> Good Quality Good Quality
+> Target
+> Discard steps with Minimal second -order change in frequency domain .
+> 9/10
+> Lose Some Content
+> 6/10 7/10
+> Discard steps with Maximal second -order change in frequency domain .
+> 9/10
+> Lose Content Lose Content Lose Content
+> Good Quality Good Quality Good Quality Good Quality Lose Style Lose Style
+> (a) (b)
+
+Figure 4. For content and style generation, we examine how the frequency-domain variation rate across denoising steps affects the final output. As shown in (a) and (b), removing the fastest-varying steps of frequency domain as calculated in Eq. 1 causes a more significant degradation, indicating that rapidly changing steps are essential for maintaining generation fidelity. 
+
+acteristics. As shown in Fig. 4, due to differences among LoRAs, existing methods that apply a fixed static switch, such as using content LoRA first and then switching to style LoRA, are suboptimal. A dynamic design tailored to spe-cific LoRA combinations is necessary and requires assess-ing the importance of each LoRA at each step. Frequency-domain analysis reflects the degree of change at each step. We observe that steps with significant fre-quency variation are crucial for preserving the details cor-responding to each LoRA. Omitting the appropriate LoRA at these steps can result in substantial loss of content de-tails. Based on this, we evaluate the importance of each step for each LoRA according to the magnitude of frequency changes, enabling a dynamic LoRA Switch. 
+
+Method. We first compute the importance of each diffusion step for both the content and style LoRAs. The importance at the t-th denoising step is defined as: 
+
+δtc = || [F(fθc (ht)) − F (f (ht))] 
+
+− [F(fθc (ht−1)) − F (f (ht−1))] || 2
+
+δts = || [F(fθs (ht)) − F (f (ht))] 
+
+− [F(fθs (ht−1)) − F (f (ht−1))] || 2
+
+(1) where F represents the frequency domain, || .|| 2 denotes the L2 norm, δtc and δts represent the second-order frequency-domain differences of the denoising results at step t using the content and style LoRAs, respectively. f (ht) represents the base model output at the t-th step. This output is the result of converting the latent output into an RGB image. δ
+
+is used to measure the importance of each denoising step for each LoRA. Intuitively, a large variation indicates that the LoRA introduces significant information at that step, thus being more important. The validity is illustrated in Fig. 4. From an overall perspective, early denoising steps focus more on generating low-frequency information, such as the structural outlines corresponding to the content, while later steps emphasize high-frequency information related to style and fine details. Therefore, we define a step-dependent pa-rameter to guide the switching process. In the early steps, we prioritize the content LoRA to ensure structural consis-tency, and in the later steps, we focus more on the style LoRA to enhance fine details: 
+
+ηt = 0 .5 × (1 + cos( π × xt)) , (2) where 
+
+xt = δts × ratio t
+
+δts × ratio t + δtc × (1 − ratio t) , (3) 
+
+ratio t = ttotal step . (4) Here, total step denotes the total number of denoising steps, and ηt serves as a dynamic switching coefficient. A larger ηt indicates a higher preference for the content LoRA. To improve robustness, we introduce stochasticity into the switching process. The LoRA used at the t-th de-noising step is determined as: 
+
+θt =
+
+(
+
+θcontent , ηt > r, θstyle , ηt < r.  (5) where r denotes a uniform random number in [0, 1]. Through this mechanism, we achieve an adaptive and stochastic dynamic LoRA switching strategy. 
+
+4.2. Generation Alignment 
+
+Motivation. In this part, we identify a common issue in LoRA combination methods, including LoRA Switch. The prompts used to train task-specific LoRAs often fail to cap-ture all the fine-grained details of the target content. Con-Algorithm 1 Workflow of FREE-Switch 
+
+Input: Content LoRA θc, Style LoRA θs, base model f ,referenced content data c and referenced style data s. 
+
+> 1:
+
+Get δc and δs as Eq. 1 ▷ Only excute once for one pair.  
+
+> 2:
+
+Get Refine prompt p as Sec. 4.2 ▷ Only excute once for one pair.  
+
+> 3:
+
+for timestep t ∈ T do  
+
+> 4:
+
+Get η as Eq. 2.  
+
+> 5:
+
+Get θ for timestep t as Eq. 5  
+
+> 6:
+
+ht = fθ (ht−1, p ) 
+
+> 7:
+
+end for Output: Output X.sequently, when switching to another LoRA during com-bination, the lack of corresponding conditioning informa-tion and the absence of optimization within the current sub-space cause the denoising trajectory to deviate from that of the previous LoRA, leading to degraded generation quality. To avoid additional joint training for aligning the denoising paths of different LoRAs, we propose to align them by op-timizing the conditioning input, thereby minimizing quality loss during LoRA switching. 
+
+Method. To align the outputs of different LoRAs by optimizing the conditioning input and prevent Out-of-Distribution mapping across subspaces during denoising, we introduce an automatic Prompt Refine method. Specif-ically, for each LoRA, we augment the original prompt with two reference images, image content and image style .A vision-language model (VLM) is employed to automat-ically generate textual descriptions for both images, fol-lowed by automated filtering and information extraction to obtain detailed content and style descriptions, denoted as 
+
+Econtent and Estyle . The final prompt fed into the genera-tive model is composed of Econtent + Estyle together with their trigger words. Details can be found in Appendix B.5. As analyzed in Sec. 5.4, this approach encourages the out-puts of different LoRAs to stay close in distribution, thereby reducing quality degradation during switching. 
+
+4.3. Free-Switch 
+
+In this part, we integrate the two modules discussed previously to form the proposed FREE-Switch framework. The detailed algorithm is presented in Alg. 1. Overall, the FREE-Switch framework combines the outputs of differ-ent LoRAs in an efficient, training-free and robust man-ner, ensuring high-quality generation while leveraging the strengths of each individual LoRA model. 
+
+## 5. Experiments 
+
+In this section, we conduct a comprehensive evaluation of the proposed method. Sec. 5.1 presents the experimental settings, Sec. 5.2 reports the comparative results, Sec. 5.3                             
+
+> Table 1. Comparison of performance of different model combi-nation methods on SDXL v1.0, where speed denotes the time re-quired to generate 10 images for a given pair of content and style.
+> CLIP Score (Style) ↑
+> DINO Score (Content) ↑
+> Gemini Feedback ↑
+> Speed (s/pair) ↓
+> Direct Generation (Refine Prompt) 58.62 36.01 6.67% 150 ZipLoRA [26] 53.93 69.18 3.33% 550 Joint Train 60.56 27.15 6.67% 589 Merge 60.56 41.44 16.67% 150 K-LoRA [19] 54.17 61.32 13.33% 290 FREE-Switch 61.59 68.57 53.33% 320
+
+provides the outcomes of the ablation studies, and Sec. 5.4 offers additional analyses and discussions. 
+
+5.1. Experiment Setup 
+
+Model Setup. For base models, we evaluate our method on SDXL v1.0 base [21], and Flux.1 [18]. Most of the LoRA models used in our experiments are open-sourced from Hugging Face, and details are provided in Appendix B.1. For a small subset of LoRA weights trained by ourselves, we follow the training strategy proposed in ZipLoRA [26]. For LoRA weights downloaded from Hugging Face, we use their default parameter settings if specified. 
+
+Baselines. We compare our method with both training-based and training-free approaches. The training-based baselines include joint content and style training as well as ZipLoRA [26], while the training-free baselines include Model Merge and K-LoRA [19]. Details can be found in Appendix B.3. Our objective is to achieve performance comparable to the training-based approaches while main-taining efficiency similar to the training-free ones. 
+
+Evaluation. We conduct quantitative and qualitative eval-uations. For quantitative analysis, following K-LoRA [19], we use the DINO Score [37] to evaluate content preserva-tion and the CLIP Score [22] to assess style consistency. Higher scores indicate better results. We also employ multi-modal models to further evaluate the generated images. For qualitative analysis, we present visual results from different methods and assess their perceptual quality through human judgment. Details about evaluation are in Appendix B.6. 
+
+5.2. Comparative Experiments 
+
+Quantitative Analysis. In Tab. 1, we present a quantita-tive comparison of 6000 generation results based on SDXL v1.0. It can be observed that our method achieves content and style preservation performance comparable to training-based approaches, while maintaining generation speed sim-ilar to training-free methods. Moreover, when evaluating 90 randomly sampled content–style pairs using Gemini 2.5-Flash [5] as the multimodal evaluation model, following the protocol described in K-LoRA [19], our FREE-Switch demonstrates clear advantages in both fidelity and consis-Content  Style                       
+
+> Direct
+> Generation
+> Joint
+> train
+> ZipLoRA
+> Merge
+> Ours
+> K-LoRA
+> Lose Style
+> Lose
+> Content
+> Good
+> Quality
+> Low
+> Quality
+> Good
+> Quality
+> Style
+> Lose
+> Content
+> Lose Style
+> Lose
+> Content
+> Good
+> Quality
+> Lose
+> Content
+> Good
+> Quality
+> Lose Style
+> Lose
+> Content
+> Low
+> Quality
+> Good
+> Quality
+> Content
+> Joint
+> train
+> ZipLoRA
+> Merge
+> Ours
+> K-LoRA
+> Style Style
+> Direct
+> Generation
+> Lose
+> Content
+> Lose Style
+> Lose
+> Content
+> Lose Style
+> Good
+> Quality
+> Style
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose Style
+> Good
+> Quality
+> Style
+> Lose
+> Content
+> Low
+> Quality
+> Lose
+> Content
+> Lose Style
+> Good
+> Quality
+> Content Style Style Style
+> Direct
+> Generation
+> Joint
+> train
+> ZipLoRA
+> Merge
+> Ours
+> K-LoRA
+> SDXL v1.0 FLUX.1
+> Direct
+> Generation
+> Merge
+> Ours
+> K-LoRA
+> Lose Style Lose Style Lose Style Lose Style Lose Style Lose Style
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Low
+> Quality
+> Lose Style
+> Lose Style Lose Style
+> Lose Style Lose Style Lose
+> Content
+> Low
+> Quality
+> Lose Style Lose Style
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Content Style Style Style
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Content Style Style Style Content Style Style Style
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Lose
+> Content
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Good
+> Quality
+> Direct
+> Generation
+> Direct
+> Generation
+> Merge Merge
+> K-LoRA K-LoRA
+> Ours Ours
+
+Figure 5. Qualitative Analysis. We show the results of generating different content–style combinations using various LoRA combination methods on SDXL v1.0 and FLUX 1. Our FREE-Switch method demonstrates the most consistent and stable performance. 
+
+tency. These results comprehensively validate the effective-ness and robustness of the proposed FREE-Switch frame-work, which integrates a frequency-aware dynamic switch-ing mechanism with an output alignment strategy to achieve efficient and high-quality compositional generation. 
+
+Qualitative Analysis. Fig. 5 shows representative genera-tion results on SDXL and FLUX. As illustrated, our method intuitively preserves both content and style better than ex-isting approaches. This improvement can be attributed to two key factors. First, our frequency-domain importance analysis identifies which diffusion steps are critical for each LoRA, allowing the model to selectively apply adapters dur-ing the denoising process. Second, the prompt refinement mechanism enhances detail preservation by providing more aligned conditions, ensuring that the generated output re-mains faithful to both content and style. Together, these components enable our FREE-Switch to generate more vi-sually consistent results across diverse content–style com-binations. The dynamic switching and output alignment jointly ensure better preservation of both content and style. SDXL v1.0  FLUX.1 
+
+> Content
+> Style
+> Random
+> Switch
+> Fixed
+> Switch
+> Dynamic
+> Switch
+> FREE -
+> Switch
+> Fixed +
+> Prompt Aug
+
+SDXL v1.0  FLUX.1  
+
+> Content
+> Style
+> Space
+> Domain
+> Frequency
+> domain
+> One Order
+> Frequency
+> domain
+> Reverse
+> Space
+> Domain
+> Reverse
+> FREE -
+> Switch
+> (a) (b)
+
+Figure 6. (a) Ablation study on the components of FREE-Switch, showing their impact on content and style preservation. (b) Ablation study on the proposed frequency-domain importance-based dynamic LoRA Switch, highlighting its role in adaptive LoRA selection. CLIP Score (Style)  DINO Score (Content) 50 60 70 Score  Random Switch Fixed Switch  Dynamic Switch  Fixed + Prompt Refine  FREE-Switch 
+
+Figure 7. Quantitative analysis of FREE-Switch component abla-tion on content and style preservation. 
+
+5.3. Ablation Study 
+
+Component Ablation. In this section, we conduct an abla-tion study on the components proposed in this work. Details are shown in Fig. 6 and Fig. 7. We use SDXL v1.0 as the base model. The basic baseline is the random switch, where either the content or style LoRA is randomly selected during the denoising process. The fixed switch corresponds to the cosine-based fixed LoRA switching strategy introduced in Eq. 5, where xt = ratio t. As shown, incorporating the dy-namic switch significantly enhances both generation quality and stability by adaptively selecting LoRAs at each denois-ing step. Moreover, adding the output alignment mecha-nism further improves visual fidelity, consistency, and over-all rendering accuracy. Overall, the proposed FREE-Switch framework effectively fuses content and style representa-tions in a fully training-free manner while maintaining high generation efficiency and speed. 
+
+Frequency-Domain Dynamic Switching. In this part, we analyze different strategies for dynamic selection. We compare the performance on SDXL and FLUX using switches based on spatial-domain change magnitude, re-verse spatial/frequency-domain changes (where smaller changes are deemed more important), first-order frequency information change, and our proposed frequency-domain-based switch, which primarily modifies the calculation of 
+
+δ in Eq. 1. The results show that our proposed method achieves the best performance. This is mainly because, when generating images individually, a large frequency-domain change at the current step indicates that the step is important for the current LoRA and should be preserved. However, using only first-order information is susceptible to interference from the base model’s inherent capabilities across different steps. Spatial-domain-based switches also perform reasonably well, since the frequency domain is es-sentially a transformation of the spatial domain; however, in this task, frequency-domain information more accurately reflects the actual variations in the generated images. 
+
+5.4. Analysis 
+
+Why Not Use Model Merging. In this part, we analyze why model merging, which performs well in text genera-tion and classification tasks, is unstable in image genera-tion. Based on previous studies [41] and our observations, we find that LoRA models commonly used for image gener-ation exhibit significant magnitude discrepancies due to dif-Without Prompt Refine    
+
+> With Prompt Refine
+> Timestep
+> Misunderstand the Style
+> Keep the Style
+> Timestep
+> With Prompt Refine
+> Without Prompt Refine Forget the Style
+> Keep the Style
+> Content Content
+> Styl eStyl e
+
+Figure 8. Effect of the Output Alignment Method. Incorporating output alignment optimization allows the model to better interpret the original requirements during LoRA switching, resulting in higher-quality images that more accurately reflect user intent. LoRA Merging         
+
+> LoRA Switch
+> Timestep
+> Loss the Details
+> Keep the Details
+> Timestep
+> LoRA Switch
+> LoRA Merging Accumulated Errors and Loss
+> of Content Information
+> Keep the Details
+> Content Content
+> Style Style
+
+Figure 9. Analysis of Model Merging Methods for This Task. Model merging tends to accumulate errors throughout the diffusion process, leading to degraded generation quality and loss of fine details. Therefore, we adopt the LoRA Switch strategy instead. 0.02 0.01 0.00 0.01 0.02  
+
+> Value
+> 10 1
+> 10 0
+> 10 1
+> 10 2
+> 10 3
+> log(Density)
+> Distribution of LoRA Weights from Different Sources
+> Style LoRA 1
+> Style LoRA 2
+> Content LoRA 1
+> Content LoRA 2
+
+Figure 10. Parameter value distribution of LoRAs trained on dif-ferent sources based on FLUX. 
+
+ferences in their open-source origins, as shown in Fig. 10. Such discrepancies require delicate parameter tuning during the merging process, which is highly impractical in real-world applications. Moreover, since diffusion generation involves a multi-step denoising process, even small devi-ations introduced by model merging at each step can ac-cumulate, eventually resulting in noticeable degradation of image quality. As illustrated in Fig. 9, our comparison of the denoising trajectory shows that model merging gradu-ally deviates from the optimal path at each step, leading to unsatisfactory final outputs. Based on these findings, we adopt a LoRA switching strategy to preserve the full capa-bility of the model at each denoising step. 
+
+Effectiveness Analysis of Generation Alignment. This section evaluates the effectiveness of the proposed Genera-tion Alignment mechanism. We integrate our output align-ment method with different LoRA-combination strategies, and detailed generation results are shown in Fig. 6. The re-sults indicate that output alignment consistently improves generation quality. To offer a more intuitive view, we com-pare sampled results across several denoising steps with and without Prompt Refine under a fixed LoRA-switching setup. Without Prompt Refine, two major issues emerge: (1) a single LoRA may misinterpret concise textual cues in-tended for another LoRA, causing semantic inconsistency; and (2) switching LoRAs often leads to the loss of fine de-tails because the previous latent may fall outside the feature subspace optimized by the new LoRA, reducing fidelity. In contrast, Prompt Refine leverages the base model’s general-ization ability to bridge semantic and feature gaps between LoRAs, thereby enhancing overall image quality. 
+
+## 6. Conclusion 
+
+We propose FREE-Switch, a method for combining open-source LoRA weights to generate images with blended in-formation. Considering the diversity of information cap-tured by different LoRAs, we perform a frequency-domain analysis to assess the importance of each diffusion step for different LoRAs, enabling a dynamic switching mecha-nism. Furthermore, we highlight the importance of condi-tioning in stabilizing the denoising process during switch-ing and introduce an automatic prompt refinement strategy to enhance alignment. Overall, the proposed method effi-ciently leverages existing LoRAs to generate high-quality compositional images without additional training. Acknowledgements 
+
+This work is supported by National Natural Science Foun-dation of China (NSFC) (62232005, 62202126); the Na-tional Key Research and Development Program of China (2021YFB3300502). 
+
+## References 
+
+[1] Yuval Alaluf, Elad Richardson, Gal Metzer, and Daniel Cohen-Or. A neural space-time representation for text-to-image personalization. ACM Transactions on Graphics (TOG) , 42(6):1–10, 2023. 3 [2] Omri Avrahami, Kfir Aberman, Ohad Fried, Daniel Cohen-Or, and Dani Lischinski. Break-a-scene: Extracting multi-ple concepts from a single image. In SIGGRAPH Asia 2023 Conference Papers , pages 1–12, 2023. 3 [3] Shuai Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Sibo Song, Kai Dang, Peng Wang, Shijie Wang, Jun Tang, Humen Zhong, Yuanzhi Zhu, Mingkun Yang, Zhao-hai Li, Jianqiang Wan, Pengfei Wang, Wei Ding, Zheren Fu, Yiheng Xu, Jiabo Ye, Xi Zhang, Tianbao Xie, Zesen Cheng, Hang Zhang, Zhibo Yang, Haiyang Xu, and Jun-yang Lin. Qwen2.5-vl technical report. arXiv preprint arXiv:2502.13923 , 2025. 2 [4] Jiwoo Chung, Sangeek Hyun, and Jae-Pil Heo. Style injec-tion in diffusion: A training-free approach for adapting large-scale diffusion models for style transfer. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 8795–8805, 2024. 3 [5] Gheorghe Comanici, Eric Bieber, Mike Schaekermann, Ice Pasupat, Noveen Sachdeva, Inderjit Dhillon, Marcel Blis-tein, Ori Ram, Dan Zhang, Evan Rosen, et al. Gemini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities. arXiv preprint arXiv:2507.06261 , 2025. 2, 5 [6] Jiahua Dong, Wenqi Liang, Hongliu Li, Duzhen Zhang, Meng Cao, Henghui Ding, Salman H Khan, and Fahad Shah-baz Khan. How to continually adapt text-to-image diffusion models for flexible customization? Advances in Neural In-formation Processing Systems , 37:130057–130083, 2024. 3 [7] Fabian Falck, Teodora Pandeva, Kiarash Zahirnia, Rachel Lawrence, Richard Turner, Edward Meeds, Javier Zazo, and Sushrut Karmalkar. A fourier space perspective on diffusion models. arXiv preprint arXiv:2505.11278 , 2025. 3 [8] William Fedus, Barret Zoph, and Noam Shazeer. Switch transformers: Scaling to trillion parameter models with sim-ple and efficient sparsity. Journal of Machine Learning Re-search , 23(120):1–39, 2022. 2, 3 [9] Yarden Frenkel, Yael Vinker, Ariel Shamir, and Daniel Cohen-Or. Implicit style-content separation using b-lora. In 
+
+European Conference on Computer Vision , pages 181–198. Springer, 2024. 1, 3 [10] Mudasir A Ganaie, Minghui Hu, Ashwani Kumar Malik, Muhammad Tanveer, and Ponnuthurai N Suganthan. Ensem-ble deep learning: A review. Engineering Applications of Artificial Intelligence , 115:105151, 2022. 3 [11] Yuchao Gu, Xintao Wang, Jay Zhangjie Wu, Yujun Shi, Yun-peng Chen, Zihan Fan, Wuyou Xiao, Rui Zhao, Shuning Chang, Weijia Wu, et al. Mix-of-show: Decentralized low-rank adaptation for multi-concept customization of diffusion models. Advances in Neural Information Processing Sys-tems , 36:15890–15902, 2023. 3 [12] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising dif-fusion probabilistic models. Advances in neural information processing systems , 33:6840–6851, 2020. 1, 3 [13] Edward J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen, et al. Lora: Low-rank adaptation of large language models. ICLR ,1(2):3, 2022. 1 [14] Gabriel Ilharco, Marco Tulio Ribeiro, Mitchell Wortsman, Suchin Gururangan, Ludwig Schmidt, Hannaneh Hajishirzi, and Ali Farhadi. Editing models with task arithmetic. arXiv preprint arXiv:2212.04089 , 2022. 2, 3 [15] Dongfu Jiang, Xiang Ren, and Bill Yuchen Lin. Llm-blender: Ensembling large language models with pair-wise ranking and generative fusion. arXiv preprint arXiv:2306.02561 , 2023. 3 [16] Rui Kong, Qiyang Li, Xinyu Fang, Qingtian Feng, Qingfeng He, Yazhu Dong, Weijun Wang, Yuanchun Li, Linghe Kong, and Yunxin Liu. Lora-switch: Boosting the efficiency of dy-namic llm adapters via system-algorithm co-design. arXiv preprint arXiv:2405.17741 , 2024. 3 [17] Nupur Kumari, Bingliang Zhang, Richard Zhang, Eli Shechtman, and Jun-Yan Zhu. Multi-concept customization of text-to-image diffusion. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,pages 1931–1941, 2023. 3 [18] Black Forest Labs. Flux. https://github.com/ black-forest-labs/flux , 2024. 1, 5 [19] Ziheng Ouyang, Zhen Li, and Qibin Hou. K-lora: Unlock-ing training-free fusion of any subject and style loras. arXiv preprint arXiv:2502.18461 , 2025. 2, 3, 5 [20] William Peebles and Saining Xie. Scalable diffusion models with transformers. In Proceedings of the IEEE/CVF inter-national conference on computer vision , pages 4195–4205, 2023. 1 [21] Dustin Podell, Zion English, Kyle Lacey, Andreas Blattmann, Tim Dockhorn, Jonas M¨ uller, Joe Penna, and Robin Rombach. Sdxl: Improving latent diffusion mod-els for high-resolution image synthesis. arXiv preprint arXiv:2307.01952 , 2023. 1, 5 [22] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervi-sion. In International conference on machine learning , pages 8748–8763. PmLR, 2021. 5 [23] Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj¨ orn Ommer. High-resolution image synthesis with latent diffusion models. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 10684–10695, 2022. 1 [24] Nataniel Ruiz, Yuanzhen Li, Varun Jampani, Yael Pritch, Michael Rubinstein, and Kfir Aberman. Dreambooth: Fine tuning text-to-image diffusion models for subject-driven generation. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 22500– 22510, 2023. 2, 3 [25] Simo Ryu. Low-rank adaptation for fast text-to-image diffu-sion fine-tuning, 2022. 2 [26] Viraj Shah, Nataniel Ruiz, Forrester Cole, Erika Lu, Svet-lana Lazebnik, Yuanzhen Li, and Varun Jampani. Ziplora: Any subject in any style by effectively merging loras. In 
+
+European Conference on Computer Vision , pages 422–438. Springer, 2024. 2, 3, 5, 1 [27] Jing Shi, Wei Xiong, Zhe Lin, and Hyun Joon Jung. In-stantbooth: Personalized text-to-image generation without test-time finetuning. In Proceedings of the IEEE/CVF con-ference on computer vision and pattern recognition , pages 8543–8552, 2024. 3 [28] Kihyuk Sohn, Nataniel Ruiz, Kimin Lee, Daniel Castro Chin, Irina Blok, Huiwen Chang, Jarred Barber, Lu Jiang, Glenn Entis, Yuanzhen Li, et al. Styledrop: Text-to-image generation in any style. arXiv preprint arXiv:2306.00983 ,2023. 2 [29] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denoising diffusion implicit models. arXiv preprint arXiv:2010.02502 , 2020. 1 [30] Andrey Voynov, Qinghao Chu, Daniel Cohen-Or, and Kfir Aberman. p+: Extended textual conditioning in text-to-image generation. arXiv preprint arXiv:2303.09522 , 2023. 3[31] Guangxuan Xiao, Tianwei Yin, William T Freeman, Fr´ edo Durand, and Song Han. Fastcomposer: Tuning-free multi-subject image generation with localized attention. Interna-tional Journal of Computer Vision , 133(3):1175–1194, 2025. 3[32] Shaoan Xie, Zhifei Zhang, Zhe Lin, Tobias Hinz, and Kun Zhang. Smartbrush: Text and shape guided object inpainting with diffusion model. In Proceedings of the IEEE/CVF con-ference on computer vision and pattern recognition , pages 22428–22437, 2023. [33] Ruojun Xu, Weijie Xi, XiaoDi Wang, Yongbo Mao, and Zach Cheng. Stylessp: Sampling startpoint enhancement for training-free diffusion-based method for style transfer. In 
+
+Proceedings of the Computer Vision and Pattern Recognition Conference , pages 18260–18269, 2025. 3 [34] Prateek Yadav, Derek Tam, Leshem Choshen, Colin A Raf-fel, and Mohit Bansal. Ties-merging: Resolving interference when merging models. Advances in Neural Information Pro-cessing Systems , 36:7093–7115, 2023. 2 [35] Yang Yang, Wen Wang, Liang Peng, Chaotian Song, Yao Chen, Hengjia Li, Xiaolong Yang, Qinglin Lu, Deng Cai, Boxi Wu, et al. Lora-composer: Leveraging low-rank adap-tation for multi-concept customization in training-free diffu-sion models. arXiv preprint arXiv:2403.11627 , 2024. 2, 3 [36] Hu Ye, Jun Zhang, Sibo Liu, Xiao Han, and Wei Yang. Ip-adapter: Text compatible image prompt adapter for text-to-image diffusion models. arXiv preprint arXiv:2308.06721 ,2023. 2 [37] Hao Zhang, Feng Li, Shilong Liu, Lei Zhang, Hang Su, Jun Zhu, Lionel M Ni, and Heung-Yeung Shum. Dino: Detr with improved denoising anchor boxes for end-to-end object detection. arXiv preprint arXiv:2203.03605 , 2022. 5 [38] Jinghan Zhang, Junteng Liu, Junxian He, et al. Compos-ing parameter-efficient modules with arithmetic operation. 
+
+Advances in Neural Information Processing Systems , 36: 12589–12610, 2023. 3 [39] Yuxin Zhang, Nisha Huang, Fan Tang, Haibin Huang, Chongyang Ma, Weiming Dong, and Changsheng Xu. Inversion-based style transfer with diffusion models. In Pro-ceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 10146–10156, 2023. 3 [40] Shenghe Zheng and Hongzhi Wang. Free-merging: Fourier transform for efficient model merging. In Proceedings of the IEEE/CVF International Conference on Computer Vi-sion , pages 3863–3873, 2025. 2 [41] Shenghe Zheng, Hongzhi Wang, Chenyu Huang, Xiaohui Wang, Tao Chen, Jiayuan Fan, Shuyue Hu, and Peng Ye. Decouple and orthogonalize: A data-free framework for lora merging. arXiv preprint arXiv:2505.15875 , 2025. 7 [42] Shenghe Zheng, Junpeng Jiang, and Wenbo Li. V-bridge: Bridging video generative priors to versatile few-shot image restoration. arXiv preprint arXiv:2603.13089 , 2026. 1 [43] Ming Zhong, Yelong Shen, Shuohang Wang, Yadong Lu, Yizhu Jiao, Siru Ouyang, Donghan Yu, Jiawei Han, and Weizhu Chen. Multi-lora composition for image generation. 
+
+arXiv preprint arXiv:2402.16843 , 2024. 2, 3 [44] Xiandong Zou, Mingzhu Shen, Christos-Savvas Bouganis, and Yiren Zhao. Cached multi-lora composition for multi-concept image generation. arXiv preprint arXiv:2502.04923 ,2025. 2, 3 FREE-Switch: Frequency-based Dynamic LoRA Switch for Style Transfer 
+
+# Supplementary Material 
+
+## A. Notations 
+
+We first list the notations for key concepts in our paper. 
+
+Table 2. Notations.              
+
+> Notations Descriptions
+> fPre-trained diffusion model.
+> θcFine-tuning parameters for content.
+> θsFine-tuning parameters for style.
+> htThe output of t-th diffuison step.
+> f(ht−1)The denoising process of t-th step using base model.
+> fθ(ht−1)The denoising process of t-th step with LoRA θ.
+
+## B. Reproducibility 
+
+B.1. Base Model 
+
+SDXL v1.0. [21] Stable Diffusion XL (SDXL) v1.0 is a high-capacity latent diffusion model tailored for high-resolution text-to-image generation. It utilizes a dual-stage U-Net architecture coupled with an enhanced text encoder to improve semantic comprehension and prompt fidelity. In this work, SDXL v1.0 serves as the principal backbone for LoRA fine-tuning, providing strong expressivity for both concept and style learning. Its latent space supports fine-grained control over texture and geometry, making it suit-able for analyzing adapter alignment and compositionality. 
+
+FLUX.1 [18]. FLUX 1 is a transformer-based diffusion architecture optimized for fine-grained detail and global photorealism. Compared with SDXL, it integrates cross-layer attention, offering complementary structural inductive bias. We include FLUX 1 to examine the generality of our frequency-domain dynamic adapter switching mechanism across distinct diffusion architectures. Using both SDXL and FLUX ensures that the observed performance improve-ments originate from the proposed adapter fusion strategy rather than model-specific characteristics. 
+
+B.2. Adapters 
+
+In this part, we describe the open-source adapters used in our study and how we obtained the partially trained adapters included in our experiments. 
+
+SDXL v1.0. For settings where SDXL v1.0 serves as the base model, we conduct evaluations using K-LoRA. Following the same training protocol and dataset used in RA, we train dedicated content and style LoRAs using the DreamBooth procedure, and employ them for subsequent combination tests. The detailed hyperparameters are pro-vided in Tab. 3. 
+
+Table 3. Training Configuations for LoRA. 
+
+Parameter Value rank 64 resolution 1024 train batch size 1learning rate 5.00E-05 lr scheduler constant lr warmup steps 0max train steps 1000 
+
+FLUX 1. For settings based on FLUX, we obtain all con-tent 1 and style 2 LoRAs directly from open-source reposito-ries on HuggingFace, aligning with our goal of evaluating models in a fully open-source manner. Since different Lo-RAs require different prompt formats and trigger words, we adopt their default configurations without modification. 
+
+B.3. Baselines 
+
+Direct Generation. Generates images directly using the pretrained diffusion backbone without any adapter. This baseline reveals the intrinsic generative capacity of the base model and serves as a reference for measuring the benefit of adapter combination. 
+
+Joint Train. Trains content and style adapters in a single optimization stage to allow cross-domain feature interac-tion. However, such coupling often causes entanglement between semantic and stylistic factors, making it difficult to maintain distinct semantic and stylistic roles. Moreover, simultaneous optimization of multiple adapters increases training cost, reducing its suitability for lightweight or mod-ular customization. 
+
+ZipLoRA. ZipLoRA [26] merges multiple LoRAs through interleaving rank components into a unified structure. It achieves parameter compression and moderate fusion qual-ity but lacks dynamic awareness of diffusion-step differ-ences, leading to degraded details in complex scenarios. 
+
+Merge. This baseline performs simple arithmetic merg-ing of individually trained LoRA weights, typically via weighted averaging of corresponding matrices. Although computationally efficient, it lacks semantic adaptivity, of-
+
+> 1https://huggingface.co/DeZoomer/ScarlettJohansson-FluxLora https://huggingface.co/wanghaofan/Black-Myth-Wukong-FLUX-LoRA https://huggingface.co/fofr/flux-mona-lisa https://huggingface.co/ginipick/flux-lora-eric-cat
+> 2https://huggingface.co/lucataco/ReplicateFluxLoRA https://huggingface.co/dataautogpt3/FLUX-AestheticAnime https://huggingface.co/multimodalart/flux-tarot-v1 https://huggingface.co/alvdansen/softserve anime
+
+ten resulting in content distortion or style dilution. It is also important to note that our task involves only two LoRAs to be fused. Therefore, existing merge-based approaches that aim to mitigate conflicts among multiple LoRAs offer lim-ited benefits in our setting, and their performance becomes largely comparable to a simple weighted merge. 
+
+K-LoRA. K-LoRA [19] is a training-free LoRA fusion ap-proach that adaptively integrates subject and style LoRAs without requiring additional fine-tuning. It operates by in-troducing a Top-K selection mechanism within attention layers, which identifies the most salient components from content and style LoRAs and dynamically combines them at each diffusion timestep. This strategy enables effec-tive preservation of both subject and stylistic features while maintaining model stability. 
+
+B.4. Details 
+
+We discuss the computational details of the experiments. All experiments are conducted on NVIDIA RTX 3090 GPUs, except for those involving FLUX.1, which are run on NVIDIA A800 GPUs. 
+
+B.5. Details of Generation Alignment 
+
+Box B.1: System Prompt for Content Alignment. 
+
+You are a concept extractor specialized in analyzing MULTIPLE images of {class name }
+
+CORE TASK: Extract ONLY the SHARED core subject content across all concept images (ignore unique details from single images). MANDATORY INCLUSIONS: • Shared subject identity (clear category of the main subject, e.g., ’ceramic teapot’). • 3+ shared key features (form, structure, pose, unique traits present in ALL images, e.g., ’domed lid, curved spout’). STRICT EXCLUSIONS: • NO style elements (color, texture, lighting, brush-work — these belong to style descriptions). • NO background, environment, props, text, or camera-related details (e.g., ’indoors’, ’close-up’). • NO unique details from individual images (e.g., a pattern only in one image). STRICT TOKEN LIMIT: The output must be 
+
+≥{ concept token limit } tokens. OUTPUT FORMAT: Single line in the structure: ’[shared subject identity] with [shared feature1], [shared feature2], [shared feature3+]’ Example: ’Ceramic teapot with domed lid, curved spout, C-shaped handle. 
+
+Box B.2: User Prompt for Content Alignment. 
+
+Analyze the provided MULTIPLE Concept Images of ’ {class name }’Follow these steps: 1. Identify the SHARED main subject (present in all images). 2. Extract 3+ key features that appear in ALL im-ages (ignore features unique to single images). 3. Describe them in the required format, excluding all style elements, background, and unique details. - The output must be STRICTLY 
+
+≤{ concept token limit } tokens. - Prioritize retaining 3+ key features over redundant words if approaching the limit. Output ONLY the following line (no extra text): [shared subject] with [feature1], [feature2], [fea-ture3+] 
+
+Box B.3: System Prompt for Style Alignment. 
+
+You are a style extractor specialized in analyzing a single {style name } image. CORE TASK: Extract ONLY pure visual style ele-ments from the style image (ignore any subject/con-tent details). MANDATORY INCLUSIONS: • Artistic medium (clear type of art form, e.g., ’wa-tercolor painting’, ’crayon drawing’). • 3+ visual style elements (must be from color palette, lighting, texture/brushwork, mood — e.g., ’soft blue palette, textured brushstrokes’). STRICT EXCLUSIONS: • NO subject content (objects, structure, form, or any elements related to concept themes). • NO redundant descriptions unrelated to visual style (e.g., ’popular style’, ’modern design’). STRICT TOKEN LIMIT: The output must be 
+
+≤{ style token limit } tokens. OUTPUT FORMAT: Single line in the structure: ’[artistic medium] with [style element1], [style ele-ment2], [style element3+]’ Example: ’Watercolor painting with soft blue palette, textured brushstrokes, warm ambient light-ing, dreamy mood’. 
+
+In this part, we describe how we leverage a Vision-Language Model (VLM) for generation alignment. Our alignment strategy is primarily achieved through a prompt-refinement scheme, where Qwen3-VL-Plus is used as the multimodal model to extract and enrich visual information. The prompts applied in our workflow are provided in Boxes Content Extraction VLM    
+
+> Content Text Content Reference Images
+> Style Extraction VLM
+> Stylet Text Style Reference Images
+> Input Input
+> Content Description
+> Merge Description with Trigger Words
+> Style Description
+> “{Content Description} ({Content Trigger Words}), rendered in {Style Description} ({Style Trigger Words})"
+
+Figure 11. The Pipeline of Generation Alignment. 
+
+B.1–B.4. Specifically, we feed the VLM with both the orig-inal class name and its corresponding reference image. The VLM then extracts the most salient semantic cues, which are further filtered as illustrated in Fig. 11, and finally used as the refined prompt for generation. 
+
+Box B.4: User Prompt for Style Alignment. 
+
+Analyze the provided single {style name } image. Follow these steps: 1. Identify the artistic medium (e.g., ’oil painting’, ’digital illustration’). 2. Extract 3+ pure visual style elements (focus on color, lighting, texture, mood — avoid any content). 3. Describe them in the required format, excluding all subject-related and non-style details. The output must be STRICTLY 
+
+≤{ style token limit } tokens. Prioritize retaining 3+ key style elements over re-dundant words if approaching the limit. Use concrete, art-specific vocabulary (e.g., ’impasto texture’, ’muted complementary palette’, ’film-grain aesthetic’). Output ONLY the following line (no extra text): ”[artistic medium] with [style element1], [style ele-ment2], [style element3+]” 
+
+B.6. Details of Evaluation 
+
+In this section, we describe the details of the evaluation met-rics used in our experiments. 
+
+Box B.5: Prompt for Gemini Feedback. 
+
+YOU ARE A STYLE TRANSFER EVALUA-TION EXPERT. YOUR SOLE OUTPUT MUST BE A SINGLE JSON OBJECT. DO NOT IN-CLUDE ANY INTRODUCTORY OR EXPLANA-TORY TEXT. TASK: Assess the images provided in this API call and determine which Candidate Image achieves the most successful and balanced fusion of the ”Content Reference Image’s” subject structure and the ”Style Reference Image’s” artistic characteristics. INPUT IMAGES: • Content Reference Image (Defines subject, out-line, and composition). • Style Reference Image (Defines color, lighting, texture, and style). • Candidate Images (The images to be compared and scored). EVALUATION CRITERIA: • Content Fidelity: The accuracy of the candidate image in preserving the subject’s identity and shape from the Content Reference (Score 1-5). • Style Fidelity: The accuracy of the candidate im-age in adopting the color scheme, texture, and artistic attributes from the Style Reference (Score 1-5). OUTPUT REQUIREMENTS: Provide a single JSON object with the following structure. The ’id’ field must clearly reference the Candi-date Image (e.g., Candidate A, Candidate 1, or the filename if available). 
+
+{ ”id”: ”Candidate 1 ID”, ”content fidelity score”: 0, ”style fidelity score”: 0 }
+
+CLIP Score. Following the procedure in K-LoRA, this metric measures how well each method preserves style. We use a pretrained ViT-B/32 model to encode the generated image and the reference style image into normalized high-dimensional feature vectors. The cosine similarity between the two vectors is then computed to quantify their semantic closeness, which reflects the degree of style preservation. 
+
+DINO Score. This metric is computed in a manner similar to the CLIP Score and evaluates content preservation. The difference is that the encoder is replaced with DINOv2-Base while all other computations remain the same. 
+
+Gemini Feedback. For this metric, we query Gemini 2.5-Flash to determine which image among those generated by different methods best aligns with the specified combina-tion of content and style. Gemini assigns a relevance score to each image, and the image with the highest score is se-lected. Over a batch of results, we compute the selection probability, where a higher probability indicates better gen-Content 
+
+> Style
+> Seed1
+> Seed2
+> Seed3
+> Seed5
+> Seed4 Figure 12. Failure case analysis using SDXL v1.0.
+
+eration quality. The reference image and the target prompt are provided as inputs to the model. 
+
+Speed. To evaluate efficiency, we measure the time required to generate ten images for a given content and style pair on a single NVIDIA RTX 3090. For methods that involve train-ing, this time includes both the training phase and the infer-ence phase. For training-free methods, it primarily reflects inference latency. For our method, the total time consists of determining the importance of each LoRA across denoising steps during inference, VLM inference and generating the ten images of each pair. 
+
+## C. Discussion 
+
+C.1. Failure Cases 
+
+In this section, we analyze several failure cases of our method. The goal is to identify its current limitations and provide insights for future methodological improvements. Representative failure examples are shown in Fig. 12. For example, the two styles shown in Fig. 12, namely “in ab-stract rainbow colored flowing smoke wave design” and “in glowing style,” are highly abstract and differ significantly from typical content images. As a result, both styles exhibit varying degrees of style degradation during the training-free optimization process. We observe that, because our approach does not involve any training, it struggles with highly abstract styles. Generating a coherent combination of such styles and the target content requires a deep un-derstanding of both the prompt semantics and the under-lying generative trajectory. However, existing open-source weights may not possess this level of capability, which makes it difficult for training-free methods to achieve sat-isfactory results in these cases. This suggests that future work may benefit from incorporating lightweight, low-cost training mechanisms to address these limitations. 
+
+C.2. Future Works 
+
+Our analysis of failure cases highlights several promising research directions. Although our framework remains en-tirely training-free, certain abstract or concept-heavy styles appear to require a deeper semantic understanding than what current open-source weights can provide. Future work may explore lightweight or low-cost training strate-gies that enhance cross-style and cross-content reasoning without sacrificing the efficiency advantages of our ap-proach. Another interesting direction is to design adaptive refinement modules that dynamically learn style–content in-teractions during inference, enabling more robust genera-tion in scenarios with highly abstract or visually complex styles. Finally, integrating stronger or more specialized vision-language priors may further improve semantic align-ment and mitigate the limitations.

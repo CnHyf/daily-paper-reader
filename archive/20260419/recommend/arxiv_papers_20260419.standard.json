@@ -1,0 +1,548 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-04-19T19:37:04.462167+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 33,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2604.12219v1",
+      "source": "arxiv",
+      "title": "Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation",
+      "abstract": "Video Diffusion Transformers have revolutionized high-fidelity video generation but suffer from the massive computational burden of self-attention. While sparse attention provides a promising acceleration solution, existing methods frequently provoke severe visual flickering caused by static sparsity patterns and deterministic block routing. To resolve these limitations, we propose Precision-Allocated Sparse Attention (PASA), a training-free framework designed for highly efficient and temporally smooth video generation. First, we implement a curvature-aware dynamic budgeting mechanism. By profiling the generation trajectory acceleration across timesteps, we elastically allocate the exact-computation budget to secure high-precision processing strictly during critical semantic transitions. Second, we replace global homogenizing estimations with hardware-aligned grouped approximations, successfully capturing fine-grained local variations while maintaining peak compute throughput. Finally, we incorporate a stochastic selection bias into the attention routing mechanism. This probabilistic approach softens rigid selection boundaries and eliminates selection oscillation, effectively eradicating the localized computational starvation that drives temporal flickering. Extensive evaluations on leading video diffusion models demonstrate that PASA achieves substantial inference acceleration while consistently producing remarkably fluid and structurally stable video sequences.",
+      "authors": [
+        "Wentai Zhang",
+        "Ronghui Xi",
+        "Shiyao Peng",
+        "Jiayu Huang",
+        "Haoran Luo",
+        "Zichen Tang",
+        "Haihong E"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-14T02:51:52+00:00",
+      "link": "https://arxiv.org/pdf/2604.12219v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "training-free framework for smooth video generation",
+      "llm_evidence_cn": "用于平滑视频生成的免训练框架",
+      "llm_evidence": "用于平滑视频生成的免训练框架",
+      "canonical_evidence": "用于平滑视频生成的免训练框架",
+      "llm_tldr_en": "PASA is a training-free framework that uses dynamic sparse attention for efficient and smooth video generation.",
+      "llm_tldr_cn": "PASA 是一种免训练框架，通过动态稀疏注意力实现高效且平滑的视频生成。",
+      "llm_tldr": "PASA 是一种免训练框架，通过动态稀疏注意力实现高效且平滑的视频生成。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2604.10030v1",
+      "source": "arxiv",
+      "title": "Prompt Relay: Inference-Time Temporal Control for Multi-Event Video Generation",
+      "abstract": "Video diffusion models have achieved remarkable progress in generating high-quality videos. However, these models struggle to represent the temporal succession of multiple events in real-world videos and lack explicit mechanisms to control when semantic concepts appear, how long they persist, and the order in which multiple events occur. Such control is especially important for movie-grade video synthesis, where coherent storytelling depends on precise timing, duration, and transitions between events. When using a single paragraph-style prompt to describe a sequence of complex events, models often exhibit semantic entanglement, where concepts intended for different moments in the video bleed into one another, resulting in poor text-video alignment. To address these limitations, we propose Prompt Relay, an inference-time, plug-and-play method to enable fine-grained temporal control in multi-event video generation, requiring no architectural modifications and no additional computational overhead. Prompt Relay introduces a penalty into the cross-attention mechanism, so that each temporal segment attends only to its assigned prompt, allowing the model to represent one semantic concept at a time and thereby improving temporal prompt alignment, reducing semantic interference, and enhancing visual quality.",
+      "authors": [
+        "Gordon Chen",
+        "Ziqi Huang",
+        "Ziwei Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-11T04:59:06+00:00",
+      "link": "https://arxiv.org/pdf/2604.10030v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "inference-time temporal control for multi-event video generation",
+      "llm_evidence_cn": "多事件视频生成的推理时时间控制",
+      "llm_evidence": "多事件视频生成的推理时时间控制",
+      "canonical_evidence": "多事件视频生成的推理时时间控制",
+      "llm_tldr_en": "Prompt Relay enables precise temporal control over events in video diffusion models during inference.",
+      "llm_tldr_cn": "Prompt Relay在推理过程中实现了对视频扩散模型中事件的精确时间控制。",
+      "llm_tldr": "Prompt Relay在推理过程中实现了对视频扩散模型中事件的精确时间控制。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2604.10103v1",
+      "source": "arxiv",
+      "title": "Long-Horizon Streaming Video Generation via Hybrid Attention with Decoupled Distillation",
+      "abstract": "Streaming video generation (SVG) distills a pretrained bidirectional video diffusion model into an autoregressive model equipped with sliding window attention (SWA). However, SWA inevitably loses distant history during long video generation, and its computational overhead remains a critical challenge to real-time deployment. In this work, we propose Hybrid Forcing, which jointly optimizes temporal information retention and computational efficiency through a hybrid attention design. First, we introduce lightweight linear temporal attention to preserve long-range dependencies beyond the sliding window. In particular, we maintain a compact key-value state to incrementally absorb evicted tokens, retaining temporal context with negligible memory and computational overhead. Second, we incorporate block-sparse attention into the local sliding window to reduce redundant computation within short-range modeling, reallocating computational capacity toward more critical dependencies. Finally, we introduce a decoupled distillation strategy tailored to the hybrid attention design. A few-step initial distillation is performed under dense attention, then the distillation of our proposed linear temporal and block-sparse attention is activated for streaming modeling, ensuring stable optimization. Extensive experiments on both short- and long-form video generation benchmarks demonstrate that Hybrid Forcing consistently achieves state-of-the-art performance. Notably, our model achieves real-time, unbounded 832x480 video generation at 29.5 FPS on a single NVIDIA H100 GPU without quantization or model compression. The source code and trained models are available at https://github.com/leeruibin/hybrid-forcing.",
+      "authors": [
+        "Ruibin Li",
+        "Tao Yang",
+        "Fangzhou Ai",
+        "Tianhe Wu",
+        "Shilei Wen",
+        "Bingyue Peng",
+        "Lei Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-11T08:54:07+00:00",
+      "link": "https://arxiv.org/pdf/2604.10103v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "streaming video generation via hybrid attention",
+      "llm_evidence_cn": "通过混合注意力进行流式视频生成",
+      "llm_evidence": "通过混合注意力进行流式视频生成",
+      "canonical_evidence": "通过混合注意力进行流式视频生成",
+      "llm_tldr_en": "Proposes Hybrid Forcing to optimize temporal context and efficiency in long-horizon streaming video generation.",
+      "llm_tldr_cn": "提出 Hybrid Forcing，在长周期流式视频生成中优化时间上下文保留和计算效率。",
+      "llm_tldr": "提出 Hybrid Forcing，在长周期流式视频生成中优化时间上下文保留和计算效率。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "v",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.10023v1",
+      "source": "arxiv",
+      "title": "FREE-Switch: Frequency-based Dynamic LoRA Switch for Style Transfer",
+      "abstract": "With the growing availability of open-sourced adapters trained on the same diffusion backbone for diverse scenes and objects, combining these pretrained weights enables low-cost customized generation. However, most existing model merging methods are designed for classification or text generation, and when applied to image generation, they suffer from content drift due to error accumulation across multiple diffusion steps. For image-oriented methods, training-based approaches are computationally expensive and unsuitable for edge deployment, while training-free ones use uniform fusion strategies that ignore inter-adapter differences, leading to detail degradation. We find that since different adapters are specialized for generating different types of content, the contribution of each diffusion step carries different significance for each adapter. Accordingly, we propose a frequency-domain importance-driven dynamic LoRA switch method. Furthermore, we observe that maintaining semantic consistency across adapters effectively mitigates detail loss; thus, we design an automatic Generation Alignment mechanism to align generation intents at the semantic level. Experiments demonstrate that our FREE-Switch (Frequency-based Efficient and Dynamic LoRA Switch) framework efficiently combines adapters for different objects and styles, substantially reducing the training cost of high-quality customized generation.",
+      "authors": [
+        "Shenghe Zheng",
+        "Minyu Zhang",
+        "Tianhao Liu",
+        "Hongzhi Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-11T04:32:59+00:00",
+      "link": "https://arxiv.org/pdf/2604.10023v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "training-free model merging for customized generation",
+      "llm_evidence_cn": "用于定制化生成的免训练模型合并",
+      "llm_evidence": "用于定制化生成的免训练模型合并",
+      "canonical_evidence": "用于定制化生成的免训练模型合并",
+      "llm_tldr_en": "FREE-Switch is a training-free method to merge LoRA adapters for customized image generation without drift.",
+      "llm_tldr_cn": "FREE-Switch 是一种免训练方法，用于合并 LoRA 适配器以实现无漂移的定制化图像生成。",
+      "llm_tldr": "FREE-Switch 是一种免训练方法，用于合并 LoRA 适配器以实现无漂移的定制化图像生成。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.10383v1",
+      "source": "arxiv",
+      "title": "Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning",
+      "abstract": "Existing multi-agent video generation systems use LLM agents to orchestrate neural video generators, producing visually impressive but semantically unreliable outputs with no ground truth annotations. We present an agentic system that inverts this paradigm: instead of generating pixels, the LLM constructs a formal Graph of Events in Space and Time (GEST) -- a structured specification of actors, actions, objects, and temporal constraints -- which is then executed deterministically in a 3D game engine. A staged LLM refinement pipeline fails entirely at this task (0 of 50 attempts produce an executable specification), motivating a fundamentally different architecture based on a separation of concerns: the LLM handles narrative planning through natural language reasoning, while a programmatic state backend enforces all simulator constraints through validated tool calls, guaranteeing that every generated specification is executable by construction. The system uses a hierarchical two-agent architecture -- a Director that plans the story and a Scene Builder that constructs individual scenes through a round-based state machine -- with dedicated Relation Subagents that populate the logical and semantic edge types of the GEST formalism that procedural generation leaves empty, making this the first approach to exercise the full expressive capacity of the representation. We evaluate in two stages: autonomous generation against procedural baselines via a 3-model LLM jury, where agentic narratives win 79% of text and 74% of video comparisons; and seeded generation where the same text is given to our system, VEO 3.1, and WAN 2.2, with human annotations showing engine-generated videos substantially outperform neural generators on physical validity (58% vs 25% and 20%) and semantic alignment (3.75/5 vs 2.33 and 1.50).",
+      "authors": [
+        "Nicolae Cudlenco",
+        "Mihai Masala",
+        "Marius Leordeanu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-11T23:51:13+00:00",
+      "link": "https://arxiv.org/pdf/2604.10383v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable video generation via structured event graphs and 3D engine execution",
+      "llm_evidence_cn": "通过结构化事件图和3D引擎执行实现可控视频生成",
+      "llm_evidence": "通过结构化事件图和3D引擎执行实现可控视频生成",
+      "canonical_evidence": "通过结构化事件图和3D引擎执行实现可控视频生成",
+      "llm_tldr_en": "Uses LLMs to plan structured event graphs for deterministic video generation in 3D engines.",
+      "llm_tldr_cn": "利用大模型规划结构化事件图，在3D引擎中实现确定性的可控视频生成。",
+      "llm_tldr": "利用大模型规划结构化事件图，在3D引擎中实现确定性的可控视频生成。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.10268v1",
+      "source": "arxiv",
+      "title": "EditCrafter: Tuning-free High-Resolution Image Editing via Pretrained Diffusion Model",
+      "abstract": "We propose EditCrafter, a high-resolution image editing method that operates without tuning, leveraging pretrained text-to-image (T2I) diffusion models to process images at resolutions significantly exceeding those used during training. Leveraging the generative priors of large-scale T2I diffusion models enables the development of a wide array of novel generation and editing applications. Although numerous image editing methods have been proposed based on diffusion models and exhibit high-quality editing results, they are difficult to apply to images with arbitrary aspect ratios or higher resolutions since they only work at the training resolutions (512x512 or 1024x1024). Naively applying patch-wise editing fails with unrealistic object structures and repetition. To address these challenges, we introduce EditCrafter, a simple yet effective editing pipeline. EditCrafter operates by first performing tiled inversion, which preserves the original identity of the input high-resolution image. We further propose a noise-damped manifold-constrained classifier-free guidance (NDCFG++) that is tailored for high resolution image editing from the inverted latent. Our experiments show that the our EditCrafter can achieve impressive editing results across various resolutions without fine-tuning and optimization.",
+      "authors": [
+        "Kunho Kim",
+        "Sumin Seo",
+        "Yongjun Cho",
+        "Hyungjin Chung"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-11T16:12:27+00:00",
+      "link": "https://arxiv.org/pdf/2604.10268v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "tuning-free controllable image editing",
+      "llm_evidence_cn": "免微调的可控图像编辑",
+      "llm_evidence": "免微调的可控图像编辑",
+      "canonical_evidence": "免微调的可控图像编辑",
+      "llm_tldr_en": "EditCrafter enables high-resolution image editing without tuning by leveraging pretrained diffusion priors.",
+      "llm_tldr_cn": "EditCrafter 利用预训练扩散先验，实现了无需微调的高分辨率图像编辑。",
+      "llm_tldr": "EditCrafter 利用预训练扩散先验，实现了无需微调的高分辨率图像编辑。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.11737v1",
+      "source": "arxiv",
+      "title": "Learning Long-term Motion Embeddings for Efficient Kinematics Generation",
+      "abstract": "Understanding and predicting motion is a fundamental component of visual intelligence. Although modern video models exhibit strong comprehension of scene dynamics, exploring multiple possible futures through full video synthesis remains prohibitively inefficient. We model scene dynamics orders of magnitude more efficiently by directly operating on a long-term motion embedding that is learned from large-scale trajectories obtained from tracker models. This enables efficient generation of long, realistic motions that fulfill goals specified via text prompts or spatial pokes. To achieve this, we first learn a highly compressed motion embedding with a temporal compression factor of 64x. In this space, we train a conditional flow-matching model to generate motion latents conditioned on task descriptions. The resulting motion distributions outperform those of both state-of-the-art video models and specialized task-specific approaches.",
+      "authors": [
+        "Nick Stracke",
+        "Kolja Bauer",
+        "Stefan Andreas Baumann",
+        "Miguel Angel Bautista",
+        "Josh Susskind",
+        "Björn Ommer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T17:14:47+00:00",
+      "link": "https://arxiv.org/pdf/2604.11737v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable kinematics generation via text prompts or spatial pokes",
+      "llm_evidence_cn": "通过文本提示或空间戳记实现可控运动生成",
+      "llm_evidence": "通过文本提示或空间戳记实现可控运动生成",
+      "canonical_evidence": "通过文本提示或空间戳记实现可控运动生成",
+      "llm_tldr_en": "This paper models scene dynamics via motion embeddings for efficient, controllable kinematics generation.",
+      "llm_tldr_cn": "该研究通过运动嵌入对场景动力学建模，实现了高效且可控的运动生成。",
+      "llm_tldr": "该研究通过运动嵌入对场景动力学建模，实现了高效且可控的运动生成。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.10578v2",
+      "source": "arxiv",
+      "title": "Rein3D: Reinforced 3D Indoor Scene Generation with Panoramic Video Diffusion Models",
+      "abstract": "The growing demand for Embodied AI and VR applications has highlighted the need for synthesizing high-quality 3D indoor scenes from sparse inputs. However, existing approaches struggle to infer massive amounts of missing geometry in large unseen areas while maintaining global consistency, often producing locally plausible but globally inconsistent reconstructions. We present Rein3D, a framework that reconstructs full 360-degree indoor environments by coupling explicit 3D Gaussian Splatting (3DGS) with temporally coherent priors from video diffusion models. Our approach follows a \"restore-and-refine\" paradigm: we employ a radial exploration strategy to render imperfect panoramic videos along trajectories starting from the origin, effectively uncovering occluded regions from a coarse 3DGS initialization. These sequences are restored by a panoramic video-to-video diffusion model and further enhanced via video super-resolution to synthesize high-fidelity geometry and textures. Finally, these refined videos serve as pseudo-ground truths to update the global 3D Gaussian field. To support this task, we construct PanoV2V-15K, a dataset of over 15K paired clean and degraded panoramic videos for diffusion-based scene restoration. Experiments demonstrate that Rein3D produces photorealistic and globally consistent 3D scenes and significantly improves long-range camera exploration compared with existing baselines.",
+      "authors": [
+        "Dehui Wang",
+        "Congsheng Xu",
+        "Rong Wei",
+        "Yue Shi",
+        "Shoufa Chen",
+        "Dingxiang Luo",
+        "Tianshuo Yang",
+        "Xiaokang Yang",
+        "Wei Sui",
+        "Yusen Qin",
+        "Rui Tang",
+        "Yao Mu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-12T10:55:14+00:00",
+      "link": "https://arxiv.org/pdf/2604.10578v2",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D indoor scene generation with panoramic video diffusion models",
+      "llm_evidence_cn": "利用全景视频扩散模型生成3D室内场景",
+      "llm_evidence": "利用全景视频扩散模型生成3D室内场景",
+      "canonical_evidence": "利用全景视频扩散模型生成3D室内场景",
+      "llm_tldr_en": "Rein3D reconstructs 360-degree environments by coupling 3D Gaussian Splatting with video diffusion priors.",
+      "llm_tldr_cn": "Rein3D 通过将 3D 高斯泼溅与视频扩散先验相结合，重建 360 度环境。",
+      "llm_tldr": "Rein3D 通过将 3D 高斯泼溅与视频扩散先验相结合，重建 360 度环境。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.11804v1",
+      "source": "arxiv",
+      "title": "OmniShow: Unifying Multimodal Conditions for Human-Object Interaction Video Generation",
+      "abstract": "In this work, we study Human-Object Interaction Video Generation (HOIVG), which aims to synthesize high-quality human-object interaction videos conditioned on text, reference images, audio, and pose. This task holds significant practical value for automating content creation in real-world applications, such as e-commerce demonstrations, short video production, and interactive entertainment. However, existing approaches fail to accommodate all these requisite conditions. We present OmniShow, an end-to-end framework tailored for this practical yet challenging task, capable of harmonizing multimodal conditions and delivering industry-grade performance. To overcome the trade-off between controllability and quality, we introduce Unified Channel-wise Conditioning for efficient image and pose injection, and Gated Local-Context Attention to ensure precise audio-visual synchronization. To effectively address data scarcity, we develop a Decoupled-Then-Joint Training strategy that leverages a multi-stage training process with model merging to efficiently harness heterogeneous sub-task datasets. Furthermore, to fill the evaluation gap in this field, we establish HOIVG-Bench, a dedicated and comprehensive benchmark for HOIVG. Extensive experiments demonstrate that OmniShow achieves overall state-of-the-art performance across various multimodal conditioning settings, setting a solid standard for the emerging HOIVG task.",
+      "authors": [
+        "Donghao Zhou",
+        "Guisheng Liu",
+        "Hao Yang",
+        "Jiatong Li",
+        "Jingyu Lin",
+        "Xiaohu Huang",
+        "Yichen Liu",
+        "Xin Gao",
+        "Cunjian Chen",
+        "Shilei Wen",
+        "Chi-Wing Fu",
+        "Pheng-Ann Heng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T17:59:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.11804v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "controllable human-object interaction video generation with multimodal conditions",
+      "llm_evidence_cn": "多模态条件下的可控人机交互视频生成",
+      "llm_evidence": "多模态条件下的可控人机交互视频生成",
+      "canonical_evidence": "多模态条件下的可控人机交互视频生成",
+      "llm_tldr_en": "Introduces OmniShow for high-quality, controllable human-object interaction video generation from multimodal inputs.",
+      "llm_tldr_cn": "推出OmniShow框架，支持多模态输入下的高质量可控人机交互视频生成。",
+      "llm_tldr": "推出OmniShow框架，支持多模态输入下的高质量可控人机交互视频生成。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.10789v1",
+      "source": "arxiv",
+      "title": "ReplicateAnyScene: Zero-Shot Video-to-3D Composition via Textual-Visual-Spatial Alignment",
+      "abstract": "Humans exhibit an innate capacity to rapidly perceive and segment objects from video observations, and even mentally assemble them into structured 3D scenes. Replicating such capability, termed compositional 3D reconstruction, is pivotal for the advancement of Spatial Intelligence and Embodied AI. However, existing methods struggle to achieve practical deployment due to the insufficient integration of cross-modal information, leaving them dependent on manual object prompting, reliant on auxiliary visual inputs, and restricted to overly simplistic scenes by training biases. To address these limitations, we propose ReplicateAnyScene, a framework capable of fully automated and zero-shot transformation of casually captured videos into compositional 3D scenes. Specifically, our pipeline incorporates a five-stage cascade to extract and structurally align generic priors from vision foundation models across textual, visual, and spatial dimensions, grounding them into structured 3D representations and ensuring semantic coherence and physical plausibility of the constructed scenes. To facilitate a more comprehensive evaluation of this task, we further introduce the C3DR benchmark to assess reconstruction quality from diverse aspects. Extensive experiments demonstrate the superiority of our method over existing baselines in generating high-quality compositional 3D scenes.",
+      "authors": [
+        "Mingyu Dong",
+        "Chong Xia",
+        "Mingyuan Jia",
+        "Weichen Lyu",
+        "Long Xu",
+        "Zheng Zhu",
+        "Yueqi Duan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-12T19:42:12+00:00",
+      "link": "https://arxiv.org/pdf/2604.10789v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "zero-shot video-to-3D composition and object segmentation",
+      "llm_evidence_cn": "零样本视频转3D合成与对象分割",
+      "llm_evidence": "零样本视频转3D合成与对象分割",
+      "canonical_evidence": "零样本视频转3D合成与对象分割",
+      "llm_tldr_en": "ReplicateAnyScene enables zero-shot transformation of videos into structured 3D scenes via object segmentation.",
+      "llm_tldr_cn": "ReplicateAnyScene 通过对象分割实现了将视频零样本转换为结构化3D场景。",
+      "llm_tldr": "ReplicateAnyScene 通过对象分割实现了将视频零样本转换为结构化3D场景。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.12281v1",
+      "source": "arxiv",
+      "title": "MAST: Mask-Guided Attention Mass Allocation for Training-Free Multi-Style Transfer",
+      "abstract": "Style transfer aims to render a content image with the visual characteristics of a reference style while preserving its underlying semantic layout and structural geometry. While recent diffusion-based models demonstrate strong stylization capabilities by leveraging powerful generative priors and controllable internal representations, they typically assume a single global style. Extending them to multi-style scenarios often leads to boundary artifacts, unstable stylization, and structural inconsistency due to interference between multiple style representations. To overcome these limitations, we propose MAST (Mask-Guided Attention Mass Allocation for Training-Free Multi-Style Transfer), a novel training-free framework that explicitly controls content-style interactions within the diffusion attention mechanism. To achieve artifact-free and structure-preserving stylization, MAST integrates four connected modules. First, Layout-preserving Query Anchoring prevents global layout collapse by firmly anchoring the semantic structure using content queries. Second, Logit-level Attention Mass Allocation deterministically distributes attention probability mass across spatial regions, seamlessly fusing multiple styles without boundary artifacts. Third, Sharpness-aware Temperature Scaling restores the attention sharpness degraded by multi-style expansion. Finally, Discrepancy-aware Detail Injection adaptively compensates for localized high-frequency detail losses by measuring structural discrepancies. Extensive experiments demonstrate that MAST effectively mitigates boundary artifacts and maintains structural consistency, preserving texture fidelity and spatial coherence even as the number of applied styles increases.",
+      "authors": [
+        "Dongkyung Kang",
+        "Jaeyeon Hwang",
+        "Junseo Park",
+        "Minji Kang",
+        "Yeryeong Lee",
+        "Beomseok Ko",
+        "Hanyoung Roh",
+        "Jeongmin Shin",
+        "Hyeryung Jang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-04-14T04:47:09+00:00",
+      "link": "https://arxiv.org/pdf/2604.12281v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "training-free framework for controllable generation",
+      "llm_evidence_cn": "用于可控生成的免训练框架",
+      "llm_evidence": "用于可控生成的免训练框架",
+      "canonical_evidence": "用于可控生成的免训练框架",
+      "llm_tldr_en": "MAST is a training-free method for multi-style transfer using mask-guided attention allocation.",
+      "llm_tldr_cn": "MAST 是一种利用掩码引导注意力分配的免训练多风格迁移方法。",
+      "llm_tldr": "MAST 是一种利用掩码引导注意力分配的免训练多风格迁移方法。",
+      "llm_tags": [
+        "query:cv-vg-cs"
+      ],
+      "matched_query_tag": "query:cv-vg-cs",
+      "matched_query_text": "training free controllable video generation methods",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2604.10940v1",
+      "source": "arxiv",
+      "title": "AmodalSVG: Amodal Image Vectorization via Semantic Layer Peeling",
+      "abstract": "We introduce AmodalSVG, a new framework for amodal image vectorization that produces semantically organized and geometrically complete SVG representations from natural images. Existing vectorization methods operate under a modal paradigm: tracing only visible pixels and disregarding occlusion. Consequently, the resulting SVGs are semantically entangled and geometrically incomplete, limiting SVG's structural editability. In contrast, AmodalSVG reconstructs full object geometries, including occluded regions, into independent, editable vector layers. To achieve this, AmodalSVG reformulates image vectorization as a two-stage framework, performing semantic decoupling and completion in the raster domain to produce amodally complete semantic layers, which are then independently vectorized. In the first stage, we introduce Semantic Layer Peeling (SLP), a VLM-guided strategy that progressively decomposes an image into semantically coherent layers. By hybrid inpainting, SLP recovers complete object appearances under occlusions, enabling explicit semantic decoupling. To vectorize these layers efficiently, we propose Adaptive Layered Vectorization (ALV), which dynamically modulates the primitive budget via an error-budget-driven adjustment mechanism. Extensive experiments demonstrate that AmodalSVG significantly outperforms prior methods in visual fidelity. Moreover, the resulting amodal layers enable object-level editing directly in the vector domain, capabilities not supported by existing vectorization approaches. Code will be released upon acceptance.",
+      "authors": [
+        "Juncheng Hu",
+        "Ziteng Xue",
+        "Guotao Liang",
+        "Anran Qi",
+        "Buyu Li",
+        "Sheng Wang",
+        "Dong Xu",
+        "Qian Yu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-13T03:20:33+00:00",
+      "link": "https://arxiv.org/pdf/2604.10940v1",
+      "tags": [
+        "query:CV VG CS"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "semantic layer peeling and independent editable vector layers",
+      "llm_evidence_cn": "语义层剥离和独立的、可编辑的矢量层",
+      "llm_evidence": "语义层剥离和独立的、可编辑的矢量层",
+      "canonical_evidence": "语义层剥离和独立的、可编辑的矢量层",
+      "llm_tldr_en": "AmodalSVG reconstructs full object geometries into independent editable vector layers from natural images.",
+      "llm_tldr_cn": "AmodalSVG将完整的物体几何结构重建为来自自然图像的独立、可编辑的矢量层。",
+      "llm_tldr": "AmodalSVG将完整的物体几何结构重建为来自自然图像的独立、可编辑的矢量层。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2604.12309v1",
+      "source": "arxiv",
+      "title": "Towards Realistic and Consistent Orbital Video Generation via 3D Foundation Priors",
+      "abstract": "We present a novel method for generating geometrically realistic and consistent orbital videos from a single image of an object. Existing video generation works mostly rely on pixel-wise attention to enforce view consistency across frames. However, such mechanism does not impose sufficient constraints for long-range extrapolation, e.g. rear-view synthesis, in which pixel correspondences to the input image are limited. Consequently, these works often fail to produce results with a plausible and coherent structure. To tackle this issue, we propose to leverage rich shape priors from a 3D foundational generative model as an auxiliary constraint, motivated by its capability of modeling realistic object shape distributions learned from large 3D asset corpora. Specifically, we prompt the video generation with two scales of latent features encoded by the 3D foundation model: (i) a denoised global latent vector as an overall structural guidance, and (ii) a set of latent images projected from volumetric features to provide view-dependent and fine-grained geometry details. In contrast to commonly used 2.5D representations such as depth or normal maps, these compact features can model complete object shapes, and help to improve inference efficiency by avoiding explicit mesh extraction. To achieve effective shape conditioning, we introduce a multi-scale 3D adapter to inject feature tokens to the base video model via cross-attention, which retains its capabilities from general video pretraining and enables a simple and model-agonistic fine-tuning process. Extensive experiments on multiple benchmarks show that our method achieves superior visual quality, shape realism and multi-view consistency compared to state-of-the-art methods, and robustly generalizes to complex camera trajectories and in-the-wild images.",
+      "authors": [
+        "Rong Wang",
+        "Ruyi Zha",
+        "Ziang Cheng",
+        "Jiayu Yang",
+        "Pulak Purkait",
+        "Hongdong Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-14T05:35:46+00:00",
+      "link": "https://arxiv.org/pdf/2604.12309v1",
+      "tags": [
+        "keyword:CV VG CS",
+        "query:CV VG CS"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "generating consistent orbital videos from a single image using 3D priors",
+      "llm_evidence_cn": "利用3D先验从单张图像生成一致的轨道视频",
+      "llm_evidence": "利用3D先验从单张图像生成一致的轨道视频",
+      "canonical_evidence": "利用3D先验从单张图像生成一致的轨道视频",
+      "llm_tldr_en": "Leverages 3D foundational shape priors to generate geometrically realistic and consistent orbital videos.",
+      "llm_tldr_cn": "利用 3D 基础形状先验生成几何真实且一致的轨道视频。",
+      "llm_tldr": "利用 3D 基础形状先验生成几何真实且一致的轨道视频。",
+      "llm_tags": [
+        "query:cv-vg-cs:composite"
+      ],
+      "matched_query_tag": "query:cv-vg-cs:composite",
+      "matched_query_text": "Papers central to 计算机视觉、可控视频生成、免训练、透明通道, especially work that connects or combines: c; t; d; v; video generation with transparent alpha channel support; computer vision research on transparent video generation; video generation with transparent background and alpha channel; training free controllable video generation methods.",
+      "matched_requirement_id": "req-composite-cv-vg-cs",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
