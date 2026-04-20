@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-001.webp",
+      "caption": "Figure 5: Visualized Comparison. Our VibeFlow outperforms both specialized methods and general methods in terms of visual quality, temporal consistency and structural fidelity.",
+      "page": 6,
+      "index": 1,
+      "width": 1036,
+      "height": 540
+    },
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-002.webp",
+      "caption": "Figure 1: Generalization clarification on hard cases.",
+      "page": 11,
+      "index": 2,
+      "width": 1050,
+      "height": 525
+    },
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-003.webp",
+      "caption": "Figure 8: Rich Applications. Beyond basic color-light editing, our VibeFlow also achieves day-night translation, manipulating the colors of sky and illumination in a versatile manner.",
+      "page": 7,
+      "index": 3,
+      "width": 500,
+      "height": 264
+    },
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-004.webp",
+      "caption": "Figure 6: Rich Applications. Our VibeFlow can generalize to video low-light enhancement in a zero-shot manner with any specific training/finetuning, while demonstrating superior visual quality.",
+      "page": 7,
+      "index": 4,
+      "width": 1040,
+      "height": 273
+    },
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-005.webp",
+      "caption": "Figure 9: Ablation Study. (Compare a&c) The lack of selfsupervised disentangled training and residual velocity leading to severe chaotic eye movements and mismatched background sunlight. (Compare b&c) Employing residual velocity-guided trajectory rectification and consistency training further alleviates the inherent discretization errors and improves fine-grained facial fidelity.",
+      "page": 7,
+      "index": 5,
+      "width": 500,
+      "height": 396
+    },
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-006.webp",
+      "caption": "Figure 2: Overall framework of our VibeFlow. We propose a self-supervised training scheme with Structure/Chroma-lux data perturbation pipeline to finetune a video-to-video generation model using LoRA. Without any paired or rendered data, our approach achieves superior video chroma-lux editing with high-fidelity structural preservation.",
+      "page": 4,
+      "index": 6,
+      "width": 982,
+      "height": 358
+    },
+    {
+      "url": "assets/figures/arxiv/2604.13425v1/fig-007.webp",
+      "caption": "Figure 3: Visualization of color/light perturbed results.",
+      "page": 12,
+      "index": 7,
+      "width": 343,
+      "height": 365
+    }
+  ]
+}

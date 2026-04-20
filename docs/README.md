@@ -6,61 +6,58 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-19
-- 运行时间：2026-04-19 19:39:25 UTC
+- 最新运行日期：2026-04-20
+- 运行时间：2026-04-20 20:13:00 UTC
 - 运行状态：成功
-- 本次总论文数：13
-- 精读区：2
+- 本次总论文数：12
+- 精读区：1
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦视频生成前沿，深度解析了通过稀疏注意力提升画面平滑度及多事件时序控制的最新突破。
-重点推荐 Precision-Allocated 稀疏注意力带来的极致流畅感，以及利用 Prompt Relay 实现复杂多事件视频的精准推理控制。
-建议关注视频生成的长效稳定性与 Agent 驱动的自动化规划，这是实现高质量长视频创作的关键路径。
-- 详情：[/202604/19/README](/202604/19/README)
+今日聚焦视频生成前沿，深度拆解了 12 篇关于稀疏注意力优化与多模态交互控制的最新研究。
+核心推荐《Ride the Wave》，其通过精准分配稀疏注意力显著提升了视频平滑度，同时 Agent 驱动的事件规划正成为生成新趋势。
+建议关注如何利用稀疏策略平衡生成质量与计算开销，并尝试将 LLM 规划引入视频创作流。
+- 详情：[/202604/20/README](/202604/20/README)
 
 ### 精读区论文标签
-1. [Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation](/202604/19/2604.12219v1-ride-the-wave-precision-allocated-sparse-attention-for-smooth-video-generation)  
-   标签：评分：9.0/10、query:cv-vg-cs
-   evidence：用于平滑视频生成的免训练框架
-2. [Prompt Relay: Inference-Time Temporal Control for Multi-Event Video Generation](/202604/19/2604.10030v1-prompt-relay-inference-time-temporal-control-for-multi-event-video-generation)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：多事件视频生成的推理时时间控制
+1. [Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation](/202604/20/2604.12219v1-ride-the-wave-precision-allocated-sparse-attention-for-smooth-video-generation)  
+   标签：评分：8.5/10、query:cv-vg-cs
+   evidence：用于高效平滑视频生成的免训练框架
 
 ### 速读区论文标签
-1. [Long-Horizon Streaming Video Generation via Hybrid Attention with Decoupled Distillation](/202604/19/2604.10103v1-long-horizon-streaming-video-generation-via-hybrid-attention-with-decoupled-distillation)  
+1. [OmniShow: Unifying Multimodal Conditions for Human-Object Interaction Video Generation](/202604/20/2604.11804v1-omnishow-unifying-multimodal-conditions-for-human-object-interaction-video-generation)  
+   标签：评分：7.5/10、query:cv-vg-cs
+   evidence：多模态条件下的可控视频生成与统一通道
+2. [Controllable Video Object Insertion via Multiview Priors](/202604/20/2604.14556v1-controllable-video-object-insertion-via-multiview-priors)  
+   标签：评分：7.5/10、query:cv-vg-cs
+   evidence：可控视频对象插入与一致性身份引导
+3. [Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning](/202604/20/2604.10383v1-agentic-video-generation-from-text-to-executable-event-graphs-via-tool-constrained-llm-planning)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：通过混合注意力进行流式视频生成
-2. [Agentic Video Generation: From Text to Executable Event Graphs via Tool-Constrained LLM Planning](/202604/19/2604.10383v1-agentic-video-generation-from-text-to-executable-event-graphs-via-tool-constrained-llm-planning)  
+   evidence：通过结构化事件图和3D引擎实现可控视频生成
+4. [ReplicateAnyScene: Zero-Shot Video-to-3D Composition via Textual-Visual-Spatial Alignment](/202604/20/2604.10789v1-replicateanyscene-zero-shot-video-to-3d-composition-via-textual-visual-spatial-alignment)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：通过结构化事件图和3D引擎执行实现可控视频生成
-3. [Learning Long-term Motion Embeddings for Efficient Kinematics Generation](/202604/19/2604.11737v1-learning-long-term-motion-embeddings-for-efficient-kinematics-generation)  
+   evidence：零样本视频到3D组合及对象分割
+5. [OmniShow: Unifying Multimodal Conditions for Human-Object Interaction Video Generation](/202604/20/2604.11804v2-omnishow-unifying-multimodal-conditions-for-human-object-interaction-video-generation)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：通过文本提示或空间戳记实现可控运动生成
-4. [OmniShow: Unifying Multimodal Conditions for Human-Object Interaction Video Generation](/202604/19/2604.11804v1-omnishow-unifying-multimodal-conditions-for-human-object-interaction-video-generation)  
+   evidence：多模态条件下的可控视频生成
+6. [VibeFlow: Versatile Video Chroma-Lux Editing through Self-Supervised Learning](/202604/20/2604.13425v1-vibeflow-versatile-video-chroma-lux-editing-through-self-supervised-learning)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：多模态条件下的可控人机交互视频生成
-5. [MAST: Mask-Guided Attention Mass Allocation for Training-Free Multi-Style Transfer](/202604/19/2604.12281v1-mast-mask-guided-attention-mass-allocation-for-training-free-multi-style-transfer)  
-   标签：评分：7.0/10、query:cv-vg-cs
-   evidence：用于可控生成的免训练框架
-6. [Towards Realistic and Consistent Orbital Video Generation via 3D Foundation Priors](/202604/19/2604.12309v1-towards-realistic-and-consistent-orbital-video-generation-via-3d-foundation-priors)  
-   标签：评分：7.0/10、query:cv-vg-cs
-   evidence：利用3D先验从单张图像生成一致的轨道视频
-7. [FREE-Switch: Frequency-based Dynamic LoRA Switch for Style Transfer](/202604/19/2604.10023v1-free-switch-frequency-based-dynamic-lora-switch-for-style-transfer)  
+   evidence：保持结构和时间保真度的可控视频编辑
+7. [Bootstrapping Video Semantic Segmentation Model via Distillation-assisted Test-Time Adaptation](/202604/20/2604.10950v1-bootstrapping-video-semantic-segmentation-model-via-distillation-assisted-test-time-adaptation)  
+   标签：评分：6.5/10、query:cv-vg-cs
+   evidence：视频语义分割和掩码传播的免训练自适应
+8. [From Synchrony to Sequence: Exo-to-Ego Generation via Interpolation](/202604/20/2604.13793v1-from-synchrony-to-sequence-exo-to-ego-generation-via-interpolation)  
+   标签：评分：6.5/10、query:cv-vg-cs
+   evidence：从第三人称到第一人称视角的可控视频生成
+9. [Seedance 2.0: Advancing Video Generation for World Complexity](/202604/20/2604.14148v1-seedance-20-advancing-video-generation-for-world-complexity)  
+   标签：评分：6.5/10、query:cv-vg-cs
+   evidence：具有多模态参考和编辑功能的高级视频生成模型
+10. [3DTV: A Feedforward Interpolation Network for Real-Time View Synthesis](/202604/20/2604.11211v1-3dtv-a-feedforward-interpolation-network-for-real-time-view-synthesis)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：用于定制化生成的免训练模型合并
-8. [EditCrafter: Tuning-free High-Resolution Image Editing via Pretrained Diffusion Model](/202604/19/2604.10268v1-editcrafter-tuning-free-high-resolution-image-editing-via-pretrained-diffusion-model)  
+   evidence：无需重新训练的前馈网络用于视图合成
+11. [HDR Video Generation via Latent Alignment with Logarithmic Encoding](/202604/20/2604.11788v1-hdr-video-generation-via-latent-alignment-with-logarithmic-encoding)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：免微调的可控图像编辑
-9. [Rein3D: Reinforced 3D Indoor Scene Generation with Panoramic Video Diffusion Models](/202604/19/2604.10578v2-rein3d-reinforced-3d-indoor-scene-generation-with-panoramic-video-diffusion-models)  
-   标签：评分：6.0/10、query:cv-vg-cs
-   evidence：利用全景视频扩散模型生成3D室内场景
-10. [ReplicateAnyScene: Zero-Shot Video-to-3D Composition via Textual-Visual-Spatial Alignment](/202604/19/2604.10789v1-replicateanyscene-zero-shot-video-to-3d-composition-via-textual-visual-spatial-alignment)  
-   标签：评分：6.0/10、query:cv-vg-cs
-   evidence：零样本视频转3D合成与对象分割
-11. [AmodalSVG: Amodal Image Vectorization via Semantic Layer Peeling](/202604/19/2604.10940v1-amodalsvg-amodal-image-vectorization-via-semantic-layer-peeling)  
-   标签：评分：6.0/10、query:cv-vg-cs
-   evidence：语义层剥离和独立的、可编辑的矢量层
+   evidence：利用预训练模型进行潜空间对齐的视频生成
 
 
 <div class="dpr-home-promo-card">

@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-001.webp",
+      "caption": "Figure 8 Side-by-side human evaluation. Judged by human evaluators, our OmniShow achieves superior performance in overall quality, showing great alignment with human preference.",
+      "page": 11,
+      "index": 1,
+      "width": 972,
+      "height": 200
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-002.webp",
+      "caption": "Figure 1 Overview of OmniShow. Our model unifies text, reference image, audio, and pose conditions to synthesize high-quality videos. (a) Unified Tasks: OmniShow exhibits exceptional flexibility across diverse conditioning settings, from R2V, RA2V, RP2V to the most challenging RAP2V, consistently delivering industry-grade visual quality and precise multimodal alignment. (b) Broader Applications: OmniShow unlocks creative potential such as audio-driven avatars, object swapping, and video remixing, demonstrating robust compositional control and extensible capabilities. Please visit our project page for more immersive and diverse video demonstrations.",
+      "page": 2,
+      "index": 2,
+      "width": 982,
+      "height": 877
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-003.webp",
+      "caption": "Figure 11 More qualitative results. We present additional generated results from our OmniShow and other methods across various multimodal condition settings, showing the state-of-the-art performance of OmniShow. Note that OmniShow is the first-of-its-kind framework supporting the full spectrum of four multimodal inputs required by HOIVG. We recommend visiting our project page for video demonstrations.",
+      "page": 22,
+      "index": 3,
+      "width": 978,
+      "height": 1195
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-004.webp",
+      "caption": "Figure 7 Qualitative comparison. We present generated results from our OmniShow and other methods across various multimodal condition settings. Note that text prompts are omitted for brevity.",
+      "page": 10,
+      "index": 4,
+      "width": 981,
+      "height": 495
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-005.webp",
+      "caption": "Figure 9 Data collection pipeline. We first segment videos into isolated shots and then filter them by diverse metric scores. Subsequently, specialized processing workflows are applied to construct multiple heterogeneous datasets.",
+      "page": 18,
+      "index": 5,
+      "width": 982,
+      "height": 314
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-006.webp",
+      "caption": "Figure 12 More qualitative results. We present additional generated results from our OmniShow and other methods across various multimodal condition settings, showing the state-of-the-art performance of OmniShow. Note that OmniShow is the first-of-its-kind framework supporting the full spectrum of four multimodal inputs required by HOIVG. We recommend visiting our project page for video demonstrations.",
+      "page": 23,
+      "index": 6,
+      "width": 981,
+      "height": 1196
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-007.webp",
+      "caption": "Figure 6 Statistics and example of HOIVG-Bench. (a) Word cloud of text prompts illustrating the wide variety of human-object interaction scenarios. (b) Motion intensity distribution of original videos calculated via dense optical flow [15], reflecting a diverse dynamic range of pose conditions. (c) A representative sample from the benchmark, featuring text, reference images, pose, and audio. Constructed through a rigorous pipeline, the benchmark provides high-quality data to evaluate the synergy of diverse multimodal inputs.",
+      "page": 8,
+      "index": 7,
+      "width": 979,
+      "height": 191
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-008.webp",
+      "caption": "Table 4 Quantitative comparison with the cascaded baseline on the RAP2V task. We compare our end-to-end OmniShow with a representative cascaded baseline (VACE [31]+LatentSync [35]). Our approach outperforms the cascaded baseline across all evaluation metrics, highlighting the superiority of multi-condition unification.",
+      "page": 19,
+      "index": 8,
+      "width": 979,
+      "height": 303
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-009.webp",
+      "caption": "Table 3 Performance on the EMTD benchmark. Note that metrics marked with “*” adopt the definitions from this benchmark, thus leading to different numerical ranges.",
+      "page": 12,
+      "index": 9,
+      "width": 679,
+      "height": 185
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-010.webp",
+      "caption": "Figure 13 More qualitative results. We present additional generated results from our OmniShow and other methods across various multimodal condition settings, showing the state-of-the-art performance of OmniShow. Note that OmniShow is the first-of-its-kind framework supporting the full spectrum of four multimodal inputs required by HOIVG. We recommend visiting our project page for video demonstrations.",
+      "page": 24,
+      "index": 10,
+      "width": 981,
+      "height": 1197
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-011.webp",
+      "caption": "Table 1 Quantitative comparison. We compare our OmniShow with existing state-of-the-art methods, showing that OmniShow can achieve superior/competitive performance across diverse multimodal conditioning settings. The best and second-best results in each setting are marked in bold and underlined. The symbol “-” indicates that the metric is not applicable in the corresponding setting.",
+      "page": 9,
+      "index": 11,
+      "width": 972,
+      "height": 484
+    },
+    {
+      "url": "assets/figures/arxiv/2604.11804v2/fig-012.webp",
+      "caption": "Figure 2 Pipeline of OmniShow. Our framework consists of: (a) Unified Channel-wise Conditioning (section 3.2) effectively injects reference images and pose cues via unified channel concatenation. It augments noisy video tokens with pseudo-frames, which are supervised by a reference reconstruction loss to preserve semantic details. (b) Gated Local-Context Attention (section 3.3) ensures precise audio-visual synchronization. It packs raw audio features with sufficient contextual information and injects them via masked attention to align video frames with corresponding audio segments, followed by adaptive gating to stabilize early training. (c) Decoupled-Then-Joint Training (section 3.4) makes the efficient utilization of heterogeneous datasets possible. We first train specialized R2V and A2V models on separate sub-task datasets, then fuse them via weight interpolation, followed by joint fine-tuning to unify multimodal capabilities. Note that we omit some components, such as normalization, within the MMDiT blocks for brevity.",
+      "page": 5,
+      "index": 12,
+      "width": 984,
+      "height": 534
+    }
+  ]
+}
