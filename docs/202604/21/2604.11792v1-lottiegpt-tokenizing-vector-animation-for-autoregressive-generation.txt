@@ -1,0 +1,1790 @@
+Title: LottieGPT: Tokenizing Vector Animation for Autoregressive Generation
+
+URL Source: https://arxiv.org/pdf/2604.11792v1
+
+Published Time: Tue, 14 Apr 2026 02:51:03 GMT
+
+Number of Pages: 29
+
+Markdown Content:
+# LottieGPT: Tokenizing Vector Animation for Autoregressive Generation 
+
+Junhao Chen 1,2 * Kejun Gao 2 * Yuehan Cui 2 Mingze Sun 1 Mingjin Chen 4
+
+Shaohui Wang 1 Xiaoxiao Long 5 Fei Ma 6 Qi Tian 6 Ruqi Huang 1 † Hao Zhao 2,3 † 1Shenzhen International Graduate School, Tsinghua University 2AIR, Tsinghua University 
+
+> 3
+
+BAAI 4The Hong Kong Polytechnic University 5Nanjing University 
+
+> 6
+
+Guangdong Laboratory of Artificial Intelligence and Digital Economy (SZ) 
+
+Project Page: https://lottiegpt.github.io/ Dog Layer 
+
+Rope Layer 
+
+Human Layer 
+
+Plant Layer 
+
+Background 
+
+Layer 
+
+An animated black Anubis figure with yellow eyes stands against a white background, appearing 
+
+to move slightly as if walking or dancing. 
+
+Generate an animation of a person walking a dog in an illustration. The clouds and trees in the 
+
+background remain stationary. The person and the dog are walking. 
+
+Text to Lottie Animation 
+
+Text + Imge to Lottie Animation 
+
+Text / Image to Lottie Image 
+
+Figure 1. LottieGPT generates editable vector animations from diverse inputs. Unlike existing models that produce fixed-resolution raster videos, we generate resolution-independent vector graphics and animations from text, image, or keyframes. Our outputs scale infinitely , and enable direct editing of shapes and motion . These capabilities are impossible with pixel-based methods. 
+
+Abstract 
+
+Despite rapid progress in video generation, existing models are incapable of producing vector animation, a dominant and highly expressive form of multimedia on the Internet. Vector animations offer resolution-independence, compactness, semantic structure, and editable parametric motion representations, yet current generative models op-erate exclusively in raster space and thus cannot synthe-size them. Meanwhile, recent advances in large multimodal    
+
+> *Equal Contribution. †Corresponding Author.
+
+models demonstrate strong capabilities in generating struc-tured data such as slides [27], 3D meshes [74], LEGO sequences [63], and indoor layouts [57], suggesting that native vector animation generation may be achievable. In this work, we present the first framework for tokenizing and autoregressively generating vector animations. We adopt Lottie, a widely deployed JSON-based animation standard, and design a tailored Lottie Tokenizer that encodes lay-ered geometric primitives, transforms, and keyframe-based motion into a compact and semantically aligned token se-quence. To support large-scale training, we also construct 
+
+LottieAnimation-660K , the largest and most diverse vec-
+
+> arXiv:2604.11792v1 [cs.CV] 13 Apr 2026
+
+tor animation dataset to date, consisting of 660k real-world Lottie animation and 15M static Lottie image files curated from broad Internet sources. Building upon these compo-nents, we finetune Qwen-VL to create LottieGPT , a na-tive multimodal model capable of generating coherent, ed-itable vector animations directly from natural language or visual prompts. Experiments show that our tokenizer dra-matically reduces sequence length while preserving struc-tural fidelity, enabling effective autoregressive learning of dynamic vector content. LottieGPT exhibits strong gener-alization across diverse animation styles and outperforms previous state-of-the-art models on SVG generation (a spe-cial case of single-frame vector animation). 
+
+1. Introduction 
+
+Recent breakthroughs in text-to-video generation have ad-vanced the fidelity, coherence, and controllability of pixel space synthesis. Models such as Sora [62] and Kling [43] now produce photorealistic footage with compelling dy-namic consistency. Yet despite this rapid progress, none 
+
+of these systems can generate vector animation, a dom-inant medium underlying modern digital communication, UI/UX motion design, educational content, product illustra-tion, branding, and countless web applications. Vector an-imations offer properties fundamentally absent from raster video: infinite resolution, structural editability, layered or-ganization, parametric motion, compact file size, and se-mantic manipulability. These characteristics make vector animation central to professional workflows, from After Ef-fects motion graphics to Lottie-based mobile interfaces. Meanwhile, vision language models (VLMs) have shown surprising competence in generating structured rep-resentations. Models can now autogenerate slide decks [27], 3D meshes [74], garment pattern [80], LEGO assem-bly sequences [63], indoor layouts [57], and other discrete or hierarchical content. These advances reveal an impor-tant trend : VLMs are increasingly capable of manipulating symbolic structures instead of only pixel grids. Since vector animations are themselves structured programs (composed of hierarchical layers, geometric primitives, keyframes, and easing functions), this capability suggests that native vector animation generation could be within reach. However, achieving this requires solving two fundamen-tal challenges. The first and most critical is the tokenizer: converting rich, temporally organized vector animation into a token sequence suitable for autoregressive modeling. Un-like static SVGs or meshes, vector animations contain both hierarchical structure and time-dependent transformation logic. To address this, we adopt the widely deployed Lottie format, a JSON-based representation used at scale across web. Lottie encodes animations as layered shapes with parametric transforms, keyframe schedules, interpolators, and easing curves. We design the first Lottie Tokenizer, which decomposes a Lottie file into a compact, semantically aligned set of tokens that capture geometric primitives, hi-erarchical grouping, animated property curves, and interpo-lation settings. Our tokenizer stores keyframes and easing functions rather than dense per-frame data, dramatically re-ducing sequence length while preserving structural fidelity. No previous tokenizer in structured data generation has at-tempted to unify both hierarchical geometry and tempo-ral motion in a single token stream. The second major challenge is data. Before our work, no large-scale vector animation dataset existed due to the dominance of rasterized video on the web. We build the first Lottie animation corpus, Lottie-660K, consisting of 660K high-quality, diverse animations exported from Af-ter Effects via the Bodymovin pipeline, along with exten-sive cleaning, standardization, and JSON simplification. In addition, we curate 15M static vector graphics converted into Lottie format, enabling a progressive static-to-dynamic training strategy. Together, these datasets constitute the largest resource ever built for vector animation research. With these components, we finetune Qwen2.5-VL to create LottieGPT , the first multimodal model capable of generating fully editable vector animations from text, im-ages, or keyframes. LottieGPT demonstrates robust perfor-mance across diverse in-the-wild scenarios: icon dynamics, UI transitions, illustrative cartoons, and multi-layered scene animations. When evaluated on SVG generation (a special case of single-frame vector animation), our model achieves new state-of-the-art performance, confirming that temporal modeling strengthens even static vector understanding. Our contributions are four-fold: 1. We present the first framework for native vector ani-mation generation, moving beyond video to resolution-independent, semantically editable motion graphics. 2. We design the first tokenizer capable of encoding hierar-chical geometric primitives, transforms, keyframes, and temporal dynamics into a compact token sequence. 3. We construct 660K Lottie animation and 15M Lottie static graphics, establishing the largest and most diverse resource for vector animation learning, and propose Lot-tieBench, the first benchmark for vector animation. 4. We develop and train the first multimodal model (Lot-tieGPT) for autoregressive vector animation genera-tion, demonstrating strong in-the-wild performance and achieving new SOTA on SVG generation. 
+
+2. Related Works 
+
+2.1. Pixels based Image and Video Generation 
+
+Diffusion models have revolutionized visual content gener-ation, achieving unprecedented capabilities in image syn-thesis [44, 69, 81, 90, 101, 102] and video synthesis [5, AE animation    
+
+> (E) Lottie Animation Dataset Samples Simplified Lottie JSON
+> (B) BodyMovin
+> (E)
+> Simplify
+> (C) Render
+> (D) Caption Generation from Rendered Frames via QwenVL
+> Simple
+> <750
+> tokens
+> Medium
+> 750~2k
+> tokens
+> Complex
+> >2k
+> tokens
+> "An orange racehorse with brown mane, tail, and hooves gallops dynamically
+> across the screen from left to right, showcasing fluid leg movements and a
+> flowing mane and tail, set against a plain white background."
+> You are a helpful assistant. Your task is to describe this animation in a single
+> sentence, including the objects involved, their colors, positions, actions, and
+> overall layout. This description should enable a designer unfamiliar with …
+> Lottie JSON
+> (A) SVG2Lottie
+> SVG
+> (F) Lottie Image Dataset Samples
+> {
+> ├── "v": "5.12.2"
+> └── "layers": [
+> └── {
+> ├── "ty": 4
+> ├── "nm": “Layer 1“
+> ├── “ mn ": “Layer_comp_1“
+> ├── “ hd ": false
+> ├── " ks ": { ... }
+> └── "shapes": [
+> └── {
+> ├── "ty": "gr"
+> └── "it": [
+> └── {
+> ├── "ty": " sh “…
+> {
+> ├── "v": "5.12.2"
+> └── "layers": [
+> └── {
+> ├── "ty": 4
+> ├── " ks ": { ... }
+> └── "shapes": [
+> └── {
+> ├── "ty": "gr"
+> └── "it": [
+> └── {
+> ├── "ty": " sh "
+> └── " ks ": { ... }
+> …
+> ↓34%
+> File Size
+> Mean Size: 60.72 KB Mean Size: 39.87 KB
+
+Figure 2. Data curation pipeline. We collected 10M SVG resources and 660K After Effects (AE) animation resources from the internet, then converted them to Lottie Json format, filtered them using simplification algorithms that do not affect rendering results, and used QwenVL to generate text labels for vector graphics and vector animations. 
+
+12, 13, 28, 30, 34, 42, 43, 49, 94, 98]. Despite their im-pressive visual quality, these pixel-based approaches pro-duce non-editable fixed-resolution outputs that require sub-stantial storage, cannot scale without quality degradation, and lack semantic editability. While recent editing meth-ods [4, 8, 9, 39, 52, 81, 102] have partially addressed these issues, the raster nature fundamentally constrains their ap-plicability in professional design workflows requiring iter-ative refinement and precise control. Our work addresses these limitations by shifting the generation paradigm from pixel space to structured vector animation space. 
+
+2.2. Structured Data Generation 
+
+Recent research has explored generating structured repre-sentations that offer interpretability, compactness, and ed-itability advantages over pixel-based outputs. In 3D genera-tion, methods like LLaMA-Mesh [79], MeshGPT [70], and EdgeRunner [74] generate mesh structures as tokenized se-quences [25, 33, 50] through autoregressive modeling. Ex-isting 3D animation production paradigms first generate 3D meshes [10, 14, 35, 45, 55, 59, 64, 75, 87, 88, 99], then create skeletons and animations [11, 18, 23, 31, 32, 38, 71– 73, 89], essentially represent a form of 3D vector anima-tion. We adapt this 3D animation production paradigm to 2D animation generation. Domain-specific approaches in-clude DeepCAD [82] for parametric CAD design [1, 41, 53] and BrickGPT [63] for physically feasible LEGO struc-tures. In 2D vector graphics [37, 91], StarVector [68] and OmniSVG [97] generate SVG code by treating it as a code synthesis task. YOLaT [22] performs scientific image un-derstanding at the SVG level. Some models generate struc-tured text captions from video or 3D inputs [3, 17, 21, 40, 47, 77, 95, 100]. However, these methods remain confined to static outputs, lacking temporal modeling capabilities es-sential for animations. These capabilities include coherent motion, keyframe coordination, and temporal property pa-rameterization. 
+
+2.3. Vector Graphics and Animation Generation 
+
+Vector graphics generation [16, 66, 83, 85, 103, 106] has evolved along two trajectories: optimization-based meth-ods [37, 48] suffer from lengthy computation, while VLM-based methods [68, 84, 93, 97] achieve better editability by generating SVG code directly. However, both remain confined to static outputs. Vector animation generation faces three challenges: limited format expressiveness, data scarcity, and temporal coordination complexity. Existing methods rely on simple interpolation [6, 19, 24, 26, 58, 76] or domain-specific solutions [36, 54, 56, 86, 105], fail-ing to generalize. We address these limitations using the Lottie format, which enables hierarchical composition and parametric control. By formulating generation as struc-tured code synthesis rather than pixel-space video genera-tion, we achieve lightweight (10-50× smaller), resolution-independent, and fully editable animations. 
+
+3. Data Curation Pipeline 
+
+While pixel-based visual data and static vector graphics datasets (e.g., SVG) are abundant, large-scale vector anima-tion datasets remain scarce. Due to SVG’s limited support for complex timeline-based animations, we turn to the After Effects (AE) ecosystem, leveraging the Bodymovin plugin 1
+
+to export AE animations into Lottie JSON format, which is a lightweight, cross-platform representation supporting keyframes, path morphing, and color gradients. 
+
+> 1
+
+https://aescripts.com/bodymovin/ A yellow chicken with a                                    
+
+> large purple afro
+> hairstyle and pink -tinted
+> sunglasses stands
+> centered against a
+> checkered background,
+> facing forward with a
+> static pose.
+> pixel -based raster
+> images and videos
+> [Optional]
+> Text Prompt
+> Qwen2.5 VL
+> Text Tokenizer Vision Encoder Lottie Tokenizer
+> RtE60.67 10.33 00MLTr PEt6421 842 0.67 10.33 0ASO100 62 85 100 100
+> Keyframe 1
+> ···
+> Keyframe 2
+> ···
+> Keyframe 3
+> ···
+> Text Instruction
+> ···
+> LGr Sh
+> Training Stage 2 Training Stage 1
+> LottieImage -15M LottieAnimation -660k
+> Lottie Vocabulary(0.5K) Qwen2.5 -VL Vocabulary(150K)
+> Lottie Tokens
+> LottieGPT
+> MLTr PEt6421 842 0.67 10.33 0
+
+Figure 3. Overview of LottieGPT. LottieGPT is built upon the pre-trained vision-language model Qwen2.5-VL and incorporates a Lottie tokenizer. The model encodes both text and image inputs as prefix tokens, while the Lottie tokenizer encodes vector animation commands into a unified representation space. We first train the model on static Lottie images, followed by training on Lottie animations. Table 1. Comparison of vector graphics and animation datasets.                                      
+
+> Dataset Format Type Size Captions
+> Static Vector Graphics Datasets
+> SVG-Stack [67] SVG Icons/Graphics 2.3M ✓
+> SVGX [90, 92] SVG Icons/Illustrations 1M ✓
+> OmniSVG [97] SVG Icons/Illustrations 2M ✓
+> SVGFind 2SVG Icons/Graphics 4M ✗
+> DeepSVG Icons8 [6] SVG Icons 100K ✓
+> Our Proposed Dataset
+> LottieSVG SVG/Lottie Icons/Illustrations 10M ✓
+> LottieAnimation Lottie Animations 660K ✓
+> LottieImage Lottie Icons/Illustrations 15M ✓
+
+We collect AE source files from public resources and convert them via an automated pipeline. We integrate 15M static vector graphics, uniformly converted to Lottie repre-sentation, to support a progressive “ static-first, then dy-namic ” training strategy. For multimodal generation, we use BLIP-2 [46] for static graphics captions and Qwen2.5-VL 32B [3] for temporally aligned animation descriptions after rendering to video. We apply rigorous filtering: removing rendering failures and visual anomalies (blank frames, misalignment, flick-ering), and simplifying Lottie JSON by removing redun-dant fields (comments, unused properties, debug metadata) while preserving rendering fidelity. This reduces sequence length by 34% without affecting quality. Tab. 1 compares our datasets with existing vector graphics datasets. Fig. 2 illustrates our dataset construction pipeline and sample ex-amples. See Appendix 13 for the details. 
+
+4. Methods 
+
+4.1. Overview 
+
+Our LottieGPT framework builds upon the Qwen2.5-VL ar-chitecture [3], a vision-language model that excels in pro-cessing both visual and textual inputs. To enable native vec-tor animation generation, we extend the model vocabulary with specialized Lottie tokens and design a compact ani-mation tokenization scheme. As illustrated in Fig. 3, our approach consists of three key components: (1) a Lottie Tokenizer that converts JSON-based animations into dis-crete token sequences, (2) a vision-language backbone that processes multimodal inputs, and (3) a two-stage training strategy that progressively learns from static graphics to dy-namic animations. Unlike existing approaches that gener-ate raster videos or frame-by-frame SVG sequences, Lot-tieGPT directly generates structured vector animations in Lottie format. This enables resolution-independent, com-pact, and fully editable outputs. Our model takes text de-scriptions, reference images, or keyframe videos as input and autoregressively generates Lottie token sequences that can be decoded into fully functional vector animations. 
+
+4.2. Compact Animation Tokenization 
+
+Autoregressive models process information as discrete to-ken sequences. Therefore, compact tokenization is crucial, as it enables accurate representation of information with fewer tokens. Unlike text tokenizers that achieve highly compact and lossless compression by combining subword units into single tokens, tokenization techniques used in prior autoregressive vector graphics generation work suffer from two main issues. First, decomposing SVGs into basic atomic commands [6, 97] loses semantic information at the layer group level. Second, existing vector graphics tokeniz-ers cannot represent vector animations, as these methods operate solely on static vector frame images. Therefore, we design a specialized tokenizer for Lottie animations that hierarchically encodes layers, shapes, and temporal keyframes. Unlike previous SVG tokenizers that treat code as plain text, our tokenizer exploits the struc-tured nature of Lottie JSON to achieve superior compres-{                                    
+
+> ├── "v": "5.12.2"
+> └── "layers": [
+> └── {
+> // Layer1:Head }
+> └── {
+> // Layer2:Leg1 }
+> └── {
+> // Layer3:Leg2 start
+> ├── "ty": 4
+> ├── " ks ": { ... }
+> // Layer animation
+> └── "shapes": [
+> ├── {
+> // First shape -donkey leg
+> │├── "ty": "gr"
+> │└── "it": [
+> │├── {
+> ││├── "ty": " sh "
+> ││└── " ks ": { ... }
+> // Shape
+> ││}
+> │├── {
+> ││├── "ty": " fl "
+> ││└── "c": { ... }
+> // Fill color
+> ││}
+> │└── {
+> │├── "ty": "tr"
+> │├── "p": { ... }
+> // Position
+> │├── "a": { ... }
+> // Anchor point
+> │├── "s": { ... }
+> // Scale
+> │├── "r": { ... }
+> // Rotation
+> │└── "o": { ... }
+> // Opacity
+> │}
+> │]
+> │}
+> // First shape end
+> └── {
+> // Second shape -donkey hoof
+> ├── "ty": "gr"
+> └── "it": [
+> ├── {
+> │├── "ty": " sh "
+> │└── " ks ": { ... }
+> // Shape
+> │}
+> ├── {
+> │├── "ty": " fl "
+> │└── "c": { ... }
+> // Fill color
+> │}
+> └── {
+> ├── "ty": "tr"
+> ├── “p”: { ... },"a": { ... } , "s":
+> { ... } ,"r": { ... } ,"o": { ... }
+> }
+> ]
+> }
+> // Second shape end
+> ]
+> // Shapes end
+> }
+> // Layer3 end
+> …
+> // Remaining layers
+> ]
+> // Layers end
+> }
+
+Lottie JSON Layer3: Leg2 
+
+Meta Info M
+
+Transform Tr 
+
+Fill Fl 
+
+Shape Sh 
+
+Layer L
+
+Group Gr 
+
+Anchor Point A
+
+Scale S
+
+Opacity O
+
+Time t
+
+Position P
+
+Rotation R
+
+Color C
+
+Easing E
+
+In Tangent ti 
+
+Out Tangent to 
+
+Closed c
+
+Vertices V
+
+Original 
+
+> Layer1: Head
+> Layer2:
+> Leg1
+> Layer3:
+> Leg2
+> Layer1: Head
+> Layer2:
+> Leg1
+> Layer3: Leg2
+> Shape1:
+> donkey
+> leg
+> Shape2:
+> donkey
+> hoof
+
+Frame 0 Tokens Layer3: Leg2 
+
+L Tr 
+
+P
+
+R t E6 0.83 1 0.33 00
+
+t E46 0.83 0.87 0.35 0.16 -110 
+
+t E6 712 676 0.83 0.83 0.33 0 
+
+ti 12 85 t 16 712 676 
+
+to -12 -85 t 22 732 493 
+
+t 46 714 355 t 30 716 338 
+
+t E60 742 552 0.67 1 0.17 0.17 
+
+A S O 100 62 85 100 100 
+
+t E30 0.78 -1.79 0.3 -2.79 -113 
+
+t E16 0.69 0.92 0.17 0.17 0
+
+t E60 0.67 1 0.17 0.35 -19 
+
+Sh Gr L
+
+ATr P RS O66 168 100 100 0 0 0 100 Fl C #C8BEB3 O 100 
+
+58 10 ct V ti to 
+
+…
+
+…
+
+…22 -25 -167 -58 -10 
+
+ct EV ti to 
+
+…
+
+…
+
+…6 7 -157 -58 -10 58 10 
+
+… 0.83 0.83 0.33 0
+
+ct V ti to 
+
+…
+
+…
+
+…16 -7 -158 -58 -10 58 10 
+
+…
+
+58 10 ct V ti to 
+
+…
+
+…
+
+…30 -7 -158 -58 -10 
+
+58 10 ct V ti to 
+
+…
+
+…
+
+…60 -7 -162 -58 -10 
+
+First shape - donkey leg 
+
+Frame 20 Frame 28 Frame 60 Frame 86 
+
+ti 
+
+to 
+
+V
+
+V
+
+V
+
+ti 
+
+to 
+
+V
+
+to 
+
+621 533 
+
+674 509 
+
+727 484 
+
+656 451 
+
+647 393 
+
+637 335 
+
+ti 
+
+to 
+
+V
+
+655 488 
+
+713 478 
+
+771 469 KF 30 
+
+> KF 46
+> F 55
+> KF 22
+> KF 16
+> KF 22
+> F 50
+> F 20
+> F 28
+> KF 60
+> F 86
+> ①
+> ④
+> ⑤
+> ⑥
+> ⑩
+
+Split by Layer 
+
+Split by Shape Figure 4. Unlike raster pixel-based videos or frame-by-frame saved SVGs, the Lottie Tokenizer only stores keyframes and interpolation 
+
+methods, which significantly reduces the number of tokens required to represent an animation. In the figure, KF denotes keyframes, while 
+
+F represents frames obtained through easing-based animation interpolation. 
+
+sion while preserving the semantic information inherent in the original layers. 
+
+4.2.1. Hierarchical Structure Encoding 
+
+A Lottie animation follows a strict hierarchical structure: 
+
+Animation Meta → Assets → Layers → Shapes → Prop-erties . We encode this hierarchy using special tokens that mark boundaries and relationships: 
+
+Animation Meta Encoding. We first encode global anima-tion metadata using a compact representation: 
+
+<|M|><|v|>"5.9.5"<|fr|>30<|ip|>0<|op|>90 <|w|>512<|h|>512<|ddd|>0 
+
+This single-line encoding captures version, frame rate, in-point, out-point, dimensions, and 3D flag. This information would require multiple lines in plain JSON text tokeniza-tion. 
+
+Layer Encoding. Each layer is encoded with its type, trans-form, and child elements: 
+
+<|LAYER|><|ty|>4<|ip|>0<|op|>90<|st|>0 <|bm|>0<|LAYER_KS|>... 
+
+Unlike naive text tokenization, we use specialized tokens (<|LAYER|> , <|ty|> ) that directly correspond to Lot-tie schema, enabling the model to learn structural patterns rather than arbitrary text sequences. 
+
+Shape Encoding. Within each layer, we encode geometric shapes using a type-specific format. For example, a path shape: 
+
+<|ITEM_sh|><|KS_STATIC|><|i|>0 0 -10 5 <|o|>0 0 10 -5<|v|>100 50 150 75<|c|> 
+
+This representation encodes in-tangents i, out-tangents o,vertices v, and closed flag c in vertex order, following a linearized encoding scheme. Beyond basic shape paths, our Lottie Tokenizer directly encodes complex Lottie shape primitives including Ellipse, Fill, Gradient, Gradient Stroke, Group, PolyStar, Rectangle, Rounded Corners, and Stroke, without decomposing them into independent line segments as in OmniSVG [97]. 
+
+4.2.2. Keyframe-Based Motion Compression 
+
+The key innovation distinguishing our tokenizer from prior work is keyframe-based temporal compression . As il-lustrated in Fig. 4, instead of storing every frame like raster video or frame-by-frame SVGs, we encode only keyframes 
+
+and interpolation functions .
+
+Unified Property Animation Encoding. Our tokenizer employs a unified encoding scheme for all animated prop-erties. Each animated property follows the same structural pattern: 
+
+<|PROP_ANIMATED|><|PROP_KF_START|> <keyframe_1><keyframe_2>...<keyframe_n> <|PROP_KF_END|> 
+
+Transform Animation. Consider a layer transform with animated position, rotation, and opacity. A typical Lottie transform contains five core properties: position (p), anchor point (a), scale (s), rotation (r), and opacity (o). Each prop-erty can be either independently animated or a static value. 
+
+Keyframe Structure. Each keyframe encodes three essen-tial components: • <|t|> : Time in frames that specifies when this keyframe occurs • Value tokens: Property-specific encoding based on di-mensionality • <|ease|> : Cubic B´ ezier easing function (optional) 
+
+– Empty tag indicates default ease-in-out curve 
+
+– Four parameters (ix, i y , o x, o y ) for custom curves 
+
+– Omitted for the final keyframe (no interpolation needed) 
+
+Compression Analysis. This representation achieves dra-matic compression . For example, as shown in Fig. 4, con-sider a 100-frame animation with smooth transitions across 6 keyframes. Moreover, the easing function <|ease|> 
+
+encodes B´ ezier control points that define motion curves, which is critical information for professional animation quality that is entirely absent in raster representations. This allows the same keyframes to produce drastically different motion feels (linear, ease-in, bounce, etc.) without addi-tional data. 
+
+Advantages. Compared to frame-based approaches, our keyframe encoding offers: (1) temporal scalability , where compression ratio improves with duration (98% for 300 frames/5 keyframes), (2) motion quality preservation ,where easing curves are first-class primitives rather than ap-proximations, (3) editability , where individual keyframes can be modified without sequence reconstruction, (4) reso-lution independence , where coordinate-based values scale freely to any resolution, and (5) semantic integrity , where shapes and layers are encoded as complete hierarchical units rather than decomposed into atomic primitives [97], preserving compositional structure for VLM learning. 
+
+Tokenization and Detokenization. We traverse the Lottie JSON tree depth-first, encoding metadata, assets, layers, and shapes with special tokens. Each prop-erty is encoded as either static ( <| STATIC|> ) or ani-mated ( <| ANIMATED|> ) based on keyframe detection, with property-specific compression applied (colors →hex, motion →B´ ezier). Detokenization reconstructs the JSON via recursive parsing, achieving lossless roundtrip : de-coded animations render identically to originals. 
+
+4.3. Static-to-Dynamic Training 
+
+Following curriculum learning in LLMs, we adopt a two-stage training approach that first teaches static vector graphics generation before introducing temporal dynam-ics, since Lottie keyframes share the same representation as static graphics. 
+
+Stage 1: Static Vector Graphics. We train on static Lottie images (converted from SVG) with 50% text-only data (text-to-Lottie generation) and 50% multimodal data (image-to-Lottie generation). This stage teaches fundamen-tal vector composition: shapes, fills, strokes, transforms, and hierarchical structure. 
+
+Stage 2: Vector Animation. We introduce temporal dy-namics using Lottie animations with 34% text-only, 33% text + first-frame image, and 33% text + video (keyframes). This mixture enables flexible conditioning at inference, where users can provide text descriptions, reference images for style guidance, or video keyframes for motion transfer. 
+
+Why Two Stages? Early experiments with joint training on mixed static+dynamic data showed unstable convergence. This is because each sample in LottieAnimation contains significantly more tokens than those in LottieImage, mak-ing it difficult for the model to simultaneously learn spatial composition and temporal coordination. By first mastering static graphics, the model develops strong priors for vec-tor primitives and hierarchical organization, then focuses purely on motion modeling in Stage 2. 
+
+Training Objective. Standard causal language model-ing with cross-entropy loss on next-token prediction. The model learns to generate valid Lottie token sequences by minimizing: 
+
+L = −
+
+> N
+
+X
+
+> i=1
+
+log P (ti | t<i , c) (1) where ti is the i-th token, t<i represents all previous tokens, and c denotes multimodal conditioning (text + image/video features). 
+
+5. LottieBench 
+
+The field of vector graphics already has numerous evalua-tion methods [15, 60, 107], but the vector animation domain still lacks evaluation approaches. To conduct a more com-prehensive evaluation of Lottie animations, inspired by web code evaluation methods [29], we evaluate the generated Lottie JSON across five dimensions: visual level, structured data level, semantic level, and rendering success rate. 
+
+5.1. Evaluation Data 
+
+For animation generation, we stratify the test set into three difficulty levels by token count (Fig. 2): Simple (150 sam-ples), Medium (40 samples), and Complex (40 samples), totaling 230 unseen animations. For static graphics genera-tion, we evaluate on 400 randomly selected unseen samples without difficulty stratification, as static graphics are con-sistently short, typically under 200 tokens. 
+
+5.2. Evaluation Metrics 
+
+We evaluate generated Lottie animations across three com-plementary dimensions: visual fidelity , structural cor-rectness , and semantic alignment .
+
+Visual-Level Metrics. We assess perceptual quality using standard image and video metrics: LPIPS [104], SSIM [78], CLIP [65], and DINO [7]. 
+
+Structural-Level Metrics. For methods that output Lottie JSON, we evaluate JSON structure consistency. To evalu-ate structural correctness of generated Lottie JSON, we per-form three steps: Table 2. Lottie image and animation generation with Text-Only, Text+Image input. 
+
+Method Model/Approach Visual Layer Structural Layer Semantic Layer Valid Rate CLIP ↑ SSIM ↑ LPIPS ↓ DINOv2 ↑ JSON ↑ CLIP-T ↑ (%) 
+
+Text-Only Input to Static Vector Graphics 
+
+Text2SVG OmniSVG-7B 0.8321 0.5627 0.5123 0.7274 N/A 0.2676 N/A 
+
+Ours (Text Only) LottieGPT-7B-Stage1 0.9331 0.8103 0.1755 0.8572 0.8239 0.2893 98.25% 
+
+Text+Image Input to Static Vector Graphics 
+
+Image2SVG StarVector-8B 0.7662 0.3851 0.4647 0.5286 N/A 0.2454 N/A OmniSVG-7B 0.9002 0.7051 0.2507 0.8481 N/A 0.2772 N/A 
+
+Ours (Text+Image) LottieGPT-7B-Stage1 0.9201 0.8151 0.1941 0.8514 0.8472 0.2871 97.50% 
+
+Text-Only Input to Vector Animation 
+
+Few-shot (3-shot) GPT-5 0.7682 0.8232 0.2528 0.5929 0.0358 0.2640 10.87% Claude Sonnet 4.5 0.8485 0.8493 0.2496 0.7278 0.0522 0.3115 45.22% Gemini 2.5 Pro 0.7157 0.6574 0.2113 0.6400 0.0403 0.2565 30.00% DeepSeek-V3.1 0.5425 0.6390 0.1358 0.3721 0.0399 0.1632 30.43% Qwen3-235B 0.8122 0.7973 0.3084 0.6637 0.0151 0.3185 28.26% Finetuned w. Lottie Json Qwen2.5-VL 7B 0.7456 0.7156 0.1714 0.4789 0.0089 0.2236 22.61% 
+
+Ours (Text Only) LottieGPT-7B-Stage1 0.8156 0.8524 0.1925 0.7715 0.2347 0.2756 78.35% Ours (Text Only) LottieGPT-7B-Stage2 0.9566 0.9776 0.0366 0.9301 0.8062 0.2985 96.96% 
+
+Text + Image Input to Vector Animation 
+
+Few-shot (3-shot) Claude Sonnet 4.5 0.8499 0.9229 0.1273 0.7349 0.0043 0.3416 51.74% Gemini 2.5 Pro 0.8476 0.8311 0.2136 0.6980 0.0037 0.2862 32.17% Qwen3-235B 0.8162 0.9251 0.1721 0.7084 0.0028 0.2831 24.35% Image2Video Sora2 0.8903 0.8661 0.3004 0.8182 N/A N/A N/A Kling 0.8661 0.8542 0.2783 0.6261 N/A N/A N/A Veo3.1 0.8487 0.5558 0.4417 0.6658 N/A N/A N/A 
+
+Ours (Text+Image) LottieGPT-7B-Stage2 0.9743 0.9886 0.0278 0.9472 0.9195 0.3029 97.83% 
+
+Step 1: Flatten JSON hierarchy. Traverse the nested JSON depth-first to extract all key-value pairs: 
+
+Φ( J ) = {(k, v ) | k ∈ K (J )} (2) where k is a hierarchical path like layers [0] .shapes [1] .ty .
+
+Step 2: Compare key sets. Partition keys into common ( Kc), missing ( Km), and extra ( Ke): 
+
+Kc = Kgt ∩ K pred , Km = Kgt \ K pred , Ke = Kpred \ K gt 
+
+(3) Compute Key-F1 to measure topology correctness: Key-F1 = 2|K c||K gt | + |K pred | (4) 
+
+Step 3: Measure value consistency. Define value match in-dicator δk = ⊮{vgt  
+
+> k
+
+= vpred  
+
+> k
+
+} for key k. Compute: ValueMatch = 1
+
+|K c|
+
+X
+
+> k∈K c
+
+δk (5) NumericMAE = 1
+
+|N | 
+
+X
+
+> k∈N
+
+|vgt  
+
+> k
+
+− vpred  
+
+> k
+
+| (6) where N ⊆ K c contains numeric keys. 
+
+Overall score. Combine topology and content with 7:3 weighting: JsonStructSim = 0 .7 · Key-F1 + 0 .3 · ValueMatch (7) 
+
+Semantic-Level Metrics. We evaluate alignment between generated content and input text prompts using CLIP [65]. For static image generation tasks, we measure CLIP text-image similarity between the input prompt and rendered image. For animation generation tasks, we render the an-imation into video frames and compute the average CLIP score across all frames. 
+
+6. Results 
+
+6.1. Baselines 
+
+For the vector graphics generation task, we compare Lot-tieGPT with state-of-the-art SVG generation methods Om-niSVG [97] and StarVector [67]. For the vector anima-tion generation task, we compare LottieGPT with state-of-the-art video generation models including Sora 2 [62], Kling [43], and Veo 3.1 [28]. We also evaluate against state-of-the-art commercial models, including GPT-5 [61], Claude Sonnet 4.5 [2], Gemini 2.5 Pro [20], Qwen3-Figure 5. Lottie animations generated by LottieGPT. 
+
+Max [96], and DeepSeek-V3.1 [51]. Other vector anima-tion generation methods, including LINR-bridge [26] and AniClipart [86], are based on LiveSketch [24]. However, LiveSketch does not support SVG inputs with Groups and 
+
+Transforms , both of which are essential components for vector animations. As a result, these methods cannot handle the complex structure of Lottie animations. 
+
+6.2. Training Details 
+
+We follow Qwen2.5-VL’s hyperparameters: frozen vision encoder, trainable MLP adapter and LLM, learning rate 
+
+1 × 10 −6, max sequence length 40K tokens. Each stage trains for 20 epochs on 8×H20 GPUs (140GB each) for 1week using bfloat16 and DeepSpeed ZeRO-3. We expand the vocabulary with 441 Lottie tokens and 35 padding to-kens (152,064 →152,128, padded to multiples of 64). Due to GPU constraints, we use 750K MMSVG-icon samples for Stage 1 and 60K Lottie animations for Stage 2. 
+
+6.3. Evaluations and Comparisons 
+
+Static Vector Graphics Task. We evaluate static vec-tor graphics generation under two settings: text-only in-put and text-with-image input. Tab. 2 presents comprehen-sive results on LottieBench. For fair comparison, all base-lines including LottieGPT-Stage1 are trained on MMSVG-Icon, the dataset used by OmniSVG. Experimental results show that LottieGPT achieves superior performance on both text-to-vector and image-to-vector generation tasks, out-performing the current state-of-the-art method OmniSVG across all metrics. This validates the effectiveness of Lot-tie JSON as a vector graphics representation format. We refer readers to the supplementary material for qualitative comparisons. Following OmniSVG’s experimental proto-col, we train and evaluate on identical datasets. It is impor-tant to note that LottieGPT-7B-Stage1 in Tab. 2 is trained on only 750K samples from MMSVG-Icon, whereas Om-niSVG leverages 2M samples from both MMSVG-Icon and MMSVG-Illustrations datasets. 
+
+Vector Animation Task. For the vector video generation task, we similarly evaluated using text-only prompts as in-put and using text prompts with image input. We present the results of all vector animation methods on LottieBench in Tab. 2. Existing SVG-based vector animation meth-ods [24, 26, 86] are unable to perform inference on the SVGs converted from our LottieAnimation dataset. Since baseline methods can hardly generate meaningful anima-tions, please refer to the supplementary materials for qual-itative comparison results. Fig. 5 shows some generation examples from LottieGPT. Experimental results demon-strate that LottieGPT significantly outperforms state-of-the-art video generation methods and few-shot VLM results. 
+
+6.4. Ablation Study 
+
+Tab. 2 includes a variant finetuned directly with Lottie JSON without our tokenizer (Finetuned w. Lottie JSON). Due to the frequent occurrence of sequences exceeding 40K tokens, we train only on samples within the 40K token limit, with pretraining on MMSVG-Icon converted to Lot-tie JSON. We also evaluate LottieGPT-7B-Stage1 (trained only on MMSVG-Icon) on animation tasks. Despite achiev-ing state-of-the-art performance on static graphics, it per-forms poorly on animation generation. This validates the effectiveness of our Lottie Tokenizer and Static-to-Dynamic training strategy. 
+
+7. Conclusion 
+
+We present LottieGPT, the first framework for autore-gressively generating editable vector animations from text, images, or keyframes. By designing a Lottie Tok-enizer for hierarchical primitives and keyframes, construct-ing a 660K animation dataset, and fine-tuning Qwen2.5-VL via ”static-to-dynamic” training, LottieGPT produces resolution-independent, compact, and editable outputs, achieving state-of-the-art performance in both vector ani-mation and SVG generation. Acknowledgments 
+
+This work is supported in part by the National Natural Sci-ence Foundation of China under contract No. 62171256, in part by the the Guangdong Natural Science Foundation (2026A1515010184). 
+
+References 
+
+[1] Kamel Alrashedy, Pradyumna Tambwekar, Zulfiqar Haider Zaidi, Megan Langwasser, Wei Xu, and Matthew Gombo-lay. Generating cad code with vision-language models for 3d designs. In The Thirteenth International Conference on Learning Representations . 3 [2] Anthropic. Claude sonnet 4.5, 2025. 7 [3] Shuai Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Sibo Song, Kai Dang, Peng Wang, Shijie Wang, Jun Tang, et al. Qwen2. 5-vl technical report. arXiv preprint arXiv:2502.13923 , 2025. 3, 4, 10 [4] Tim Brooks, Aleksander Holynski, and Alexei A Efros. Instructpix2pix: Learning to follow image editing instruc-tions. In Proceedings of the IEEE/CVF conference on com-puter vision and pattern recognition , pages 18392–18402, 2023. 3 [5] Tim Brooks, Aleksander Holynski, Jiaming Wu, Ke Li, and OpenAI Team. Video world simulators. OpenAI Technical Report , 2024. 2 [6] Alexandre Carlier, Martin Danelljan, Alexandre Alahi, and Radu Timofte. Deepsvg: A hierarchical generative network for vector graphics animation. Advances in Neural Informa-tion Processing Systems , 33:16351–16361, 2020. 3, 4 [7] Mathilde Caron, Hugo Touvron, Ishan Misra, Herv´ e J´ egou, Julien Mairal, Piotr Bojanowski, and Armand Joulin. Emerging properties in self-supervised vision transformers. In Proceedings of the IEEE/CVF international conference on computer vision , pages 9650–9660, 2021. 6 [8] Duygu Ceylan, Chun-Hao P Huang, and Niloy J Mitra. Pix2video: Video editing using image diffusion. In Pro-ceedings of the IEEE/CVF International Conference on Computer Vision , pages 23206–23217, 2023. 3 [9] Junhao Chen, Peng Rong, Jingbo Sun, Chao Li, Xiang Li, and Hongwu Lv. Soulstyler: Using large language model to guide image style transfer for target object. arXiv preprint arXiv:2311.13562 , 2023. 3 [10] Junhao Chen, Xiang Li, Xiaojun Ye, Chao Li, Zhaoxin Fan, and Hao Zhao. Idea23d: Collaborative lmm agents enable 3d model generation from interleaved multimodal inputs. In 
+
+Proceedings of the 31st International Conference on Com-putational Linguistics , pages 4149–4166, 2025. 3 [11] Jianqi Chen, Biao Zhang, Xiangjun Tang, and Peter Wonka. V2m4: 4d mesh animation reconstruction from a single monocular video. In Proceedings of the IEEE/CVF In-ternational Conference on Computer Vision (ICCV) , pages 11643–11653, 2025. 3 [12] Junhao Chen, Mingjin Chen, Jianjin Xu, Xiang Li, Junting Dong, Mingze Sun, Puhua Jiang, Hongxiang Li, Yuhang Yang, Hao Zhao, Xiao-Xiao Long, and Ruqi Huang. Dancetogether: Generating interactive multi-person video without identity drifting. In The Fourteenth International Conference on Learning Representations , 2026. 3 [13] Mingjin Chen, Junhao Chen, Zhaoxin Fan, Yujian Lee, Zichen Dang, Lili Wang, Yawen Cui, Lap-Pui Chau, and Yi Wang. Hvg-3d: Bridging real and simulation domains for 3d-conditional hand-object interaction video synthesis. 
+
+arXiv preprint arXiv:2604.03305 , 2026. 3 [14] Mingjin Chen, Junhao Chen, Huan-ang Gao, Xiaoxue Chen, Zhaoxin Fan, and Hao Zhao. Ultraman: ultra-fast and high-resolution texture generation for 3d human recon-struction from a single image. Machine Vision and Appli-cations , 37(2):24, 2026. 3 [15] Siqi Chen, Xinyu Dong, Haolei Xu, Xingyu Wu, Fei Tang, Hang Zhang, Yuchen Yan, Linjuan Wu, Wenqi Zhang, Guiyang Hou, et al. Svgenius: Benchmarking llms in svg understanding, editing and generation. In Proceedings of the 33rd ACM International Conference on Multimedia ,pages 13289–13296, 2025. 6 [16] Zehao Chen and Rong Pan. Svgbuilder: Component-based colored svg generation with text-guided autoregres-sive transformers. In Proceedings of the AAAI Conference on Artificial Intelligence , pages 2358–2366, 2025. 3 [17] Haohan Chi, Huan-ang Gao, Ziming Liu, Jianing Liu, Chenyu Liu, Jinwei Li, Kaisen Yang, Yangcheng Yu, Zeda Wang, Wenyi Li, et al. Impromptu vla: Open weights and open data for driving vision-language-action models. In 
+
+The Thirty-ninth Annual Conference on Neural Information Processing Systems Datasets and Benchmarks Track . 3 [18] Wenxun Dai, Ling-Hao Chen, Jingbo Wang, Jinpeng Liu, Bo Dai, and Yansong Tang. Motionlcm: Real-time control-lable motion generation via latent consistency model. In 
+
+European Conference on Computer Vision , pages 390–408. Springer, 2024. 3 [19] Boris Dalstein, R´ emi Ronfard, and Michiel Van De Panne. Vector graphics animation with time-varying topology. 
+
+ACM Transactions on Graphics (TOG) , 34(4):1–12, 2015. 3[20] Google DeepMind. Gemini 2.5 pro, 2025. 7 [21] Kairui Ding, Boyuan Chen, Yuchen Su, Huan-ang Gao, Bu Jin, Chonghao Sima, Xiaohui Li, Wuqiang Zhang, Paul Barsch, Hongyang Li, et al. Hint-ad: Holistically aligned interpretability in end-to-end autonomous driving. In 8th Annual Conference on Robot Learning . 3 [22] Shuguang Dou, Xinyang Jiang, Lu Liu, Lu Ying, Caihua Shan, Yifei Shen, Xuanyi Dong, Yun Wang, Dongsheng Li, and Cairong Zhao. Hierarchically recognizing vector graphics and a new chart-based vector graphics dataset. 
+
+IEEE Transactions on Pattern Analysis and Machine Intel-ligence , 46(12):7556–7573, 2024. 3 [23] Ke Fan, Shunlin Lu, Minyue Dai, Runyi Yu, Lixing Xiao, Zhiyang Dou, Junting Dong, Lizhuang Ma, and Jingbo Wang. Go to zero: Towards zero-shot motion gen-eration with million-scale data. In Proceedings of the IEEE/CVF International Conference on Computer Vision ,pages 13336–13348, 2025. 3 [24] Rinon Gal, Yael Vinker, Yuval Alaluf, Amit Bermano, Daniel Cohen-Or, Ariel Shamir, and Gal Chechik. Breath-ing life into sketches using text-to-video priors. In Proceed-ings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 4325–4336, 2024. 3, 8 [25] Daoyi Gao, Yawar Siddiqui, Lei Li, and Angela Dai. Me-shart: Generating articulated meshes with structure-guided transformers. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 618–627, 2025. 3 [26] Wenshuo Gao, Xicheng Lan, Luyao Zhang, and Shuai Yang. Linr bridge: Vector graphic animation via neu-ral implicits and video diffusion priors. arXiv preprint arXiv:2509.07484 , 2025. 3, 8 [27] Jiaxin Ge, Zora Zhiruo Wang, Xuhui Zhou, Yi-Hao Peng, Sanjay Subramanian, Qinyue Tan, Maarten Sap, Alane Suhr, Daniel Fried, Graham Neubig, et al. Autopresent: De-signing structured visuals from scratch. In Proceedings of the Computer Vision and Pattern Recognition Conference ,pages 2902–2911, 2025. 1, 2 [28] Google. Veo 3.1: Video generation, 2025. 3, 7, 13 [29] Hongcheng Guo, Wei Zhang, Junhao Chen, Yaonan Gu, Jian Yang, Junjia Du, Shaosheng Cao, Binyuan Hui, Tianyu Liu, Jianxin Ma, Chang Zhou, and Zhoujun Li. IW-bench: Evaluating large multimodal models for converting image-to-web. In Findings of the Association for Computational Linguistics: ACL 2025 , pages 6449–6466, Vienna, Austria, 2025. Association for Computational Linguistics. 6 [30] Yuwei Guo, Ceyuan Yang, Anyi Rao, Zhengyang Liang, Yaohui Wang, Yu Qiao, Maneesh Agrawala, Dahua Lin, and Bo Dai. Animatediff: Animate your personalized text-to-image diffusion models without specific tuning. In The Twelfth International Conference on Learning Representa-tions . 3 [31] Zhiyang Guo, Jinxu Xiang, Kai Ma, Wengang Zhou, Houqiang Li, and Ran Zhang. Make-it-animatable: An ef-ficient framework for authoring animation-ready 3d char-acters. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 10783–10792, 2025. 3 [32] Haonan Han, Xiangzuo Wu, Huan Liao, Zunnan Xu, Zhongyuan Hu, Ronghui Li, Yachao Zhang, and Xiu Li. Atom: Aligning text-to-motion model at event-level with gpt-4vision reward. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 22746–22755, 2025. 3 [33] Zekun Hao, David W Romero, Tsung-Yi Lin, and Ming-Yu Liu. Meshtron: High-fidelity, artist-like 3d mesh generation at scale. arXiv preprint arXiv:2412.09548 , 2024. 3 [34] Wenyi Hong, Ming Ding, Wendi Zheng, Xinghan Liu, and Jie Tang. Cogvideo: Large-scale pretraining for text-to-video generation via transformers. arXiv preprint arXiv:2205.15868 , 2022. 3 [35] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou, Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao Tan. Lrm: Large reconstruction model for single image to 3d. In The Twelfth International Conference on Learning Representations . 3 [36] Shir Iluz, Yael Vinker, Amir Hertz, Daniel Berio, Daniel Cohen-Or, and Ariel Shamir. Word-as-image for semantic typography. ACM Transactions on Graphics (TOG) , 42(4): 1–11, 2023. 3 [37] Ajay Jain, Amber Xie, and Pieter Abbeel. Vectorfusion: Text-to-svg by abstracting pixel-based diffusion models. In 
+
+Proceedings of the IEEE/CVF Conference on Computer Vi-sion and Pattern Recognition , pages 1911–1920, 2023. 3 [38] Biao Jiang, Xin Chen, Wen Liu, Jingyi Yu, Gang Yu, and Tao Chen. Motiongpt: Human motion as a foreign lan-guage. Advances in Neural Information Processing Sys-tems , 36:20067–20079, 2023. 3 [39] Zeyinzi Jiang, Zhen Han, Chaojie Mao, Jingfeng Zhang, Yulin Pan, and Yu Liu. Vace: All-in-one video cre-ation and editing. In Proceedings of the IEEE/CVF In-ternational Conference on Computer Vision , pages 17191– 17202, 2025. 3 [40] Bu Jin, Yupeng Zheng, Pengfei Li, Weize Li, Yuhang Zheng, Sujie Hu, Xinyu Liu, Jinwei Zhu, Zhijie Yan, Haiyang Sun, et al. Tod3cap: Towards 3d dense captioning in outdoor scenes. In European Conference on Computer Vision , pages 367–384. Springer, 2024. 3 [41] Mohammad Sadil Khan, Sankalp Sinha, Talha Uddin, Didier Stricker, Sk Aziz Ali, and Muhammad Zeshan Afzal. Text2cad: Generating sequential cad designs from beginner-to-expert level text prompts. Advances in Neural Information Processing Systems , 37:7552–7579, 2024. 3 [42] Weijie Kong, Qi Tian, Zijian Zhang, Rox Min, Zuozhuo Dai, Jin Zhou, Jiangfeng Xiong, Xin Li, Bo Wu, Jian-wei Zhang, et al. Hunyuanvideo: A systematic frame-work for large video generative models. arXiv preprint arXiv:2412.03603 , 2024. 3 [43] Kuaishou. Kling, 2025. 2, 3, 7, 13 [44] Black Forest Labs, Stephen Batifol, Andreas Blattmann, Frederic Boesel, Saksham Consul, Cyril Diagne, Tim Dockhorn, Jack English, Zion English, Patrick Esser, et al. Flux. 1 kontext: Flow matching for in-context image generation and editing in latent space. arXiv preprint arXiv:2506.15742 , 2025. 2 [45] Biwen Lei, Yang Li, Xinhai Liu, Shuhui Yang, Lixin Xu, Jingwei Huang, Ruining Tang, Haohan Weng, Jian Liu, Jing Xu, et al. Hunyuan3d studio: End-to-end ai pipeline for game-ready 3d asset generation. arXiv preprint arXiv:2509.12815 , 2025. 3 [46] Junnan Li, Dongxu Li, Silvio Savarese, and Steven Hoi. Blip-2: Bootstrapping language-image pre-training with frozen image encoders and large language models. In In-ternational conference on machine learning , pages 19730– 19742. PMLR, 2023. 4, 10 [47] Pengfei Li, Beiwen Tian, Yongliang Shi, Xiaoxue Chen, Hao Zhao, Guyue Zhou, and Ya-Qin Zhang. Toist: Task oriented instance segmentation transformer with noun-pronoun distillation. Advances in Neural Information Pro-cessing Systems , 35:17597–17611, 2022. 3 [48] Tzu-Mao Li, Michal Luk´ aˇ c, Micha¨ el Gharbi, and Jonathan Ragan-Kelley. Differentiable vector graphics rasterization for editing and learning. ACM Transactions on Graphics (TOG) , 39(6):1–15, 2020. 3 [49] Yukang Lin, Yan Hong, Zunnan Xu, Xindi Li, Chao Xu, Chuanbiao Song, Ronghui Li, Haoxing Chen, Jun Lan, Hui-jia Zhu, et al. Interanimate: Taming region-aware diffu-sion model for realistic human interaction animation. In Proceedings of the 33rd ACM International Conference on Multimedia , pages 10305–10314, 2025. 3 [50] Stefan Lionar, Jiabin Liang, and Gim Hee Lee. Treemeshgpt: Artistic mesh generation with autoregressive tree sequencing. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 26608–26617, 2025. 3 [51] Aixin Liu, Bei Feng, Bing Xue, Bingxuan Wang, Bochao Wu, Chengda Lu, Chenggang Zhao, Chengqi Deng, Chenyu Zhang, Chong Ruan, et al. Deepseek-v3 technical report. arXiv preprint arXiv:2412.19437 , 2024. 8 [52] Shaoteng Liu, Yuechen Zhang, Wenbo Li, Zhe Lin, and Ji-aya Jia. Video-p2p: Video editing with cross-attention con-trol. In Proceedings of the IEEE/CVF Conference on Com-puter Vision and Pattern Recognition , pages 8599–8608, 2024. 3 [53] Yilin Liu, Duoteng Xu, Xingyao Yu, Xiang Xu, Daniel Cohen-Or, Hao Zhang, and Hui Huang. Hola: B-rep gener-ation using a holistic latent representation. ACM Transac-tions on Graphics (TOG) , 44(4):1–25, 2025. 3 [54] Zichen Liu, Yihao Meng, Hao Ouyang, Yue Yu, Bolin Zhao, Daniel Cohen-Or, and Huamin Qu. Dynamic typog-raphy: Bringing text to life via video diffusion prior. In 
+
+Proceedings of the IEEE/CVF International Conference on Computer Vision , pages 14787–14797, 2025. 3 [55] Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu, Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang, Marc Habermann, Christian Theobalt, et al. Wonder3d: Single image to 3d using cross-domain diffusion. In Pro-ceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 9970–9980, 2024. 3 [56] Jiaju Ma and Maneesh Agrawala. Mover: Motion verifica-tion for motion graphics animations. ACM Transactions on Graphics (TOG) , 44(4):1–17, 2025. 3 [57] Yongsen Mao, Junhao Zhong, Chuan Fang, Jia Zheng, Rui Tang, Hao Zhu, Ping Tan, and Zihan Zhou. Spatiallm: Training large language models for structured indoor mod-eling. arXiv preprint arXiv:2506.07491 , 2025. 1, 2 [58] Deborah Mateja, Rebecca Armbruster, Jonathan Baumert, Tim Bleil, Jakob Langenbahn, Jan Christian Schwedhelm, Sarah Sester, and Armin Heinzl. Animatesvg: autonomous creation and aesthetics evaluation of scalable vector graph-ics animations for the case of brand logos. In Proceedings of the AAAI Conference on Artificial Intelligence , pages 15710–15716, 2023. 3 [59] Xingyu Miao, Junting Dong, Qin Zhao, Yuhang Yang, Jun-hao Chen, and Yang Long. From frames to sequences: Tem-porally consistent human-centric dense prediction. arXiv preprint arXiv:2602.01661 , 2026. 3 [60] Kunato Nishina and Yusuke Matsui. Svgeditbench: Abenchmark dataset for quantitative assessment of llm’s svg editing capabilities. In Proceedings of the IEEE/CVF Con-ference on Computer Vision and Pattern Recognition , pages 8142–8147, 2024. 6 [61] OpenAI. Gpt-5, 2025. 7 [62] OpenAI. Sora 2 system card, 2025. 2, 7, 13 [63] Ava Pun, Kangle Deng, Ruixuan Liu, Deva Ramanan, Changliu Liu, and Jun-Yan Zhu. Generating physically sta-ble and buildable brick structures from text. In Proceed-ings of the IEEE/CVF International Conference on Com-puter Vision , pages 14798–14809, 2025. 1, 2, 3 [64] Lingteng Qiu, Xiaodong Gu, Peihao Li, Qi Zuo, Weichao Shen, Junfei Zhang, Kejie Qiu, Weihao Yuan, Guanying Chen, Zilong Dong, et al. Lhm: Large animatable human reconstruction model for single image to 3d in seconds. In 
+
+Proceedings of the IEEE/CVF International Conference on Computer Vision , pages 14184–14194, 2025. 3 [65] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learn-ing transferable visual models from natural language super-vision. In International conference on machine learning ,pages 8748–8763. PmLR, 2021. 6, 7 [66] Pradyumna Reddy, Michael Gharbi, Michal Lukac, and Niloy J Mitra. Im2vec: Synthesizing vector graphics with-out vector supervision. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,pages 7342–7351, 2021. 3 [67] Juan A Rodriguez, Abhay Puri, Shubham Agarwal, Issam H Laradji, Pau Rodriguez, Sai Rajeswar, David Vazquez, Christopher Pal, and Marco Pedersoli. Starvector: Gen-erating scalable vector graphics code from images and text. In Proceedings of the Computer Vision and Pattern Recog-nition Conference , pages 16175–16186, 2025. 4, 7, 2, 13 [68] Juan A Rodriguez, Abhay Puri, Shubham Agarwal, Issam H Laradji, Pau Rodriguez, Sai Rajeswar, David Vazquez, Christopher Pal, and Marco Pedersoli. Starvector: Gen-erating scalable vector graphics code from images and text. In Proceedings of the Computer Vision and Pattern Recog-nition Conference , pages 16175–16186, 2025. 3 [69] Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj¨ orn Ommer. High-resolution image synthesis with latent diffusion models. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , pages 10684–10695, 2022. 2 [70] Yawar Siddiqui, Antonio Alliegro, Alexey Artemov, Ta-tiana Tommasi, Daniele Sirigatti, Vladislav Rosov, Angela Dai, and Matthias Nießner. Meshgpt: Generating triangle meshes with decoder-only transformers. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 19615–19625, 2024. 3 [71] Chaoyue Song, Xiu Li, Fan Yang, Zhongcong Xu, Jiacheng Wei, Fayao Liu, Jiashi Feng, Guosheng Lin, and Jianfeng Zhang. Puppeteer: Rig and animate your 3d models. arXiv preprint arXiv:2508.10898 , 2025. 3 [72] Chaoyue Song, Jianfeng Zhang, Xiu Li, Fan Yang, Yiwen Chen, Zhongcong Xu, Jun Hao Liew, Xiaoyang Guo, Fayao Liu, Jiashi Feng, et al. Magicarticulate: Make your 3d models articulation-ready. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 15998– 16007, 2025. [73] Mingze Sun, Junhao Chen, Junting Dong, Yurun Chen, Xinyu Jiang, Shiwei Mao, Puhua Jiang, Jingbo Wang, Bo Dai, and Ruqi Huang. Drive: Diffusion-based rigging em-powers generation of versatile and expressive characters. In 
+
+Proceedings of the Computer Vision and Pattern Recogni-tion Conference , pages 21170–21180, 2025. 3 [74] Jiaxiang Tang, Zhaoshuo Li, Zekun Hao, Xian Liu, Gang Zeng, Ming-Yu Liu, and Qinsheng Zhang. Edgerunner: Auto-regressive auto-encoder for artistic mesh generation. In The Thirteenth International Conference on Learning Representations . 1, 2, 3 [75] Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei Wang, Gang Zeng, and Ziwei Liu. Lgm: Large multi-view gaussian model for high-resolution 3d content cre-ation. In European Conference on Computer Vision , pages 1–18. Springer, 2024. 3 [76] Tiffany Tseng, Ruijia Cheng, and Jeffrey Nichols. Keyframer: Empowering animation design using large lan-guage models. arXiv preprint arXiv:2402.06071 , 2024. 3 [77] Yuxin Wang, Lei Ke, Boqiang Zhang, Tianyuan Qu, Hanxun Yu, Zhenpeng Huang, Meng Yu, Dan Xu, and Dong Yu. N3d-vlm: Native 3d grounding enables accurate spatial reasoning in vision-language models. arXiv preprint arXiv:2512.16561 , 2025. 3 [78] Zhou Wang, Alan C Bovik, Hamid R Sheikh, and Eero P Simoncelli. Image quality assessment: from error visibility to structural similarity. IEEE transactions on image pro-cessing , 13(4):600–612, 2004. 6 [79] Zhengyi Wang, Jonathan Lorraine, Yikai Wang, Hang Su, Jun Zhu, Sanja Fidler, and Xiaohui Zeng. Llama-mesh: Unifying 3d mesh generation with language models. arXiv preprint arXiv:2411.09595 , 2024. 3 [80] Fangsheng Weng, Junhao Chen, Xiang Li, Jie Qin, Hanzhong Guo, ShaochunHao, and Xiaoguang Han. Gar-mentGPT: Compositional garment pattern generation via discrete latent tokenization. In The Fourteenth Interna-tional Conference on Learning Representations , 2026. 2 [81] Chenfei Wu, Jiahao Li, Jingren Zhou, Junyang Lin, Kaiyuan Gao, Kun Yan, Sheng-ming Yin, Shuai Bai, Xiao Xu, Yilei Chen, et al. Qwen-image technical report. arXiv preprint arXiv:2508.02324 , 2025. 2, 3 [82] Rundi Wu, Chang Xiao, and Changxi Zheng. Deepcad: A deep generative network for computer-aided design models. In Proceedings of the IEEE/CVF International Conference on Computer Vision , pages 6772–6782, 2021. 3 [83] Ronghuan Wu, Wanchao Su, Kede Ma, and Jing Liao. Icon-shop: Text-guided vector icon synthesis with autoregressive transformers. ACM Transactions on Graphics (TOG) , 42 (6):1–14, 2023. 3 [84] Ronghuan Wu, Wanchao Su, and Jing Liao. Chat2svg: Vector graphics generation with large language models and image diffusion models. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 23690– 23700, 2025. 3 [85] Ronghuan Wu, Wanchao Su, and Jing Liao. Layerpeeler: Autoregressive peeling for layer-wise image vectorization. 
+
+arXiv preprint arXiv:2505.23740 , 2025. 3 [86] Ronghuan Wu, Wanchao Su, Kede Ma, and Jing Liao. An-iclipart: Clipart animation with text-to-video priors. Inter-national Journal of Computer Vision , 133(6):3149–3165, 2025. 3, 8 [87] Jianfeng Xiang, Xiaoxue Chen, Sicheng Xu, Ruicheng Wang, Zelong Lv, Yu Deng, Hongyuan Zhu, Yue Dong, Hao Zhao, Nicholas Jing Yuan, and Jiaolong Yang. Na-tive and compact structured latents for 3d generation. Tech report , 2025. 3 [88] Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng Wang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong Yang. Structured 3d latents for scalable and versa-tile 3d generation. In Proceedings of the Computer Vision and Pattern Recognition Conference , pages 21469–21480, 2025. 3 [89] Lixing Xiao, Shunlin Lu, Huaijin Pi, Ke Fan, Liang Pan, Yueer Zhou, Ziyong Feng, Xiaowei Zhou, Sida Peng, and Jingbo Wang. Motionstreamer: Streaming motion genera-tion via diffusion-based autoregressive model in causal la-tent space. arXiv preprint arXiv:2503.15451 , 2025. 3 [90] Ximing Xing, Juncheng Hu, Jing Zhang, Dong Xu, and Qian Yu. Svgfusion: Scalable text-to-svg generation via vector space diffusion. arXiv preprint arXiv:2412.10437 ,2024. 2, 4 [91] Ximing Xing, Haitao Zhou, Chuang Wang, Jing Zhang, Dong Xu, and Qian Yu. Svgdreamer: Text guided svg generation with diffusion model. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 4546–4555, 2024. 3 [92] Ximing Xing, Juncheng Hu, Guotao Liang, Jing Zhang, Dong Xu, and Qian Yu. Empowering llms to understand and generate complex vector graphics. In Proceedings of the Computer Vision and Pattern Recognition Conference ,pages 19487–19497, 2025. 4 [93] Ximing Xing, Juncheng Hu, Guotao Liang, Jing Zhang, Dong Xu, and Qian Yu. Empowering llms to understand and generate complex vector graphics. In Proceedings of the Computer Vision and Pattern Recognition Conference ,pages 19487–19497, 2025. 3 [94] Jiaqi Xu, Xinyi Zou, Kunzhe Huang, Yunkuo Chen, Bo Liu, MengLi Cheng, Xing Shi, and Jun Huang. Easyanimate: A high-performance long video generation method based on transformer architecture. arXiv preprint arXiv:2405.18991 ,2024. 3 [95] Le Xue, Mingfei Gao, Chen Xing, Roberto Mart´ ın-Mart´ ın, Jiajun Wu, Caiming Xiong, Ran Xu, Juan Carlos Niebles, and Silvio Savarese. Ulip: Learning a unified representation of language, images, and point clouds for 3d understanding. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pages 1179–1189, 2023. 3 [96] An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, et al. Qwen3 technical report. arXiv preprint arXiv:2505.09388 , 2025. 8 [97] Yiying Yang, Wei Cheng, Sijin Chen, Xianfang Zeng, Fukun Yin, Jiaxu Zhang, Liao Wang, Gang Yu, Xingjun Ma, and Yu-Gang Jiang. Omnisvg: A unified scalable vec-tor graphics generation model. In The Thirty-ninth An-nual Conference on Neural Information Processing Sys-tems , 2025. 3, 4, 5, 6, 7, 2, 13 [98] Zhuoyi Yang, Jiayan Teng, Wendi Zheng, Ming Ding, Shiyu Huang, Jiazheng Xu, Yuanming Yang, Wenyi Hong, Xiaohan Zhang, Guanyu Feng, et al. Cogvideox: Text-to-video diffusion models with an expert transformer. arXiv preprint arXiv:2408.06072 , 2024. 3 [99] Chongjie Ye, Yushuang Wu, Ziteng Lu, Jiahao Chang, Xiaoyang Guo, Jiaqing Zhou, Hao Zhao, and Xiaoguang Han. Hi3dgen: High-fidelity 3d geometry generation from images via normal bridging. In Proceedings of the IEEE/CVF International Conference on Computer Vision ,pages 25050–25061, 2025. 3 [100] Xiaojun Ye, Junhao Chen, Xiang Li, Haidong Xin, Chao Li, Sheng Zhou, and Jiajun Bu. Mmad: Multi-modal movie audio description. In Proceedings of the 2024 Joint Interna-tional Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024) , pages 11415–11428, 2024. 3 [101] Lvmin Zhang and Maneesh Agrawala. Transparent image layer diffusion using latent transparency. ACM Transac-tions on Graphics (TOG) , 43(4):1–15, 2024. 2 [102] Lvmin Zhang, Anyi Rao, and Maneesh Agrawala. Adding conditional control to text-to-image diffusion models. In 
+
+Proceedings of the IEEE/CVF international conference on computer vision , pages 3836–3847, 2023. 2, 3 [103] Peiying Zhang, Nanxuan Zhao, and Jing Liao. Text-to-vector generation with neural path representation. ACM Transactions on Graphics (TOG) , 43(4):1–13, 2024. 3 [104] Richard Zhang, Phillip Isola, Alexei A Efros, Eli Shecht-man, and Oliver Wang. The unreasonable effectiveness of deep features as a perceptual metric. In Proceedings of the IEEE conference on computer vision and pattern recogni-tion , pages 586–595, 2018. 6 [105] Sharon Zhang, Jiaju Ma, Jiajun Wu, Daniel Ritchie, and Maneesh Agrawala. Editing motion graphics video via mo-tion vectorization and transformation. ACM Transactions on Graphics (TOG) , 42(6):1–13, 2023. 3 [106] Zhongyin Zhao, Ye Chen, Zhangli Hu, Xuanhong Chen, and Bingbing Ni. Vector graphics generation via mutu-ally impulsed dual-domain diffusion. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pages 4420–4428, 2024. 3 [107] Bocheng Zou, Mu Cai, Jianrui Zhang, and Yong Jae Lee. Vgbench: Evaluating large language models on vector graphics understanding and generation. arXiv preprint arXiv:2407.10972 , 2024. 6 LottieGPT: Tokenizing Vector Animation for Autoregressive Generation 
+
+# Supplementary Material 
+
+Contents 
+
+1. Introduction 22. Related Works 2
+
+2.1. Pixels based Image and Video Generation . . 22.2. Structured Data Generation . . . . . . . . . 32.3. Vector Graphics and Animation Generation . 3
+
+3. Data Curation Pipeline 34. Methods 4
+
+4.1. Overview . . . . . . . . . . . . . . . . . . . 44.2. Compact Animation Tokenization . . . . . . 44.2.1 . Hierarchical Structure Encoding . . . 54.2.2 . Keyframe-Based Motion Compression 54.3. Static-to-Dynamic Training . . . . . . . . . 6
+
+5. LottieBench 6
+
+5.1. Evaluation Data . . . . . . . . . . . . . . . . 65.2. Evaluation Metrics . . . . . . . . . . . . . . 6
+
+6. Results 7
+
+6.1. Baselines . . . . . . . . . . . . . . . . . . . 76.2. Training Details . . . . . . . . . . . . . . . 86.3. Evaluations and Comparisons . . . . . . . . 86.4. Ablation Study . . . . . . . . . . . . . . . . 8
+
+7. Conclusion 88. Comparison of the Tokenizer 2
+
+8.1. Token Count Comparison . . . . . . . . . . 28.2. Animation File Size Comparison . . . . . . . 28.3. Support of Numeric Quantization . . . . . . 2
+
+9. Static Vector Graphics Task Results 210 . Vector Animation Task Results 911 . Examples of Editing 912 . Failure Cases 913 . Lottie Dataset 10 
+
+13.1 . Details of Data Curation Pipeline . . . . . . 10 13.2 . LottieSVG-10M Dataset . . . . . . . . . . . 10 13.3 . LottieImage-15M Dataset . . . . . . . . . . 10 13.4 . LottieAnimation-660K Dataset . . . . . . . 11 13.5 . Instruction Templates . . . . . . . . . . . . . 12 
+
+14 . User Study 13 15 . Keyframe Easing Interpolation 13 
+
+15.1 . Core Concept: Time vs. Animation Progress 13 15.2 . B´ ezier Curve Definition . . . . . . . . . . . 13 15.3 . Top 8 Easing Curves in Lottie Animations . . 14 15.4 . Bounce Easing Example . . . . . . . . . . . 14 
+
+16 . Limitations and Future Work 16 8. Comparison of the Tokenizer 
+
+To demonstrate the efficiency of our proposed Lottie tok-enizer, we compare it with existing tokenization approaches across different datasets. We evaluate the compression performance on both MMSVG-icon and LottieAnimation datasets using four tokenization methods: QwenVL tok-enizer, OmniSVG tokenizer, our Lottie tokenizer, and Lottie tokenizer with numeric quantization. 
+
+8.1. Token Count Comparison 
+
+As shown in Tab. 3, our Lottie tokenizer achieves superior compression ratios compared to QwenVL and OmniSVG tokenizers. On the MMSVG-icon dataset, our tokenizer reduces the average token count from 2.6k (QwenVL w. SVG) to 1.3k, achieving a 50% compression ratio. Through numerical quantization, this ratio is further improved to 15.4%, with the average token count reduced to 0.4k. (Note that the OmniSVG tokenizer already incorporates numeri-cal quantization.) For the more complex LottieAnimation dataset, this advantage becomes even more pronounced. Our tokenizer achieves a 63.3% compression ratio (17.4k tokens vs. QwenVL’s 27.5k tokens), and with quantiza-tion, the compression ratio reaches 24% (6.6k tokens). The significant reduction in token count not only accelerates training and inference but also enables the model to han-dle longer and more complex animations within the same context window. Unlike the difficulty-based Lottie data segmentation by token count mentioned in the main text, the average token count calculation here includes numeri-cal values to provide a fairer comparison with QwenVL and OmniSVG. 
+
+Table 3. Tokenizer comparison on MMSVG-icon and LottieAni-mation datasets. Our Lottie tokenizer achieves significantly better compression ratios while maintaining generation quality.                                                                
+
+> Tokenizer Avg. File Size Tokens PNG/ MP4 SVG/ JSON Comp. Ratio Avg. Comp. Ratio
+> MMSVG-icon Dataset
+> SVG Code 5.46 KB 2.74 KB 50.2% N/A N/A Lottie Json 5.46 KB 2.16 KB 39.6% N/A N/A QwenVL w. SVG N/A N/A N/A 2.6 k 100% OmniSVG N/A N/A N/A 2.2 k 84.6% QwenVL w. JSON N/A N/A N/A 1.6 k 61.5% Lottie N/A N/A N/A 1.3 k 50.0%
+> Lottie w. Quant. N/A N/A N/A 0.4 k 15.4%
+> LottieAnimation Dataset
+> Original 194.11 KB 60.72 KB 31.3% N/A N/A Optimized 194.11 KB 39.87 KB 20.5% N/A N/A QwenVL N/A N/A N/A 27.5 k 100% Lottie N/A N/A N/A 17.4 k 63.3%
+> Lottie w. Quant. N/A N/A N/A 6.6 k 24.0%
+
+8.2. Animation File Size Comparison 
+
+We find that using Lottie JSON as the representation for vector graphics and vector animations yields higher com-pression ratios. For example, as shown in Tab. 3, on the MMSVG-icon dataset, the average size of original SVG files is 2.74KB, which is 50.2% of the average PNG image size of 5.46KB. However, vector graphics stored in Lottie JSON format have an average size of only 2.16KB, merely 39.6% of the original PNG image size. This can also be reflected in token counts. For example, using the QwenVL default tokenizer on the MMSVG-icon dataset with SVG files as training instructions, the average token length is 2.6k (QwenVL w. SVG), while using Lottie JSON files as training instructions, the average token length is only 1.6k, which is 61.5% of the former, with no difference in ren-dering results between the two. On the LottieAnimation dataset, the average size of MP4 files rendered from origi-nal Lottie animations is 194.11KB, while animations saved in Lottie JSON format have an average size of 60.72KB, achieving a compression ratio of 31.3%. After our sim-plification process, the average Lottie JSON size is further reduced to 39.87KB, improving the compression ratio to 20.5%. This demonstrates that using Lottie JSON for rep-resenting vector graphics and vector animations achieves higher compression ratios than SVG without sacrificing ren-dering quality. 
+
+8.3. Support of Numeric Quantization 
+
+In the Lottie JSON simplification process, we simplify the numerical components by compressing floating-point val-ues to four significant digits. This approach significantly reduces the size of Lottie JSON without sacrificing render-ing quality. It is important to note that the current version of LottieGPT presented in the main text was trained without 
+
+numerical quantization to ensure maximum fidelity. How-ever, our experiments show that models trained with quan-tized tokens achieve comparable performance while being more efficient. Inference is performed on a single NVIDIA H20 GPU (140GB), with LottieGPT-7B achieving a gener-ation speed of approximately 60 tokens per second. 
+
+9. Static Vector Graphics Task Results 
+
+We compared our method with state-of-the-art SVG genera-tion models, including StarVector [67] and OmniSVG [97], conducting experiments with both text input and image in-put. Qualitative results are shown in Fig.6 and Fig.7. We randomly sampled examples from LottieBench. As illus-trated in the figures, although LottieGPT may still fail on some complex cases, it is capable of generating static vec-tor graphics for the vast majority of scenarios. Notably, our current version was trained on only 1/3 of the training data used by OmniSVG. Text -Only Input to Static Vector Graphics 
+
+LottieGPT LottieGPT 
+
+A green sun with a spiral 
+
+center and rays radiating 
+
+outward. 
+
+Prompt 
+
+A pink downward arrow 
+
+with a yen currency 
+
+symbol inside represents 
+
+a decrease in value. 
+
+A red -haired woman in a 
+
+blue jacket wearing a 
+
+white blouse icon 
+
+represents a professional. 
+
+A pink and purple wine 
+
+glass symbolizes 
+
+celebration and 
+
+enjoyment. 
+
+A gold Bitcoin symbol is 
+
+surrounded by sparkles, 
+
+signifying 
+
+cryptocurrency's value. 
+
+A cartoon torch with a bright 
+
+orange flame and a blue 
+
+handle symbolizes the spirit 
+
+of determination or victory. 
+
+A stylized yellow 
+
+pineapple with green 
+
+leaves in a simple, 
+
+modern design. 
+
+A ripe yellow mango with 
+
+a stem and a green leaf is 
+
+accompanied by a lighter 
+
+yellow mango slice. 
+
+A green and teal safe with 
+
+a combination lock and an 
+
+orange handle symbolizes 
+
+security and protection. 
+
+A white pool ladder stands 
+
+in blue water under a 
+
+yellow sun, arranged 
+
+within a circular icon. 
+
+Prompt 
+
+Minimalist female avatar 
+
+with dark teal hair and a 
+
+yellow face. 
+
+Brown virus with blue 
+
+spikes represents a 
+
+bacteria or germ. 
+
+A black vinyl record icon 
+
+with sound wave patterns 
+
+symbolizes music and 
+
+audio. 
+
+A yellow duck on blue 
+
+wheels is depicted as a 
+
+pull toy with a string. 
+
+Red and pink curtains 
+
+hang from a white rod. 
+
+A purple sippy cup with a 
+
+flower design features a 
+
+yellow blossom centered 
+
+on its side. 
+
+A lime green fishing 
+
+license icon with a black 
+
+border and a stylized fish 
+
+illustration in the center. 
+
+A colorful stick figure 
+
+windsurfs on blue waves. 
+
+An orange piggy bank 
+
+icon symbolizes savings 
+
+and finance. 
+
+A brown wooden table 
+
+with curved beige legs 
+
+stands in a simple design. 
+
+OmniSVG OmniSVG 
+
+# ✗Figure 6. Performance of OmniSVG and LottieGPT on the text-to-vector graphics generation task. Text+Image Input to Static Vector Graphics 
+
+StarVector StarVector OmniSVG OmniSVG 
+
+# ✗
+
+# ✗
+
+Prompt Prompt LottieGPT LottieGPT Figure 7. Performance of OmniSVG, StarVector, and LottieGPT on the image-to-vector graphics generation task. Text Input to Animation Deepseek -
+
+V3.1 
+
+Claude -4.5 
+
+Sonnet Prompt GPT -5Qwen3 -max 
+
+Gemini -
+
+2.5 -Pro 
+
+LottieGPT 
+
+Two crossed 
+
+wrenches (silver 
+
+with black outlines) 
+
+and a screwdriver 
+
+(blue with a black 
+
+handle) rotate 
+
+slowly around their 
+
+central intersection 
+
+point, creating a 
+
+seamless loop that 
+
+conveys a sense of 
+
+repair or 
+
+maintenance 
+
+activity. 
+
+Two flip -flops, 
+
+outlined in black 
+
+with blue straps 
+
+and soles, appear 
+
+to "flip" or rotate 
+
+in place, creating 
+
+a mirrored effect 
+
+as they transition 
+
+between 
+
+overlapping and 
+
+separate positions 
+
+against a white 
+
+background. 
+
+A smartphone 
+
+with a light blue 
+
+screen and gray 
+
+outline remains 
+
+stationary while 
+
+an orange 
+
+exclamation 
+
+mark icon 
+
+appears and 
+
+pulses slightly, 
+
+indicating a 
+
+mobile warning 
+
+message. 
+
+# ✗
+
+# ✗
+
+# ✗Figure 8. For the Text-to-Animation task, all LLM baselines were provided with identical 3-shot examples. ✗ indicates that no renderable Lottie JSON was obtained even after the fifth attempt. More results on vector animation can be found in the supplementary video and on the project website. Veo3.1 
+
+LottieGPT 
+
+Kling 
+
+Prompt 
+
+Claude 
+
+Sonnet 4.5 
+
+## pass@3 pass@3 
+
+Gemini 2.5 
+
+Pro 
+
+## pass@2 pass@5 
+
+Qwen3 -
+
+Max 
+
+A green dragon with 
+
+yellow accents and red 
+
+details gracefully emerges 
+
+from the left side of the 
+
+frame, twisting its body 
+
+dynamically as it moves 
+
+toward the center, 
+
+showcasing its flowing 
+
+scales and expressive 
+
+features against a plain 
+
+white background. 
+
+An orange light bulb icon 
+
+with a simple filament 
+
+design appears against a 
+
+white background, 
+
+gradually emitting bright 
+
+orange rays that radiate 
+
+outward, symbolizing an 
+
+innovative idea being 
+
+sparked. 
+
+Sora2 
+
+DeepSeek -
+
+V3.1 ✗ ✗ ✗ ✗ ✗ ✗
+
+## pass@2 
+
+GPT -5 ✗ ✗ ✗
+
+# Text+Image Input to Animation 
+
+A red envelope containing a 
+
+purple card appears at the 
+
+center of the animation as the 
+
+opening. The entire icon 
+
+gradually zooms in, growing 
+
+larger and larger. When it 
+
+reaches its maximum size, the 
+
+red envelope opens up, 
+
+revealing the purple card inside. 
+
+Subsequently, a black forward -
+
+pointing triangle play button 
+
+appears at the center of the 
+
+purple card. Figure 9. Using Text+Image as input to generate animations. Few-shot refers to providing three description-Lottie JSON data pairs. Except for Deepseek which does not support image input, all other methods use a single image and text description as input. pass@x indicates that x attempts were required to generate a renderable Lottie JSON. ✗ indicates that no renderable Lottie JSON was obtained even after the fifth attempt. Text+Image Input to Animation: LottieGPT Results 
+
+A man wearing a white hat, blue 
+
+shirt, white apron, and blue 
+
+shoes walks steadily from left to 
+
+right while holding a glowing 
+
+yellow lantern in his right hand, 
+
+casting a warm light against a 
+
+plain white background. 
+
+A woman wearing a green crop 
+
+top, pink leggings, and green 
+
+shoes performs a Good Morning 
+
+exercise by bending forward at 
+
+the waist while keeping her back 
+
+straight, her arms raised behind 
+
+her head, and her feet planted 
+
+firmly on the ground. 
+
+A cartoon woman with brown 
+
+hair and a yellow dress raises her 
+
+arms joyfully above her head, 
+
+smiling widely with closed eyes, 
+
+while three small pink hearts 
+
+float around her head, creating a 
+
+cheerful and celebratory 
+
+atmosphere. 
+
+A black circular loading icon with 
+
+four curved segments rotates 
+
+clockwise, gradually filling with 
+
+small white dots that form a 
+
+complete circle, culminating in 
+
+the appearance of a white 
+
+checkmark at the center, 
+
+symbolizing success. 
+
+A blue circle with a black border 
+
+rotates clockwise while displaying 
+
+a stylized currency symbol (a 
+
+combination of "N" and a crossed 
+
+out "S") in its center, creating a
+
+dynamic and looping animation 
+
+against a white background .
+
+A cartoon bear's face, with 
+
+brown fur, purple markings on its 
+
+forehead and cheeks, and large 
+
+expressive eyes, alternates 
+
+between a wide, cheerful smile 
+
+and a more subdued, slightly 
+
+concerned expression, creating a 
+
+playful and dynamic emotional 
+
+shift. 
+
+A blue stick figure wearing an 
+
+orange cap and holding an 
+
+orange megaphone walks 
+
+forward while appearing to shout 
+
+into the megaphone, creating a 
+
+sense of motion and promotion. 
+
+A flat -
+
+style computer monitor displays 
+
+a heart rate graph that starts as 
+
+a simple line and dynamically 
+
+transforms into a fluctuating 
+
+heartbeat pattern, while the rest 
+
+of the interface remains static 
+
+with green and gray elements 
+
+at the bottom. 
+
+A black progress bar loader 
+
+moves smoothly from left to 
+
+right within an elongated white 
+
+oval outline, filling it 
+
+progressively as it advances. Figure 10. LottieGPT results on in-the-wild text-only inputs. Text+Image Input to Animation: LottieGPT Results 
+
+A windmill with a white body, 
+
+red triangular roof, and four gray 
+
+blades with white lines rotates 
+
+slowly clockwise against a plain 
+
+white background. 
+
+Two overlapping credit cards, 
+
+one blue and one yellow, rotate 
+
+slightly around their vertical axis 
+
+while maintaining a stacked 
+
+position, creating a subtle 3D 
+
+effect against a white 
+
+background. 
+
+A black paperclip -shaped object 
+
+rotates counterclockwise while 
+
+holding a light purple triangular 
+
+flag that flutters dynamically 
+
+behind it, creating a sense of 
+
+motion against a plain white 
+
+background. 
+
+A light blue water bottle tilts 
+
+forward, pouring water into a 
+
+black glass with a gray liquid 
+
+level, which gradually rises as the 
+
+bottle empties. 
+
+A light blue document icon 
+
+gradually transforms into a detailed 
+
+market analysis graphic, featuring 
+
+three vertical bars (white, gray, and 
+
+yellow) representing data growth, 
+
+accompanied by a green checkmark 
+
+and a rising line graph, symbolizing 
+
+positive market trends. 
+
+A black wireframe cube rotates 
+
+smoothly on its vertical axis, 
+
+showcasing its three -
+
+dimensional structure against a 
+
+plain white background. 
+
+A cute white ghost with a smiling 
+
+face and small arms appears 
+
+inside a blue chat bubble, 
+
+winking and sticking out its 
+
+tongue playfully as it shifts 
+
+slightly within the bubble. 
+
+A wooden pencil with a black tip 
+
+moves smoothly across a light 
+
+blue clipboard, leaving behind 
+
+horizontal gray lines as it writes, 
+
+while small gray dots appear 
+
+intermittently to the left, 
+
+suggesting motion or sound 
+
+effects. 
+
+A black vinyl record with a 
+
+reflective surface and a central 
+
+gray label rotates slowly on a 
+
+white background, showcasing 
+
+its grooved texture and subtle 
+
+light reflections. Figure 11. LottieGPT results on in-the-wild text-image inputs. Original 
+
+Editing 
+
+Editing Figure 12. A manually edited Lottie animation where we modified the wing color using LottieLab. A white, minimalist robot with glowing teal eyes and a small antenna on 
+
+> its head gently waves its right arm while maintaining a friendly
+> expression, set against a plain white background.
+> A brown shipping box appears on the screen of a blue laptop, initially
+> closed, then gradually opens its flaps to reveal an empty interior,
+> symbolizing the concept of online shipping or delivery.
+
+Figure 13. LottieGPT may still generate cases that are renderable but visually inconsistent with expectations, typically manifesting as extraneous or missing shapes relative to the intended design. 
+
+10. Vector Animation Task Results 
+
+All baselines were invoked through their official APIs, and we selected cases where the majority of baselines could suc-cessfully render. Comparison results are presented in Fig. 8 and Fig. 9. Since zero-shot LLM / VLM cannot generate any valid renderable Lottie JSON files, we do not present these results in our quantitative and qualitative evaluations, and only show the few-shot LLM / VLM results. In our experimental results, most LLM-generated out-puts failed to render properly. We present more LottieGPT results on in-the-wild inputs in Fig. 10 and Fig. 11. 
+
+Please refer to the supplementary materials including the project website and demo video for more animation generation comparison results. 
+
+11. Examples of Editing 
+
+Lottie animations can be created and edited using various professional tools. The most common workflow involves using Adobe After Effects 3 with the Bodymovin plugin 4 to export animations as Lottie JSON format. For online edit-ing, LottieLab 5 and LottieFiles 6 provides a comprehensive ecosystem including animation editors, preview tools, and asset libraries. Additionally, tools such as Haiku Animator 7
+
+and Cavalry 8 also support direct creation and export of Lot-tie animations. To provide a more intuitive illustration of the editability and flexibility advantages of Lottie Anima-tion over traditional raster videos, we present an example from the dataset in Fig. 12 with various editing results. 
+
+12. Failure Cases 
+
+Some failure cases of LottieGPT are shown in Fig. 7 and Fig. 13. The Valid Rate in Tab. 2 of the main text refers to the rendering success rate rather than the exact match rate. Most Lottie JSON files generated by VLMs cannot be ren-dered properly (they do not conform to the standard Lottie JSON format). Rendering failures in LottieGPT typically arise from two scenarios. First, the presence of non-numeric content, such as unexpected characters, in numerical values during Lottie token generation causes detokenization to fail. Second, when the generated Lottie token sequence exceeds the maximum context length, it becomes truncated, prevent-ing successful detokenization and valid Lottie JSON gener-ation. Similarly, the rendering failures of OmniSVG shown  
+
+> 3https://adobe.com/products/aftereffects.html
+> 4https://aescripts.com/bodymovin/
+> 5https://www.lottielab.com/?home
+> 6https://lottiefiles.com/lottie-editor
+> 7https://www.haikuanimator.com/
+> 8https://cavalry.scenegroup.co/
+
+in Fig. 7 are attributed to the generation of unexpected char-acters that cause detokenization failures. 
+
+13. Lottie Dataset 
+
+We introduce three comprehensive datasets for vec-tor graphics and animation generation: LottieSVG-10M, LottieImage-15M, and LottieAnimation-660K. These datasets provide paired data of vector code, textual descrip-tions, and rendered images/videos, enabling multimodal learning for vector graphics generation. Please refer to the supplementary materials for dataset examples. 
+
+13.1. Details of Data Curation Pipeline 
+
+While pixel-based visual data has become abundant with the rapid development of generative models for images and videos, and several large-scale static vector graphics datasets (e.g., SVG) are widely used, existing resources fo-cus almost exclusively on static content, lacking systemati-cally curated large-scale vector animation datasets. Due to SVG’s limited support for complex timeline-based animations, obtaining high-quality vector animations directly is challenging. We therefore turn to the After Ef-fects (AE) ecosystem, leveraging the Bodymovin plugin 9
+
+to export AE animations into Lottie JSON format. As a lightweight, cross-platform vector animation representa-tion, Lottie supports dynamic properties such as keyframes, path morphing, and color gradients in JSON format, making it well-suited for autoregressive model training. We collect a large number of AE source files from pub-lic resources and convert them to Lottie format via an au-tomated pipeline. Additionally, we integrate over 15 mil-lion static vector graphics, uniformly converted to Lottie representation, to support a progressive “static-first, then dynamic” training strategy. To enable multimodal gener-ation, we use BLIP-2 [46] to generate text descriptions for static vector graphics, and employ Qwen2.5-VL 32B [3] to produce detailed, temporally aligned descriptions after ren-dering vector animations into videos. Fig. 2 illustrates our dataset construction pipeline and sample examples. During dataset construction, we apply rigorous filter-ing and standardization. First, we remove all animations with rendering failures or visual anomalies (e.g., blank frames, misalignment, flickering). Second, we simplify Lottie JSON structures by removing redundant fields that do not affect rendering (e.g., comments, unused layer prop-erties, debug metadata), and unify version formats and key path representations to ensure data consistency and training stability. The right side of Fig. 3 shows the word cloud of text descriptions and file size distribution for the LottieAni-mation dataset. Our simplification reduces sequence length 
+
+> 9https://aescripts.com/bodymovin/
+
+by approximately 34% without affecting animation render-ing quality. LottieImage and LottieAnimation cover diverse graphic design assets including vector icons, infographics, animated illustrations, cartoon character animations, and UI motion effects, exhibiting rich semantic and stylistic variation. We present the first systematically curated, large-scale dataset of paired vector graphics and animations in Lottie format .Tab. 1 compares our datasets with existing vector graphics datasets. This dataset provides a novel structured represen-tation foundation for vector generation, multimodal under-standing, and text-to-animation synthesis, advancing gener-ative models toward scalable, editable, and lightweight dy-namic content. 
+
+13.2. LottieSVG-10M Dataset 
+
+We collect and filter 10 million unique SVG images from the internet, ensuring no overlap with existing SVG datasets. Following the annotation methodology of Om-niSVG, we employ BLIP-2 with the instruction template shown in Fig. 17 to generate textual descriptions for each SVG image. The LottieSVG-10M dataset provides triplets of (SVG code, Lottie Json, text description, rendered PNG image) .
+
+Category Distribution. The dataset comprises four main categories based on creator designations, as shown in Fig. 14. Icon-designer content dominates with 54.82%, fol-lowed by illustrator (18.96%), motion-designer (14.64%), and 3d-designer (11.58%). Representative examples from each category are visualized in Fig. 14. 
+
+File Size Distribution. Fig. 15 shows the file size distri-bution of SVG images in the 0-20KB range, which covers the majority of the dataset. The distribution exhibits a right-skewed pattern with a mean size of 4.65KB and median of 2.25KB, indicating that most SVG files are compact and ef-ficient for storage and transmission. 
+
+Tag Distribution. To analyze the semantic content of our dataset, we visualize the tag distribution as a word cloud in Fig. 16. The most frequent tags include “business” (535,098), “food” (407,321), “money” (316,625), “technol-ogy” (314,205), and “finance” (288,782), reflecting the di-verse application domains covered by our dataset. 
+
+13.3. LottieImage-15M Dataset 
+
+We construct the largest vector graphics dataset to date by combining LottieSVG-10M, SVG-Stack-2M, OmniSVG-2M, and SVGX-1M, totaling 15 million SVG images with detailed textual annotations. To enable Lottie-based generation, we develop a conver-sion pipeline that transforms SVG static images into Lottie static images. The conversion process includes: • Parsing SVG elements and attributes • Mapping SVG primitives to Lottie shape layers icon -designer 
+
+illustrator 
+
+3d -designer 
+
+motion -designer Figure 14. Representative examples from the four categories in LottieSVG-10M dataset. From top to bottom: icon-designer, illustrator, motion-designer, and 3d-designer. Each category exhibits distinct visual characteristics and complexity levels. 0 2 4 6 8 10 12 14 16 18 20 
+
+> Size (KB)
+> 0
+> 100000
+> 200000
+> 300000
+> 400000
+> 500000
+> Count
+
+Figure 15. File size distribution of LottieSVG-10M dataset in the 0-20KB range. The distribution shows a mean of 4.65KB and me-dian of 2.25KB, demonstrating the compact nature of SVG repre-sentations. 
+
+• Converting coordinate systems and transformations • Validating rendering consistency We filter out samples where the rendered output dif-fers between SVG and Lottie formats, ensuring high-quality paired data. The LottieImage-15M dataset provides quadru-plets of (SVG code, Lottie JSON code, text description, ren-dered PNG image) .
+
+13.4. LottieAnimation-660K Dataset 
+
+The LottieAnimation-660K dataset contains 671,121 Lot-tie animations with comprehensive temporal annotations. The dataset comprises a total of 70,261,325 frames, span-ning 608 hours of animation content. On average, each an-imation contains 104.7 frames with a median of 90 frames, 
+
+Figure 16. Word cloud visualization of tag distribution in LottieSVG-10M dataset. The size of each word corresponds to its frequency, with top tags including business, food, money, tech-nology, and finance. 
+
+ranging from 1 to 3,600 frames. In terms of duration, the animations average 3.26 seconds with a median of 3.00 sec-onds, ranging from 0.02 to 91.40 seconds. 
+
+Duration Distribution. As shown in Tab. 4, the ani-mation durations exhibit a concentrated distribution pattern. The majority of animations (70.55%) fall within the 2-5 sec-• SVG data Captioning: You are a helpful assistant. Your task is to describe this image in a single sentence, includ-ing the object, its color, and its overall arrangement. For example: “Yellow cheers with glasses of alcohol drinks.” / “Heart emojis represent love on Valentine’s Day.” 
+
+Figure 17. The instruction for SVG data captioning. 
+
+ond range, which is typical for UI animations and micro-interactions. Short animations (1-2s) account for 10.29%, while very short animations (0-1s) represent only 1.51%. Longer animations (5-10s) comprise 16.19%, and ultra-long animations exceeding 10 seconds constitute merely 1.46% of the dataset, indicating a focus on concise, purposeful an-imations rather than extended narrative sequences. 
+
+Table 4. Duration distribution of LottieAnimation-660K dataset.                      
+
+> Duration Range Count Percentage Total Duration
+> 0-1s (Very short) 10,107 1.51% 1.98 hours 1-2s (Short) 69,075 10.29% 27.35 hours 2-3s (Medium) 228,808 34.09% 135.76 hours 3-5s (Long) 244,724 36.46% 234.14 hours 5-10s (Very long) 108,633 16.19% 176.93 hours 10s+ (Ultra long) 9,774 1.46% 31.90 hours
+
+Simplification and Optimization. To reduce token count while maintaining visual quality, we apply a multi-step optimization process: 1. Expression removal: Remove After Effects expressions that are not supported in standard Lottie players 2. Field pruning: Remove unused fields including nm 
+
+(name), mn (match name), hd (hidden), ix (index), and 
+
+cix (undocumented) 3. Precision reduction: Round numerical values to 4 sig-nificant digits (excluding color values) 4. Color compression: Convert color values to hexadeci-mal representation 5. Metadata update: Update Lottie JSON keys for back-ward compatibility We utilize the lottie-optim 10 tool for automated optimization. As shown in Tab. 3, this simplification ap-proach reduces the average Lottie JSON length by approxi-mately 34% (from 60.72 KB to 39.87 KB) on the LottieAn-imation dataset while maintaining rendering quality with no perceptible visual degradation. 
+
+Annotation. We employ Qwen2.5-VL to generate tex-tual descriptions for Lottie animations using the instruction template shown in Fig. 18. The annotation process consid-ers both spatial content and temporal dynamics, producing descriptions that capture motion patterns, timing, and visual effects. 
+
+> 10 https://github.com/levibuzolic/lottie-optim
+
+• Lottie Animation data Captioning: You are a helpful assistant. Your task is to describe this animation in a sin-gle sentence, including the objects involved, their colors, positions, actions, and overall layout. This description should enable a designer unfamiliar with the animation to understand its content, style, and structure and cre-ate a similar one. For example: ”A blue arrow moves from left to right with a faint blue flicker effect.” ”A red character rotates around a circular path, waving a flag in hand.” The title of this video is ’ {video title }’, please describe this animation in a single sentence, including the objects involved, their colors, positions, actions, and overall layout. Be sure to include any movements or dy-namic changes occurring in the video. 
+
+Figure 18. The instruction for Lottie animation data captioning. 
+
+13.5. Instruction Templates 
+
+We design task-specific instruction templates for different generation scenarios. Figures 19 through 23 present the complete set of instruction templates used in our frame-work: • Static image generation: Text-to-SVG (Fig. 19) and text+image-to-SVG (Fig. 20) • Animation generation: Text-to-Lottie (Fig. 21), text+image-to-Lottie (Fig. 22), and text+video-to-Lottie (Fig. 23) All generation instructions emphasize the use of com-pressed token format with special tokens, explicitly pro-hibiting direct JSON output to ensure compatibility with our tokenization scheme. 
+
+• Text to Lottie Image Instruction: You are a helpful Animation Generator. You output animations in com-pressed token format using special tokens. You never output JSON format. Generate an static animation based on this description: ” {caption }”
+
+Figure 19. The instruction for text to Lottie image generation. • Text and Image to Lottie Image Instruction: You are a helpful Animation Generator. You output anima-tions in compressed token format using special tokens. You never output JSON format. Generate an static an-imation based on the given image and this description: ”{caption }”Figure 20. The instruction for text and image to Lottie image generation. • Text to Lottie Animation Instruction: You are a help-ful Lottie animation Generator. You output animations in compressed token format using special tokens. You never output JSON format. Generate Lottie animation based on the description: ” {caption }”
+
+Figure 21. The instruction for text to Lottie animation generation. • Text and Image to Lottie Animation Instruction: You are a helpful Lottie animation Generator. You output an-imations in compressed token format using special to-kens. You never output JSON format. Generate Lottie animation based on the given image and this description: ”{caption }”Figure 22. The instruction for text and image to Lottie animation generation. • Text and Video to Lottie Animation Instruction: You are a helpful Lottie animation Generator. You output an-imations in compressed token format using special to-kens. You never output JSON format. Generate Lottie animation based on the given video and this description: ”{caption }”Figure 23. The instruction for text and video to Lottie animation generation. 
+
+14. User Study 
+
+To validate that LottieBench aligns with human prefer-ences, we conduct a user study following OmniSVG’s pro-tocol [97]. We recruit 20 participants with design back-grounds to evaluate outputs from LottieGPT and base-lines on three aspects: overall preference, visual vividity, and alignment with input prompts. Participants rate shuf-fled outputs (without method labels) on a 5-point Likert scale. Tab. 5 shows that LottieGPT achieves the highest scores across all metrics for both static graphics and anima-tion tasks, demonstrating that LottieBench metrics correlate strongly with human judgment. 
+
+Table 5. User study results (5-point scale, 20 participants). Lot-tieGPT achieves the highest ratings across all metrics.                                            
+
+> Method Static Graphics Animation
+> Pref. Vivid. Align. Pref. Vivid. Align. OmniSVG [97] 3.6 3.8 3.7 ---StarVector [67] 3.4 3.5 3.3 ---Sora2 [62] ---3.8 3.3 3.6 Veo 3.1 [28] ---3.9 3.5 3.5 Kling [43] ---3.4 3.8 3.5
+> LottieGPT 4.1 4.2 4.0 3.8 3.9 3.7
+
+15. Keyframe Easing Interpolation 
+
+Lottie achieves smooth animations through keyframe in-terpolation with cubic B´ ezier easing curves. This section explains how time progress is transformed into animation progress using concrete examples from our dataset. 
+
+15.1. Core Concept: Time vs. Animation Progress 
+
+The key to understanding easing is distinguishing between two types of progress: (1) Time Progress (tnorm ): Linear progression of time from 0 to 1. (2) Animation Progress 
+
+(teased ): Non-linear progression of the animated value from 0 to 1. The B´ ezier easing curve maps time progress to an-imation progress, creating natural-looking motion. Fig. 24 illustrates this relationship. 
+
+> Time
+> Animation
+> Linear (no easing)
+> Time: 25%
+> Anim: 16%
+> 50%
+> 50%
+> 75%
+> 84%
+> P1
+> P2
+
+Figure 24. B´ ezier easing curve transforms time progress (x-axis) into animation progress (y-axis). At 25% time, animation has only progressed 16% (slow start); at 75% time, animation has reached 84% (slow end). 
+
+15.2. B´ ezier Curve Definition 
+
+The easing function maps normalized time progress to ani-mation progress: 
+
+teased = f (tnorm ), tnorm , t eased ∈ [0 , 1] (8) This function is defined implicitly via a cubic B´ ezier curve with fixed endpoints P0 = (0 , 0) , P3 = (1 , 1) and control points P1 = ( ox, o y ), P2 = ( ix, i y ):
+
+B(u) =(1 − u)3P0 + 3(1 − u)2uP 1
+
++ 3(1 − u)u2P2 + u3P3, u ∈ [0 , 1] (9) Expanding with P0 = (0 , 0) and P3 = (1 , 1) :
+
+tnorm = x(u) = 3(1 − u)2u · ox + 3(1 − u)u2 · ix + u3
+
+(10) 
+
+teased = y(u) = 3(1 − u)2u · oy + 3(1 − u)u2 · iy + u3
+
+(11) #1 Linear                          
+
+> 30.27%
+> P1=(0 ,0) ,P2=(1 ,1)
+> #2 Ease In-Out
+> 20.22%
+> P1=(0 .33 ,0) ,P2=(0 .67 ,1)
+> #3 Near-Linear
+> 15.78%
+> P1=(0 .17 ,0.17) ,P2=(0 .83 ,0.83)
+> #4 Smooth Stop
+> 5.63%
+> P1=(0 .17 ,0) ,P2=(0 .83 ,1)
+> #5 Soft Ease
+> 1.10%
+> P1=(0 .17 ,0) ,P2=(0 .67 ,1)
+> #6 Ease In Strong
+> 0.91%
+> P1=(0 .66 ,0) ,P2=(0 .34 ,1)
+> #7 Slow In
+> 0.87%
+> P1=(0 .33 ,0) ,P2=(0 .83 ,1)
+> #8 Slow Out
+> 0.64%
+> P1=(0 .17 ,0.17) ,P2=(0 .67 ,1)
+> Legend:
+> Easing curve Linear Control
+> P1,P2
+> Coverage:
+> Top 8: 75.4% Top 14: 77.8% Custom: 22.2%
+> Dataset:
+> Files: 660 K Curves: 46.1M
+
+Figure 25. Top 8 most common B´ ezier easing curves in Lottie animations, covering 75.4% of all usage. Each curve is defined by control points P1 = ( ox, o y ) and P2 = ( ix, i y ), with fixed endpoints at (0 , 0) and (1 , 1) . Green dotted line shows linear interpolation for comparison. The legend on the right provides dataset statistics and visual element descriptions. The third most common pattern (15.78%) uses control points (0 .167 , 0.167) and (0 .833 , 0.833) , which lie on the linear diagonal, making it functionally identical to #1 Linear. This redundancy represents a significant compression opportunity. 
+
+To evaluate f (tnorm ): solve Eq. (10) for u, then compute Eq. (11). This is necessary because the B´ ezier curve pro-vides a parametric (not explicit) definition of f .
+
+15.3. Top 8 Easing Curves in Lottie Animations 
+
+Fig. 25 shows the eight most common easing curves from our analysis of 46.1M curves across 660K animation files. These patterns account for 75.4% of all usage, reveal-ing clear preferences and encoding redundancies: Linear (30.27%) uses identity control points, while the third pattern (15.78%) is mathematically equivalent to linear despite ex-plicit B´ ezier parameters (0 .167 , 0.167) and (0 .833 , 0.833) .Together, these represent 46.05% linear motion. The second pattern (20.22%) provides standard ease-in-ease-out motion with control points (0 .333 , 0) and (0 .667 , 1) , mimicking real-world physics. This high repetition rate presents a significant compres-sion opportunity. The top 14 presets cover 77.8% of all curves, suggesting that a token-based encoding scheme could substantially improve storage density by replacing re-dundant B´ ezier parameters with compact preset identifiers. 
+
+15.4. Bounce Easing Example 
+
+Lottie’s B´ ezier easing curves support control points with y-coordinates outside [0 , 1] , enabling advanced effects such as bounce and overshoot animations. This section demon-strates how such curves are interpolated to create dramatic spring-like motion. We demonstrate the easing interpola-tion function using the example from Fig. 4, focusing on the interval between frame 30 and frame 46. Fig. 26 illus-trates the B´ ezier curve of this spring motion effect in de-tail. Consider a rotation animation from −113 .4 to −109 .5
+
+over frames 30-46 (16 frames) with extreme bounce eas-ing defined by control points P1 = (0 .3, −2.79) and P2 =(0 .78 , −1.79) : 
+
+> 1
+
+"r": { 
+
+> 2
+
+"a": 1,  
+
+> 3
+
+"k": [ 
+
+> 4
+
+{"t": 30, "s": [-113.4],  
+
+> 5
+
+"o": {"x": [0.3], "y": [-2.79] }, 
+
+> 6
+
+"i": {"x": [0.78], "y": [-1.79] }} , 
+
+> 7
+
+{"t": 46, "s": [-109.5],  
+
+> 8
+
+"o": {"x": [0.35], "y": [0.16] }, 
+
+> 9
+
+"i": {"x": [0.83], "y": [0.87] }}  
+
+> 10
+
+] 
+
+> 11
+
+}
+
+Note that the first keyframe uses extreme negative y-values in its outgoing control points, creating the bounce effect, while the second keyframe uses standard positive values for the next segment. 0 0.25 0.5 0.75 1.0          
+
+> Time
+> 0
+> 1
+> -0.50
+> -1.00
+> -1.50
+> -2.00
+> -2.50
+> -2.79
+> Value
+> Start
+> Target
+> P1= (0.3, 2.79)
+> P2= (0.78, 1.79)
+> -1.66
+> t=0.41
+> P1offset
+> 279%
+> Target
+> Y-axis uses uniform 4:1 compression ratio
+> Extreme Bounce Easing Curve
+> P1= (0.3, 2.79), P 2= (0.78, 1.79)
+> Bézier Curve
+> Linear
+> Control Vectors
+
+(a) B´ ezier curve with extreme under-shoot KF 30 
+
+> KF 16
+> F 23
+
+(b) Keyframes 16 and 30, interpo-lated frame 23 KF 
+
+> 30
+> KF 46
+> F 37
+
+(c) Keyframes 30 and 46, interpo-lated frame 37 (bounce) KF 46 
+
+> KF 60
+> F 53
+
+(d) Keyframes 46 and 60, interpo-lated frame 53 
+
+Figure 26. Bounce easing animation demonstrating extreme undershoot. (a) B´ ezier curve with P1 = (0 .3, −2.79) and P2 = (0 .78 , −1.79) 
+
+reaching minimum y = −1.6583 at tnorm = 0 .4134 (Y-axis compressed 4:1 for visibility). (b) Normal interpolation between keyframes 16 and 30. (c) Bounce segment between keyframes 30 and 46, showing extreme undershoot at frame 37 where the 3.9 target rotation is amplified to a 6.47 reverse motion (165.8% overshoot, actual minimum at frame 36.61). (d) Settling segment between keyframes 46 and 60. We removed the layer-level animations and shape-level position animations from the original animation, retaining only the shape-level rotation animations. 
+
+Interpolation Process. To compute the rotation at frame 
+
+f = 37 , we follow a four-step process: 
+
+Step 1: Normalize time progress 
+
+tnorm = f − tstart 
+
+tend − tstart 
+
+= 37 − 30 46 − 30 = 716 = 0 .4375 (12) 
+
+Step 2: Solve for curve parameter u Find u such that 
+
+x(u) = tnorm using Eq. (10). For tnorm = 0 .4375 :
+
+3(1 − u)2u · 0.3 + 3(1 − u)u2 · 0.78 + u3 = 0 .4375 (13) Using Newton-Raphson iteration yields u ≈ 0.4603 .
+
+Step 3: Evaluate animation progress Compute teased =
+
+y(u) using Eq. (11) with the negative control point y-values: 
+
+teased = 3(1 − 0.4603) 2 · 0.4603 · (−2.79) + 3(1 − 0.4603) · (0 .4603) 2 · (−1.79) + (0 .4603) 3
+
+≈ − 1.6531 
+
+(14) The negative value indicates the animation has reversed by 165.31% of its total range. 
+
+Step 4: Interpolate final value The rotation range is ∆r =
+
+−109 .5 − (−113 .4) = 3 .9:rotation (37) = sstart + ( send − sstart ) × teased 
+
+= −113 .4 + 3 .9 × (−1.6531) = −113 .4 − 6.45 = −119 .85 
+
+(15) Despite the animation’s target being a small 3.9 clock-wise rotation (from −113 .4 to −109 .5), the bounce effect causes the object to first rotate 6.45 counterclockwise to 
+
+−119 .85 before rebounding to the final position. The ac-tual minimum occurs at frame 36.61 ( tnorm = 0 .4134 ) with 
+
+teased = −1.6583 and rotation −119 .87 .
+
+Table 6. Bounce animation progression with extreme undershoot easing 
+
+Frame tnorm teased Rotation Phase 
+
+30 0.0000 0.0000 −113 .40 Initial state 35 0.3125 −1.5663 −119 .51 
+
+> ↶
+
+36 0.3750 −1.6453 −119 .82 
+
+> ↶
+
+36.61 0.4134 −1.6583 −119 .87 
+
+> ↶
+
+37 0.4375 −1.6531 −119 .85 Velocity ≈ 0
+
+38 0.5000 −1.5925 −119 .61 
+
+> ↷
+
+40 0.6250 −1.2781 −118 .38 
+
+> ↷
+
+43.6 0.8500 −0.1279 −113 .90 
+
+> ↷
+
+46 1.0000 1.0000 −109 .50 Settle at target 
+
+Animation Phases. Tab. 6 shows the complete bounce trajectory through distinct phases: • Undershoot phase (frames 30-36.61): Despite a target of only 3.9 clockwise rotation, the object rotates 6.47 coun-terclockwise (165.8% overshoot), reaching maximum at frame 36.61 where teased = −1.6583 
+
+• Velocity zero point : At frame 37 ( tnorm = 0.4375 ,
+
+u ≈ 0.4603 ), the curve’s derivative dy du ≈ 0, marking the transition from CCW to CW motion. This occurs slightly after the minimum point. • Rebound phase (frames 37-43.6): Clockwise accelera-tion crosses the starting position at frame 43.6 • Settling phase (frames 43.6-46): Deceleration to final position at −109 .5
+
+This spring-like behavior is achieved through negative y-values in control points, creating animation progress values outside [0 , 1] . The extreme undershoot of 165.8% demon-strates how B´ ezier easing can amplify small rotations into dramatic bounce effects, commonly used for impact anima-tions, dramatic transitions, and physics-based UI feedback. 16. Limitations and Future Work 
+
+While Lottie Animation can compress After Effects anima-tions into a compact representation and achieve higher com-pression ratios compared to SVG, and our proposed Lottie Tokenizer has been validated on existing VLMs to generate Lottie animations from text and image inputs, there remain several key limitations that warrant future investigation. 
+
+Limited Color Representation. A fundamental con-straint of all vector graphics and vector animations (includ-ing SVG, Lottie, and HTML/CSS animations) is their in-ability to express the full range of colors present in real-world imagery. Vector graphics typically represent col-ors by filling shapes with solid colors or regular gradients, which limits their capacity to capture complex color gradi-ents, textures, and photorealistic details. This inherent lim-itation makes vector-based representations less suitable for tasks requiring high-fidelity color reproduction or photore-alistic rendering. Future work could explore hybrid repre-sentations that combine the compactness of vector formats with richer color modeling capabilities, such as incorporat-ing procedural texture representations. 
+
+Complex Animation Effects. While the current Lottie format is powerful for many animation scenarios, it has lim-itations in representing certain advanced effects commonly used in professional animation workflows, such as complex particle systems, intricate shape paths, advanced blending modes, and 3D transformations. The existing Lottie tok-enizer still has low compression efficiency for these com-ponents, and future work will need to extend the Lottie tok-enizer accordingly. 
+
+Temporal Coherence and Long Animations. Al-though our model can generate animations with reasonable temporal coherence, generating very long and complex ani-mations remains challenging due to the context length lim-itations of VLM generation. Future work could explore hi-erarchical generation strategies to better model long-range dependencies in animation sequences. 
+
+Future Work. Despite these limitations, After Ef-fects animations and the Lottie format continue to find widespread applications across numerous domains, includ-ing UI/UX design, web frontend development, 2D animated films, motion graphics, and interactive media. The compact representation, editability, and scalability of Lottie anima-tions make them particularly valuable for these applications. Moving forward, we aim to extend LottieGPT to express more complex and realistic animations while maintaining the advantages of vector-based representations. We believe that continued advancement in vector animation generation will unlock new possibilities for creative content creation and interactive media applications.
