@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.15948v1/fig-001.webp",
+      "caption": "Fig. 5. Visualization of failure examples with higher CSr .",
+      "page": 7,
+      "index": 1,
+      "width": 526,
+      "height": 657
+    },
+    {
+      "url": "assets/figures/arxiv/2604.15948v1/fig-002.webp",
+      "caption": "Fig. 6. Visualization of different learning rate.",
+      "page": 8,
+      "index": 2,
+      "width": 438,
+      "height": 312
+    },
+    {
+      "url": "assets/figures/arxiv/2604.15948v1/fig-003.webp",
+      "caption": "TABLE II QUANTITATIVE COMPARISON OF TRAINING-FREE IMAGE EDITING METHODS ON PIEBENCH++.",
+      "page": 8,
+      "index": 3,
+      "width": 492,
+      "height": 265
+    },
+    {
+      "url": "assets/figures/arxiv/2604.15948v1/fig-004.webp",
+      "caption": "Fig. 3. Overview of the proposed CoEdit framework, which integrates Dual-Entropy Attention Manipulation and Entropic Latent Refinement.",
+      "page": 4,
+      "index": 4,
+      "width": 966,
+      "height": 477
+    },
+    {
+      "url": "assets/figures/arxiv/2604.15948v1/fig-005.webp",
+      "caption": "Fig. 8. Post-hoc comparison of attention mask accuracy throughout denoising steps among our method, DDCM, and hard threshold approaches using benchmark annotations only for evaluation. The temporal coopetitive strategy effectively enhances the discriminative capacity between editing and reconstruction regions.",
+      "page": 9,
+      "index": 5,
+      "width": 529,
+      "height": 376
+    }
+  ]
+}

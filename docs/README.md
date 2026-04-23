@@ -6,73 +6,67 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-22
-- 运行时间：2026-04-22 20:27:13 UTC
+- 最新运行日期：2026-04-23
+- 运行时间：2026-04-23 20:11:50 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：15
+- 精读区：4
 - 速读区：11
 
 ### 今日简报（AI）
-今日精选 17 篇前沿论文，重点攻克多事件视频生成与长视频平滑度难题。
-TS-Attn 通过时间分离注意力实现复杂多事件生成，而 Ride the Wave 则利用稀疏注意力大幅提升视频流畅性。
-建议关注视频生成中注意力机制的精细化改进，这是提升生成质量与时空一致性的核心路径。
-- 详情：[/202604/22/README](/202604/22/README)
+今日精选 15 篇前沿论文，重点攻克多事件视频生成与高质量人体动作合成。
+TS-Attn 通过时间分离注意力机制实现多事件衔接，而 ReImagine 证明了“图像先行”是提升人体视频可控性的关键。
+建议关注视频编辑与复杂场景建模的最新进展，探索多模态先验在内容创作中的落地潜力。
+- 详情：[/202604/23/README](/202604/23/README)
 
 ### 精读区论文标签
-1. [TS-Attn: Temporal-wise Separable Attention for Multi-Event Video Generation](/202604/22/2604.19473v1-ts-attn-temporal-wise-separable-attention-for-multi-event-video-generation)  
+1. [TS-Attn: Temporal-wise Separable Attention for Multi-Event Video Generation](/202604/23/2604.19473v1-ts-attn-temporal-wise-separable-attention-for-multi-event-video-generation)  
    标签：评分：9.0/10、query:cv-vg-cs
-   evidence：多事件视频生成的免训练注意力机制
-2. [Ride the Wave: Precision-Allocated Sparse Attention for Smooth Video Generation](/202604/22/2604.12219v1-ride-the-wave-precision-allocated-sparse-attention-for-smooth-video-generation)  
+   evidence：用于多事件视频生成的免训练注意力机制
+2. [ReImagine: Rethinking Controllable High-Quality Human Video Generation via Image-First Synthesis](/202604/23/2604.19720v1-reimagine-rethinking-controllable-high-quality-human-video-generation-via-image-first-synthesis)  
+   标签：评分：9.0/10、query:cv-vg-cs
+   evidence：用于可控视频生成的免训练时间细化
+3. [AdaCluster: Adaptive Query-Key Clustering for Sparse Attention in Video Generation](/202604/23/2604.18348v1-adacluster-adaptive-query-key-clustering-for-sparse-attention-in-video-generation)  
    标签：评分：8.0/10、query:cv-vg-cs
-   evidence：免训练的平滑视频生成框架
-3. [Controllable Video Object Insertion via Multiview Priors](/202604/22/2604.14556v1-controllable-video-object-insertion-via-multiview-priors)  
+   evidence：用于视频生成Transformer的免训练自适应聚类框架
+4. [MMControl: Unified Multi-Modal Control for Joint Audio-Video Generation](/202604/23/2604.19679v2-mmcontrol-unified-multi-modal-control-for-joint-audio-video-generation)  
    标签：评分：8.0/10、query:cv-vg-cs
-   evidence：可控视频对象插入与生成
-4. [AdaCluster: Adaptive Query-Key Clustering for Sparse Attention in Video Generation](/202604/22/2604.18348v1-adacluster-adaptive-query-key-clustering-for-sparse-attention-in-video-generation)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：用于视频生成加速的免训练自适应聚类
-5. [MMControl: Unified Multi-Modal Control for Joint Audio-Video Generation](/202604/22/2604.19679v1-mmcontrol-unified-multi-modal-control-for-joint-audio-video-generation)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：音视频联合生成的跨模态控制
-6. [ReImagine: Rethinking Controllable High-Quality Human Video Generation via Image-First Synthesis](/202604/22/2604.19720v1-reimagine-rethinking-controllable-high-quality-human-video-generation-via-image-first-synthesis)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：用于可控人物视频生成的免训练时间细化阶段
+   evidence：多模态信号引导的可控音视频联合生成
 
 ### 速读区论文标签
-1. [Towards Realistic and Consistent Orbital Video Generation via 3D Foundation Priors](/202604/22/2604.12309v1-towards-realistic-and-consistent-orbital-video-generation-via-3d-foundation-priors)  
+1. [VibeFlow: Versatile Video Chroma-Lux Editing through Self-Supervised Learning](/202604/23/2604.13425v1-vibeflow-versatile-video-chroma-lux-editing-through-self-supervised-learning)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：单图可控轨道视频生成
-2. [Seen-to-Scene: Keep the Seen, Generate the Unseen for Video Outpainting](/202604/22/2604.14648v1-seen-to-scene-keep-the-seen-generate-the-unseen-for-video-outpainting)  
+   evidence：利用预训练模型进行可控视频编辑的自监督框架
+2. [Seedance 2.0: Advancing Video Generation for World Complexity](/202604/23/2604.14148v1-seedance-20-advancing-video-generation-for-world-complexity)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：具有空间保真度和时间相干性的视频外扩
-3. [StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression](/202604/22/2604.15237v2-streamcachevggt-streaming-visual-geometry-transformers-with-robust-scoring-and-hybrid-cache-compression)  
+   evidence：具有全面编辑能力的多模态视频生成模型
+3. [Controllable Video Object Insertion via Multiview Priors](/202604/23/2604.14556v1-controllable-video-object-insertion-via-multiview-priors)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：用于流式视觉几何Transformer的免训练框架
-4. [Inference-Time Temporal Probability Smoothing for Stable Video Segmentation with SAM2 under Weak Prompts](/202604/22/2604.17115v1-inference-time-temporal-probability-smoothing-for-stable-video-segmentation-with-sam2-under-weak-prompts)  
+   evidence：可控视频对象插入与生成
+4. [Efficient Video Diffusion Models: Advancements and Challenges](/202604/23/2604.15911v1-efficient-video-diffusion-models-advancements-and-challenges)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：无需重新训练的视频分割推理时时间平滑
-5. [DreamShot: Personalized Storyboard Synthesis with Video Diffusion Prior](/202604/22/2604.17195v1-dreamshot-personalized-storyboard-synthesis-with-video-diffusion-prior)  
+   evidence：高效视频扩散模型与可控范式的综述
+5. [From Competition to Coopetition: Coopetitive Training-Free Image Editing Based on Text Guidance](/202604/23/2604.15948v1-from-competition-to-coopetition-coopetitive-training-free-image-editing-based-on-text-guidance)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：利用视频扩散先验进行可控多镜头合成
-6. [Depth Adaptive Efficient Visual Autoregressive Modeling](/202604/22/2604.17286v1-depth-adaptive-efficient-visual-autoregressive-modeling)  
+   evidence：基于文本引导的免训练图像编辑框架
+6. [UniGeo: Unifying Geometric Guidance for Camera-Controllable Image Editing via Video Models](/202604/23/2604.17565v1-unigeo-unifying-geometric-guidance-for-camera-controllable-image-editing-via-video-models)  
    标签：评分：7.0/10、query:cv-vg-cs
-   evidence：视觉自回归建模中自适应计算的免训练框架
-7. [MAST: Mask-Guided Attention Mass Allocation for Training-Free Multi-Style Transfer](/202604/22/2604.12281v1-mast-mask-guided-attention-mass-allocation-for-training-free-multi-style-transfer)  
+   evidence：通过视频模型实现相机可控的图像编辑
+7. [MaMe & MaRe: Matrix-Based Token Merging and Restoration for Efficient Visual Perception and Synthesis](/202604/23/2604.13432v1-mame--mare-matrix-based-token-merging-and-restoration-for-efficient-visual-perception-and-synthesis)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：免训练多风格迁移框架
-8. [Lyra 2.0: Explorable Generative 3D Worlds](/202604/22/2604.13036v1-lyra-20-explorable-generative-3d-worlds)  
+   evidence：用于视觉合成的免训练令牌合并
+8. [DiffMagicFace: Identity Consistent Facial Editing of Real Videos](/202604/23/2604.13841v1-diffmagicface-identity-consistent-facial-editing-of-real-videos)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：用于3D场景创建的相机控制视频生成
-9. [VibeFlow: Versatile Video Chroma-Lux Editing through Self-Supervised Learning](/202604/22/2604.13425v1-vibeflow-versatile-video-chroma-lux-editing-through-self-supervised-learning)  
+   evidence：具有身份一致性的可控面部视频编辑
+9. [Seen-to-Scene: Keep the Seen, Generate the Unseen for Video Outpainting](/202604/23/2604.14648v1-seen-to-scene-keep-the-seen-generate-the-unseen-for-video-outpainting)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：使用预训练视频生成模型的自监督框架
-10. [MaMe & MaRe: Matrix-Based Token Merging and Restoration for Efficient Visual Perception and Synthesis](/202604/22/2604.13432v1-mame--mare-matrix-based-token-merging-and-restoration-for-efficient-visual-perception-and-synthesis)  
+   evidence：具有空间保真度的可控视频外扩生成
+10. [StreamCacheVGGT: Streaming Visual Geometry Transformers with Robust Scoring and Hybrid Cache Compression](/202604/23/2604.15237v2-streamcachevggt-streaming-visual-geometry-transformers-with-robust-scoring-and-hybrid-cache-compression)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：用于视觉合成的免训练令牌合并与恢复
-11. [DiffMagicFace: Identity Consistent Facial Editing of Real Videos](/202604/22/2604.13841v1-diffmagicface-identity-consistent-facial-editing-of-real-videos)  
+   evidence：用于视频流视觉几何Transformer的免训练框架
+11. [C-GenReg: Training-Free 3D Point Cloud Registration by Multi-View-Consistent Geometry-to-Image Generation with Probabilistic Modalities Fusion](/202604/23/2604.16680v1-c-genreg-training-free-3d-point-cloud-registration-by-multi-view-consistent-geometry-to-image-generation-with-probabilistic-modalities-fusion)  
    标签：评分：6.0/10、query:cv-vg-cs
-   evidence：具有文本和图像控制的可控面部视频编辑
+   evidence：使用生成先验的免训练框架
 
 
 <div class="dpr-home-promo-card">
