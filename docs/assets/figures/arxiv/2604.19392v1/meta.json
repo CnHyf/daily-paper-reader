@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "extractor": "pdffigures2",
+  "figures": [
+    {
+      "url": "assets/figures/arxiv/2604.19392v1/fig-001.webp",
+      "caption": "Figure 4. Qualitative comparison on RSIC-H. Our method generates seamless and semantically aligned compositions, outperforming copy-paste, Poisson blending, SD2 inpainting, and FreeCompose. Hard cases demonstrate our ability to correct semantic mismatches and produce realistic remote-sensing scenes.",
+      "page": 7,
+      "index": 1,
+      "width": 964,
+      "height": 986
+    },
+    {
+      "url": "assets/figures/arxiv/2604.19392v1/fig-002.webp",
+      "caption": "Figure 5. The target image (left) undergoes significant highfrequency loss after VAE encoding and decoding (middle left), which smooths out fine-grained textures such as roofs and roads. Our method (HarmoniDiff-RS, right) inherits this degradation because it operates in the latent space of the same VAE, resulting in slightly lower FID compared to pixel-domain methods like Poisson blending.",
+      "page": 8,
+      "index": 2,
+      "width": 427,
+      "height": 287
+    },
+    {
+      "url": "assets/figures/arxiv/2604.19392v1/fig-003.webp",
+      "caption": "Figure 2. Overview of the proposed HarmoniDiff-RS framework. Given an initial composition of a target scene and a source patch, the model first applies Latent Mean Shift to align the source latent with the target style. Then, Timestep-wise Latent Sampling generates a sequence of intermediate compositions: early timesteps yield more harmonious but less faithful results, while late timesteps better preserve structural consistency but exhibit visible seams. Our Latent Fusion combines both effects under an edge-aware mask, and the final output is selected based on the highest harmony score predicted by the harmony classifier.",
+      "page": 4,
+      "index": 3,
+      "width": 950,
+      "height": 567
+    },
+    {
+      "url": "assets/figures/arxiv/2604.19392v1/fig-004.webp",
+      "caption": "Figure 3. Effect of Latent Mean Shift (LMS) under different variations. Each column presents a composition example with distinct illumination or seasonal differences between the source patch and the target scene. The LMS module effectively aligns radiometric characteristics and color tones across acquisition conditions without retraining.",
+      "page": 5,
+      "index": 4,
+      "width": 414,
+      "height": 393
+    }
+  ]
+}
