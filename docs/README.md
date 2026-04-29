@@ -6,73 +6,70 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-04-28
-- 运行时间：2026-04-28 20:57:17 UTC
+- 最新运行日期：2026-04-29
+- 运行时间：2026-04-29 20:27:01 UTC
 - 运行状态：成功
-- 本次总论文数：17
-- 精读区：6
+- 本次总论文数：16
+- 精读区：5
 - 速读区：11
 
 ### 今日简报（AI）
-今日聚焦视频生成前沿，深度拆解 17 篇论文，重点攻克高保真人像合成与注意力机制优化。
-推荐关注 ReImagine 的“图像先行”可控视频方案，以及 AdaCluster 带来的高效自适应稀疏注意力技术。
-建议普通读者从免训练编辑和物理感知动画入手，快速掌握低成本、高质量的视频创作新趋势。
-- 详情：[/202604/28/README](/202604/28/README)
+今日深度研读 16 篇前沿论文，重点攻克了多事件视频生成与 DiT 架构下的跨注意力创意操控技术。
+TS-Attn 与 AttentionBender 两项高分研究揭示了通过时间轴分离与注意力干预提升视频连贯性与可控性的新路径。
+建议关注视频生成中的时空解耦趋势，并尝试将跨注意力操控应用于更具表现力的个性化视频创作。
+- 详情：[/202604/29/README](/202604/29/README)
 
 ### 精读区论文标签
-1. [ReImagine: Rethinking Controllable High-Quality Human Video Generation via Image-First Synthesis](/202604/28/2604.19720v1-reimagine-rethinking-controllable-high-quality-human-video-generation-via-image-first-synthesis)  
+1. [TS-Attn: Temporal-wise Separable Attention for Multi-Event Video Generation](/202604/29/2604.19473v1-ts-attn-temporal-wise-separable-attention-for-multi-event-video-generation)  
    标签：评分：9.0/10、query:cv-vg-cs
-   evidence：可控视频的免训练时间细化
-2. [AdaCluster: Adaptive Query-Key Clustering for Sparse Attention in Video Generation](/202604/28/2604.18348v1-adacluster-adaptive-query-key-clustering-for-sparse-attention-in-video-generation)  
+   evidence：用于可控视频生成的创新免训练注意力机制
+2. [AttentionBender: Manipulating Cross-Attention in Video Diffusion Transformers as a Creative Probe](/202604/29/2604.20936v1-attentionbender-manipulating-cross-attention-in-video-diffusion-transformers-as-a-creative-probe)  
+   标签：评分：9.0/10、query:cv-vg-cs
+   evidence：无需训练即可操纵视频扩散 Transformer 中的交叉注意力
+3. [Latent Inter-Frame Pruning: A Training-Free Method Bridging Traditional Video Compression and Modern Diffusion Transformers for Efficient Generation](/202604/29/2604.23858v1-latent-inter-frame-pruning-a-training-free-method-bridging-traditional-video-compression-and-modern-diffusion-transformers-for-efficient-generation)  
+   标签：评分：9.0/10、query:cv-vg-cs
+   evidence：通过剪枝冗余潜变量实现高效视频生成的免训练方法
+4. [Exploring the Role of Synthetic Data Augmentation in Controllable Human-Centric Video Generation](/202604/29/2604.21291v1-exploring-the-role-of-synthetic-data-augmentation-in-controllable-human-centric-video-generation)  
    标签：评分：8.5/10、query:cv-vg-cs
-   evidence：用于视频生成加速的免训练自适应聚类框架
-3. [TS-Attn: Temporal-wise Separable Attention for Multi-Event Video Generation](/202604/28/2604.19473v1-ts-attn-temporal-wise-separable-attention-for-multi-event-video-generation)  
-   标签：评分：8.5/10、query:cv-vg-cs
-   evidence：用于可控多事件视频生成的免训练注意力机制
-4. [AttentionBender: Manipulating Cross-Attention in Video Diffusion Transformers as a Creative Probe](/202604/28/2604.20936v1-attentionbender-manipulating-cross-attention-in-video-diffusion-transformers-as-a-creative-probe)  
-   标签：评分：8.5/10、query:cv-vg-cs
-   evidence：在不重新训练的情况下操纵视频扩散Transformer中的交叉注意力
-5. [KD-CVG: A Knowledge-Driven Approach for Creative Video Generation](/202604/28/2604.21362v1-kd-cvg-a-knowledge-driven-approach-for-creative-video-generation)  
-   标签：评分：8.5/10、query:cv-vg-cs
-   evidence：具有语义对齐和运动适应性的创意视频生成
-6. [Vista4D: Video Reshooting with 4D Point Clouds](/202604/28/2604.21915v1-vista4d-video-reshooting-with-4d-point-clouds)  
+   evidence：具有细粒度控制的可控人物视频生成
+5. [MMControl: Unified Multi-Modal Control for Joint Audio-Video Generation](/202604/29/2604.19679v2-mmcontrol-unified-multi-modal-control-for-joint-audio-video-generation)  
    标签：评分：8.0/10、query:cv-vg-cs
-   evidence：基于4D点云的可控视频重拍
+   evidence：音视频联合生成的统一多模态控制
 
 ### 速读区论文标签
-1. [FlowAnchor: Stabilizing the Editing Signal for Inversion-Free Video Editing](/202604/28/2604.22586v1-flowanchor-stabilizing-the-editing-signal-for-inversion-free-video-editing)  
-   标签：评分：8.5/10、query:cv-vg-cs
-   evidence：用于稳定高效视频编辑的免训练框架
-2. [GeoEdit: Local Frames for Fast, Training-Free On-Manifold Editing in Diffusion Models](/202604/28/2604.24238v1-geoedit-local-frames-for-fast-training-free-on-manifold-editing-in-diffusion-models)  
-   标签：评分：8.5/10、query:cv-vg-cs
-   evidence：扩散模型中基于局部流形切空间的免训练编辑
-3. [PhysLayer: Language-Guided Layered Animation with Depth-Aware Physics](/202604/28/2604.23574v1-physlayer-language-guided-layered-animation-with-depth-aware-physics)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：分层动画与基于深度的场景分解
-4. [Latent Inter-Frame Pruning: A Training-Free Method Bridging Traditional Video Compression and Modern Diffusion Transformers for Efficient Generation](/202604/28/2604.23858v1-latent-inter-frame-pruning-a-training-free-method-bridging-traditional-video-compression-and-modern-diffusion-transformers-for-efficient-generation)  
-   标签：评分：8.0/10、query:cv-vg-cs
-   evidence：用于高效视频生成的免训练方法
-5. [ViPS: Video-informed Pose Spaces for Auto-Rigged Meshes](/202604/28/2604.17623v2-vips-video-informed-pose-spaces-for-auto-rigged-meshes)  
+1. [MMControl: Unified Multi-Modal Control for Joint Audio-Video Generation](/202604/29/2604.19679v1-mmcontrol-unified-multi-modal-control-for-joint-audio-video-generation)  
    标签：评分：7.5/10、query:cv-vg-cs
-   evidence：从视频扩散模型中提取运动先验而无需新训练数据
-6. [AutoAWG: Adverse Weather Generation with Adaptive Multi-Controls for Automotive Videos](/202604/28/2604.18993v1-autoawg-adverse-weather-generation-with-adaptive-multi-controls-for-automotive-videos)  
+   evidence：包含深度图在内的多模态信号可控视频生成
+2. [Mask World Model: Predicting What Matters for Robust Robot Policy Learning](/202604/29/2604.19683v2-mask-world-model-predicting-what-matters-for-robust-robot-policy-learning)  
    标签：评分：7.5/10、query:cv-vg-cs
-   evidence：具有自适应多重控制的可控视频生成框架
-7. [MMControl: Unified Multi-Modal Control for Joint Audio-Video Generation](/202604/28/2604.19679v2-mmcontrol-unified-multi-modal-control-for-joint-audio-video-generation)  
+   evidence：在视频扩散中预测语义掩码而非像素
+3. [Vista4D: Video Reshooting with 4D Point Clouds](/202604/29/2604.21915v1-vista4d-video-reshooting-with-4d-point-clouds)  
    标签：评分：7.5/10、query:cv-vg-cs
-   evidence：包含深度和姿态等多模态信号的可控视频生成
-8. [X-Cache: Cross-Chunk Block Caching for Few-Step Autoregressive World Models Inference](/202604/28/2604.20289v1-x-cache-cross-chunk-block-caching-for-few-step-autoregressive-world-models-inference)  
+   evidence：利用4D点云和像素分割实现可控视频生成
+4. [Seeing Fast and Slow: Learning the Flow of Time in Videos](/202604/29/2604.21931v1-seeing-fast-and-slow-learning-the-flow-of-time-in-videos)  
    标签：评分：7.5/10、query:cv-vg-cs
-   evidence：可控多摄像头视频生成与推理优化
-9. [HarmoniDiff-RS: Training-Free Diffusion Harmonization for Satellite Image Composition](/202604/28/2604.19392v1-harmonidiff-rs-training-free-diffusion-harmonization-for-satellite-image-composition)  
+   evidence：控制时间流逝并以不同速度生成视频
+5. [AutoAWG: Adverse Weather Generation with Adaptive Multi-Controls for Automotive Videos](/202604/29/2604.18993v1-autoawg-adverse-weather-generation-with-adaptive-multi-controls-for-automotive-videos)  
+   标签：评分：7.0/10、query:cv-vg-cs
+   evidence：可控恶劣天气视频生成框架
+6. [Talker-T2AV: Joint Talking Audio-Video Generation with Autoregressive Diffusion Modeling](/202604/29/2604.23586v1-talker-t2av-joint-talking-audio-video-generation-with-autoregressive-diffusion-modeling)  
+   标签：评分：7.0/10、query:cv-vg-cs
+   evidence：具有可控面部运动的联合语音视频生成
+7. [Learning to Credit the Right Steps: Objective-aware Process Optimization for Visual Generation](/202604/29/2604.19234v2-learning-to-credit-the-right-steps-objective-aware-process-optimization-for-visual-generation)  
    标签：评分：6.5/10、query:cv-vg-cs
-   evidence：基于扩散模型的免训练图像合成与协调框架
-10. [Mask World Model: Predicting What Matters for Robust Robot Policy Learning](/202604/28/2604.19683v2-mask-world-model-predicting-what-matters-for-robust-robot-policy-learning)  
+   evidence：具有运动一致性目标的可控视觉生成
+8. [Wan-Image: Pushing the Boundaries of Generative Visual Intelligence](/202604/29/2604.19858v1-wan-image-pushing-the-boundaries-of-generative-visual-intelligence)  
    标签：评分：6.5/10、query:cv-vg-cs
-   evidence：用于语义掩码预测和背景分离的视频扩散模型
-11. [Sculpt4D: Generating 4D Shapes via Sparse-Attention Diffusion Transformers](/202604/28/2604.21592v1-sculpt4d-generating-4d-shapes-via-sparse-attention-diffusion-transformers)  
+   evidence：具有绝对可控性的统一视觉生成系统
+9. [Video Analysis and Generation via a Semantic Progress Function](/202604/29/2604.22554v1-video-analysis-and-generation-via-a-semantic-progress-function)  
    标签：评分：6.5/10、query:cv-vg-cs
-   evidence：结合时间建模和稀疏注意力的4D形状生成
+   evidence：通过语义线性化和重新参数化实现可控视频生成
+10. [HarmoniDiff-RS: Training-Free Diffusion Harmonization for Satellite Image Composition](/202604/29/2604.19392v1-harmonidiff-rs-training-free-diffusion-harmonization-for-satellite-image-composition)  
+   标签：评分：6.0/10、query:cv-vg-cs
+   evidence：基于扩散模型的免训练图像合成框架
+11. [Accelerating New Product Introduction for Visual Quality Inspection via Few-Shot Diffusion-Based Defect Synthesis](/202604/29/2604.22850v1-accelerating-new-product-introduction-for-visual-quality-inspection-via-few-shot-diffusion-based-defect-synthesis)  
+   标签：评分：6.0/10、query:cv-vg-cs
+   evidence：在生成中将形态与背景外观解耦
 
 
 <div class="dpr-home-promo-card">
