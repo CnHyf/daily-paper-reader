@@ -6,26 +6,27 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-09-06
-- 运行时间：2026-09-06 22:12:43 UTC
+- 最新运行日期：2026-09-07
+- 运行时间：2026-09-07 22:49:06 UTC
 - 运行状态：成功
-- 本次总论文数：1
+- 本次总论文数：2
 - 精读区：0
-- 速读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日仅1篇速读，聚焦文本生成SVG的质量评估。  
-值得关注的是《SVG-Score》提出人类对齐的评估框架，得分6.0/10。  
-若您关注AIGC评估，可快速浏览其方法，但今日样本量有限。
-- 详情：[/202609/06/README](/202609/06/README)
+今日速读2篇音频与视频生成方向论文，暂无精读；其中《PRISM-Bench》以7.0分最高，值得关注其音频为中心的生成评测基准；下一篇聚焦视频生成的联合对齐与蒸馏，可作延伸了解。
+- 详情：[/202609/07/README](/202609/07/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [SVG-Score: Human-Aligned Evaluation of Text-to-SVG Generation](/202609/06/2609.03806v1-svg-score-human-aligned-evaluation-of-text-to-svg-generation)  
+1. [PRISM-Bench: An Audio-Centric Diagnostic Benchmark for Text-to-Audio-Video Generation](/202609/07/2609.04867v1-prism-bench-an-audio-centric-diagnostic-benchmark-for-text-to-audio-video-generation)  
+   标签：评分：7.0/10、query:vgen-metrics
+   evidence：提出面向文本到音视频生成的音频中心诊断基准，评估生成内容感知维度，可服务于生成视频质量评价
+2. [Joint Alignment and Distillation for Video Generation via Sample-Guided Distribution Matching](/202609/07/2609.04283v1-joint-alignment-and-distillation-for-video-generation-via-sample-guided-distribution-matching)  
    标签：评分：6.0/10、query:vgen-metrics
-   evidence：面向生成视觉内容的人类对齐评估框架，针对CLIP指标失效问题。
+   evidence：面向生成视频质量的人类偏好对齐与真假分布匹配
 
 
 <div class="dpr-home-promo-card">
