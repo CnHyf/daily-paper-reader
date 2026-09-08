@@ -6,27 +6,29 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-09-07
-- 运行时间：2026-09-07 22:49:06 UTC
+- 最新运行日期：2026-09-08
+- 运行时间：2026-09-08 21:37:27 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：0
+- 本次总论文数：3
+- 精读区：1
 - 速读区：2
 
 ### 今日简报（AI）
-今日速读2篇音频与视频生成方向论文，暂无精读；其中《PRISM-Bench》以7.0分最高，值得关注其音频为中心的生成评测基准；下一篇聚焦视频生成的联合对齐与蒸馏，可作延伸了解。
-- 详情：[/202609/07/README](/202609/07/README)
+今日推荐3篇论文：世界模型奖励建模、短剧生成基准、人物多视角评估框架。精读《WorldReward》最值得看，它面向相机条件下的世界模型设计奖励建模，对生成质量与可控性很关键。建议优先精读《WorldReward》全文，再速读短剧生成基准，人物多视角框架可作延伸了解。
+- 详情：[/202609/08/README](/202609/08/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [WorldReward: Reward Modeling for Camera-Conditioned World Models](/202609/08/2609.03952v1-worldreward-reward-modeling-for-camera-conditioned-world-models)  
+   标签：评分：8.0/10、query:vgen-metrics
+   evidence：为生成视频构建奖励模型以评测质量与动作一致性
 
 ### 速读区论文标签
-1. [PRISM-Bench: An Audio-Centric Diagnostic Benchmark for Text-to-Audio-Video Generation](/202609/07/2609.04867v1-prism-bench-an-audio-centric-diagnostic-benchmark-for-text-to-audio-video-generation)  
+1. [DramaChain Bench: An End-to-End Benchmark for Short-Drama Generation](/202609/08/2609.00646v1-dramachain-bench-an-end-to-end-benchmark-for-short-drama-generation)  
    标签：评分：7.0/10、query:vgen-metrics
-   evidence：提出面向文本到音视频生成的音频中心诊断基准，评估生成内容感知维度，可服务于生成视频质量评价
-2. [Joint Alignment and Distillation for Video Generation via Sample-Guided Distribution Matching](/202609/07/2609.04283v1-joint-alignment-and-distillation-for-video-generation-via-sample-guided-distribution-matching)  
+   evidence：提出短剧生成全流程的五个评估维度并统一评测各阶段输出，直接服务于生成视频模型评测
+2. [An Evaluation Framework for Generating Multi-View Images of a Person in a Scene](/202609/08/2609.04603v1-an-evaluation-framework-for-generating-multi-view-images-of-a-person-in-a-scene)  
    标签：评分：6.0/10、query:vgen-metrics
-   evidence：面向生成视频质量的人类偏好对齐与真假分布匹配
+   evidence：面向多视角相机一致性图像生成的评估框架，可迁移至相机控制视频生成的评价指标
 
 
 <div class="dpr-home-promo-card">
